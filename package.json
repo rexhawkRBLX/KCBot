@@ -1,7 +1,7 @@
 {
-  "name": "discord_bot",
-  "version": "1.0.0",
-  "description": "A test discord bot",
+  "name": "kc_bot",
+  "version": "1.5.0",
+  "description": "Private discord bot for the King City server.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
