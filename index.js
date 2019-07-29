@@ -12,7 +12,7 @@ app.listen(PORT, () => {
 
 bot.on("ready", async ()=> {
     console.log(`${bot.user.username} is online!`);
-    bot.user.setActivity("a moview with rexhawk", {type: "WATCHING"});
+    bot.user.setActivity("a movie with rexhawk", {type: "WATCHING"});
 });
 
 bot.on("message", async message => {
