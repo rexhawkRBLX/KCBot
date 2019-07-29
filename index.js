@@ -1,8 +1,14 @@
 const botconfig = require("./botconfig.json");
-const bottoken = process.env.token;
+const express = require("express");
 const Discord = require("discord.js");
+const bottoken = process.env.token;
+const PORT = process.env.PORT || 3000;
+const app = express();
+const bot = new Discord.Client({disableEveryone: true});
 
-const bot = new Discord.Client({disableEveryone: true})
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
+});
 
 bot.on("ready", async ()=> {
     console.log(`${bot.user.username} is online!`);
