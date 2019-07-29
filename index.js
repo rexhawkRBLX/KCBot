@@ -55,10 +55,10 @@ bot.on("message", async message => {
         let localArgs = messageArray.slice(2);
         let botembed = new Discord.RichEmbed()
             .setColor(args[0])
-            .setThumbnail("https://cdn.discordapp.com/attachments/579769933219758148/605478475033346081/Icon.png")
+            .setThumbnail("https://cdn--.discordapp.com/attachments/579769933219758148/605478475033346081/Icon.png")
             .setDescription(localArgs.join(' '));
         return message.channel.send(botembed);
     }
 });
 
-bot.login(bottoken).catch(err => console.log(err));
+bot.login(bottoken);
