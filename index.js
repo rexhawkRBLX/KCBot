@@ -61,4 +61,4 @@ bot.on("message", async message => {
     }
 });
 
-bot.login(bottoken);
+bot.login(bottoken).catch(err => console.log(err));
