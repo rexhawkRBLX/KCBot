@@ -1,3 +1,5 @@
+let http = require("http");
+
 const bot_config = require("./botconfig.json");
 const express = require("express");
 const Discord = require("discord.js");
@@ -83,11 +85,29 @@ bot.on("message", async message => {
 
 
 // Prevent exit 143 (Idle exit)
-let reqTimer = setTimeout(function wakeUp() {
-    Request("https://kingcity-bot.herokuapp.com", function() {
-        console.log("Wake up");
-    });
-    return reqTimer = setTimeout(wakeUp, 500);
-}, 500);
+
+function startKeepAlive() {
+    setInterval(function() {
+        let options = {
+            host: 'kingcity-bot.herokuapp.com',
+            port: 80,
+            path: '/'
+        };
+        http.get(options, function(res) {
+            res.on('data', function(chunk) {
+                try {
+                    // optional logging... disable after it's working
+                    console.log("HEROKU RESPONSE: " + chunk);
+                } catch (err) {
+                    console.log(err.message);
+                }
+            });
+        }).on('error', function(err) {
+            console.log("Error: " + err.message);
+        });
+    }, 5000); // load every 20 minutes
+}
+
+startKeepAlive();
 
 bot.login(bot_token).catch(err => console.log(err));
