@@ -81,4 +81,13 @@ bot.on("message", async message => {
     }
 });
 
+
+// Prevent exit 143 (Idle exit)
+let reqTimer = setTimeout(function wakeUp() {
+    Request("https://kingcity-bot.herokuapp.com", function() {
+        console.log("Wake up");
+    });
+    return reqTimer = setTimeout(wakeUp, 500);
+}, 500);
+
 bot.login(bot_token).catch(err => console.log(err));
