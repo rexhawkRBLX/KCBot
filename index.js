@@ -14,7 +14,7 @@ app.listen(PORT, () => {
 
 bot.on("ready", async() => {
     console.log(`${bot.user.username} is online!`);
-    await bot.user.setActivity("a movie", {type: "WATCHING"});
+    await bot.user.setActivity("King City, California", {type: "PLAYING"});
 });
 
 bot.on("message", async message => {
