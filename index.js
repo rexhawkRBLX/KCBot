@@ -29,7 +29,7 @@ bot.on("message", async message => {
        if (!reported_User) return message.channel.send("Couldn't find that user!");
        let reason = args.join(" ").slice(22);
 
-       let report_Embed = Discord.RichEmbed()
+       let report_Embed = new Discord.RichEmbed()
            .setDescription("Reports")
            .setColor("#f54242")
            .addField("Reported User",`${reported_User} with ID: ${reported_User.id}`)
