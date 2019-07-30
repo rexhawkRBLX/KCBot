@@ -97,7 +97,7 @@ function startKeepAlive() {
             res.on('data', function(chunk) {
                 try {
                     // optional logging... disable after it's working
-                    console.log("HEROKU RESPONSE: " + chunk);
+                    console.log("Heroku Awake: Prevented 143");
                 } catch (err) {
                     console.log(err.message);
                 }
@@ -108,6 +108,6 @@ function startKeepAlive() {
     }, 5000); // load every 20 minutes
 }
 
-startKeepAlive();
 
+startKeepAlive(); // Keep from idling
 bot.login(bot_token).catch(err => console.log(err));
