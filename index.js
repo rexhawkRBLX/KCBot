@@ -96,7 +96,6 @@ function startKeepAlive() {
         http.get(options, function(res) {
             res.on('data', function(chunk) {
                 try {
-                    // optional logging... disable after it's working
                     console.log("Heroku Awake: Prevented 143");
                 } catch (err) {
                     console.log(err.message);
