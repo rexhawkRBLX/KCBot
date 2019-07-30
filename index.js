@@ -24,6 +24,23 @@ bot.on("message", async message => {
    let cmd = messageArray[0];
    let args = messageArray.slice(1);
 
+   if (cmd === `${prefix}report`){
+       let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+       if (!reported_User) return message.channel.send("Couldn't find that user!");
+       let reason = args.join(" ").slice(22);
+
+       let report_Embed = Discord.RichEmbed()
+           .setDescription("Reports")
+           .setColor("#f54242")
+           .addField("Reported User",`${reported_User} with ID: ${reported_User.id}`)
+           .addField("Report by", `${message.author} with ID: ${message.author.id}`)
+           .addField("Channel", message.channel)
+           .addField("Time", message.createdAt)
+           .addField("Reason", reason);
+       message.channel.send(report_Embed);
+       return;
+   }
+
    if (cmd === `${prefix}serverinfo`){
        let s_icon = message.guild.iconURL;
        let server_embed = new Discord.RichEmbed()
@@ -37,7 +54,6 @@ bot.on("message", async message => {
 
        return message.channel.send(server_embed);
    }
-
     if (cmd === `${prefix}botinfo`){
         let b_icon = bot.user.displayAvatarURL;
         let bot_embed = new Discord.RichEmbed()
@@ -48,7 +64,6 @@ bot.on("message", async message => {
             .addField("Created on", bot.user.createdAt);
         return message.channel.send(bot_embed);
     }
-
     if (cmd === `${prefix}say`){
         let localArgs = messageArray.slice(2);
             let bot_embed = new Discord.RichEmbed()
