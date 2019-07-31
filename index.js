@@ -86,7 +86,7 @@ bot.on("message", async message => {
 
 // Prevent exit 143 (Idle exit)
 
-/*function startKeepAlive() {
+function startKeepAlive() {
     setInterval(function() {
         let options = {
             host: 'kingcity-bot.herokuapp.com',
@@ -105,8 +105,8 @@ bot.on("message", async message => {
             console.log("Error: " + err.message);
         });
     }, 20 * 60 * 1000); // load every 20 minutes
-}*/
+}
 
 
-//startKeepAlive(); // Keep from idling
+startKeepAlive(); // Keep from idling
 bot.login(bot_token).catch(err => console.log(err));
