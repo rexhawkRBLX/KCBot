@@ -27,6 +27,14 @@ bot.on("message", async message => {
    let cmd = messageArray[0];
    let args = messageArray.slice(1);
 
+   if (cmd === `${prefix}restart`){
+       if (message.member.hasPermission("ADMINISTRATOR")){
+           return message.channel.send("executed");
+       } else{
+           return message.channel.send("You don't have the permission to execute this command.");
+       }
+   }
+
    if (cmd === `${prefix}report`){
        let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
        if (!reported_User) return message.channel.send("Couldn't find that user!");
