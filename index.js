@@ -14,7 +14,7 @@ app.listen(PORT, () => {
 
 bot.on("ready", async() => {
     console.log(`${bot.user.username} is online!`);
-    bot.channels.get('569673111516217345').send(':white_check_mark: KC Bot is online!')
+    bot.channels.get('569673111516217345').send(':white_check_mark: KC Bot is online!');
     await bot.user.setActivity("King City, California", {type: "PLAYING"});
 });
 
@@ -29,9 +29,12 @@ bot.on("message", async message => {
 
    if (cmd === `${prefix}restart`){
        if (message.member.hasPermission("ADMINISTRATOR")){
-           return message.channel.send("executed");
+
+           message.delete()
+           return message.channel.send(message.author, "executed");
        } else{
-           return message.channel.send("You don't have the permission to execute this command.");
+           message.delete()
+           return message.channel.send(message.author, "You don't have the permission to execute this command.");
        }
    }
 
