@@ -1,4 +1,4 @@
-let http = require("http");
+const http = require("http");
 
 const bot_config = require("./botconfig.json");
 const express = require("express");
@@ -29,12 +29,13 @@ bot.on("message", async message => {
 
    if (cmd === `${prefix}restart`){
        if (message.member.hasPermission("ADMINISTRATOR")){
-
+           message.channel.send("<@", message.author.id, "> executed");
            message.delete();
-           return message.channel.send("<@", message.author.id, "> executed");
+           return
        } else{
+           message.channel.send("<@", message.author.id, "> You don't have the permission to execute this command.");
            message.delete();
-           return message.channel.send("<@", message.author.id, "> You don't have the permission to execute this command.");
+           return
        }
    }
 
