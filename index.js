@@ -30,7 +30,10 @@ bot.on("message", async message => {
    if (cmd === `${prefix}restart`){
        if (message.member.hasPermission("ADMINISTRATOR")){
            message.delete();
-           message.channel.send(`${message.author} :white_check_mark: Initiating shutdown process...`);
+           message.channel.send(`${message.author} :white_check_mark: Initiating shutdown process...`)
+           .then(msg => bot.destroy())
+               .then(() => bot.login(process.env.token));
+           return
        } else{
            message.delete();
            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
