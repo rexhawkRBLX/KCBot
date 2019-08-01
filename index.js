@@ -31,10 +31,10 @@ bot.on("message", async message => {
        if (message.member.hasPermission("ADMINISTRATOR")){
 
            message.delete();
-           return message.channel.send(message.author, "executed");
+           return message.channel.send("<@", message.author.id, "> executed");
        } else{
            message.delete();
-           return message.channel.send(message.author, "You don't have the permission to execute this command.");
+           return message.channel.send("<@", message.author.id, "> You don't have the permission to execute this command.");
        }
    }
 
@@ -51,7 +51,7 @@ bot.on("message", async message => {
            .addField("Channel", message.channel)
            .addField("Time", message.createdAt)
            .addField("Reason", reason);
-       message.delete()
+       message.delete();
        return message.channel.send(report_Embed);
    }
 
@@ -65,7 +65,7 @@ bot.on("message", async message => {
            .addField("Created on", message.guild.createdAt)
            .addField("You joined",message.member.joinedAt)
            .addField("Total members", message.guild.memberCount);
-       message.delete()
+       message.delete();
        return message.channel.send(server_embed);
    }
     if (cmd === `${prefix}botinfo`){
@@ -76,7 +76,7 @@ bot.on("message", async message => {
             .setThumbnail(b_icon)
             .addField("Bot Name", bot.user.username)
             .addField("Created on", bot.user.createdAt);
-        message.delete()
+        message.delete();
         return message.channel.send(bot_embed);
     }
     if (cmd === `${prefix}say`){
@@ -84,7 +84,7 @@ bot.on("message", async message => {
             let bot_embed = new Discord.RichEmbed()
                 .setColor(args[0])
                 .setDescription(localArgs.join(' '));
-        message.delete()
+        message.delete();
         return message.channel.send(bot_embed);
     }
     if (cmd === `${prefix}ssay`){
@@ -93,7 +93,7 @@ bot.on("message", async message => {
             .setColor(args[0])
             .setThumbnail("https://cdn.discordapp.com/attachments/579769933219758148/605478475033346081/Icon.png")
             .setDescription(localArgs.join(' '));
-        message.delete()
+        message.delete();
         return message.channel.send(bot_embed);
     }
 });
