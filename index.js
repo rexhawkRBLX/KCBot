@@ -47,7 +47,7 @@ bot.on("message", async message => {
             message.delete();
 
             if (!ban_User) return message.channel.send("Couldn't find that user!"); // User does not exist
-            ban_User.ban(${reason}).then((ban_User) => {
+            ban_User.ban(reason).then((ban_User) => {
                 message.channel.send(`:wave: ${member.displayName} has been banned.`);
             }).catch(() => {
                 message.channel.send("An error occurred.");
@@ -69,7 +69,7 @@ bot.on("message", async message => {
 
             if (!kick_User) return message.channel.send("Couldn't find that user!"); // User does not exist
 
-            kick_User.kick(${reason}).then((ban_User) => {
+            kick_User.kick(reason).then((ban_User) => {
                 message.channel.send(`:wave: ${member.displayName} has been kicked.`);
             }).catch(() => {
                 message.channel.send("An error occurred.");
