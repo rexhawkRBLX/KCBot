@@ -7,6 +7,7 @@ const bot_token = process.env.token;
 const PORT = process.env.PORT || 3000;
 const app = express();
 const bot = new Discord.Client({disableEveryone: true});
+const modlogChannelID = '606575885906083901';
 
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
@@ -41,19 +42,43 @@ bot.on("message", async message => {
    }
    if (cmd === `${prefix}ban`){
         if (message.member.hasPermission("ADMINISTRATOR")){
-            let ban_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-            let reason = args.join(" ").slice(22);
-            let server_name = message.guild.name;
+            const arguments = message.content.split(' ').slice(1);
+            let user = message.mentions.users.first();
+            const banReason = arguments.slice(1).join(' ');
+            if (!user) {
+                try {
+                    if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) throw new Error("Couldn't get a Discord user with this userID!");
+                     user = message.guild.members.get(arguments.slice(0, 1).join(' '));
+                     user = user.user;
+                } catch (error) {
+                    return await message.reply("Couldn't get a Discord user with this userID!");
+                }
+            }
+            if (user === message.author) return message.channel.send("You can't ban yourself");
+            if (!banReason) return message.reply('You forgot to enter a reason for this ban!');
+            if (!message.guild.member(user).bannable) return message.reply("You can't ban this user because you the bot has not sufficient permissions!");
 
-            if (!ban_User) return message.channel.send("Couldn't find that user!"); // User does not exist
-            ban_User.ban(reason).then((ban_User) => {
-                message.channel.send(`:wave: ${member.displayName} has been banned.`);
-            }).catch(() => {
-                message.channel.send("An error occurred.");
+            await message.guild.ban(user)
+
+            const banConfirmationEmbed = new Discord.RichEmbed()
+                .setColor('RED')
+                .setDescription(`:white_check_mark: ${user.tag} has been successfully banned!`);
+            message.channel.send({
+                embed: banConfirmationEmbed
             });
 
-            message.delete();
-            return
+            if (modlogChannelID.length !== 0) {
+                if (!bot.channels.get(modlogChannelID )) return undefined;
+                const banConfirmationEmbedModlog = new Discord.RichEmbed()
+                    .setAuthor(`Banned by **${message.author.username}#${message.author.discriminator}**`, message.author.displayAvatarURL)
+                    .setThumbnail(user.displayAvatarURL)
+                    .setColor('RED')
+                    .setTimestamp()
+                    .setDescription(`**Action**: Ban\n**User**: ${user.username}#${user.discriminator} (${user.id})\n**Reason**: ${banReason}`);
+                bot.channels.get(modlogChannelID).send({
+                    embed: banConfirmationEmbedModlog
+                });
+            }
         } else{
             message.delete();
             return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
