@@ -44,7 +44,6 @@ bot.on("message", async message => {
             let ban_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
             let reason = args.join(" ").slice(22);
             let server_name = message.guild.name;
-            message.delete();
 
             if (!ban_User) return message.channel.send("Couldn't find that user!"); // User does not exist
             ban_User.ban(reason).then((ban_User) => {
@@ -52,6 +51,8 @@ bot.on("message", async message => {
             }).catch(() => {
                 message.channel.send("An error occurred.");
             });
+
+            message.delete();
             return
         } else{
             message.delete();
@@ -65,8 +66,6 @@ bot.on("message", async message => {
             let reason = args.join(" ").slice(22);
             let server_name = message.guild.name;
 
-            message.delete();
-
             if (!kick_User) return message.channel.send("Couldn't find that user!"); // User does not exist
 
             kick_User.kick(reason).then((ban_User) => {
@@ -74,6 +73,7 @@ bot.on("message", async message => {
             }).catch(() => {
                 message.channel.send("An error occurred.");
             });
+            message.delete();
             return
         } else{
             message.delete();
