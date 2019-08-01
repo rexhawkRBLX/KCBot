@@ -29,13 +29,11 @@ bot.on("message", async message => {
 
    if (cmd === `${prefix}restart`){
        if (message.member.hasPermission("ADMINISTRATOR")){
-           message.channel.send("<@", message.author.id, "> executed");
            message.delete();
-           return
+           message.channel.send(`${message.author} :white_check_mark: executed`);
        } else{
-           message.channel.send("<@", message.author.id, "> You don't have the permission to execute this command.");
            message.delete();
-           return
+           return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
        }
    }
 
