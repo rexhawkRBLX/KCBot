@@ -24,13 +24,13 @@ bot.on("message", async message => {
 
    let prefix = bot_config.prefix;
    let messageArray = message.content.split(" ");
-   let cmd = messageArray[0];
+   let cmd = messageArray[0].toLowerCase();
    let args = messageArray.slice(1);
 
    if (cmd === `${prefix}restart`){
        if (message.member.hasPermission("ADMINISTRATOR")){
            message.delete();
-           message.channel.send(`${message.author} :white_check_mark: executed`);
+           message.channel.send(`${message.author} :white_check_mark: Initiating shutdown process...`);
        } else{
            message.delete();
            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
