@@ -30,10 +30,10 @@ bot.on("message", async message => {
    if (cmd === `${prefix}restart`){
        if (message.member.hasPermission("ADMINISTRATOR")){
 
-           message.delete()
+           message.delete();
            return message.channel.send(message.author, "executed");
        } else{
-           message.delete()
+           message.delete();
            return message.channel.send(message.author, "You don't have the permission to execute this command.");
        }
    }
