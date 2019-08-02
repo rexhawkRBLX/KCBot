@@ -33,8 +33,10 @@ bot.on("message", async message => {
            message.channel.send(`${message.author} :white_check_mark: Initiating shutdown process...`)
            .then(msg => bot.destroy())
                .then(() => bot.login(process.env.token));
+           await message.delete();
            return
        } else{
+           await message.delete();
            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
        }
    }
@@ -78,7 +80,9 @@ bot.on("message", async message => {
                    embed: banConfirmationEmbedModlog
                });
            }
+           await message.delete();
        } else{
+           await message.delete();
            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
        }
    }
@@ -123,7 +127,9 @@ bot.on("message", async message => {
                     embed: kickConfirmationEmbedModlog
                 });
             }
+            await message.delete();
         } else{
+            await message.delete();
             return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
         }
     }
@@ -141,6 +147,7 @@ bot.on("message", async message => {
            .addField("Channel", message.channel)
            .addField("Time", message.createdAt)
            .addField("Reason", reason);
+       await message.delete();
        return message.channel.send(report_Embed);
    }
 
@@ -154,6 +161,7 @@ bot.on("message", async message => {
            .addField("Created on", message.guild.createdAt)
            .addField("You joined",message.member.joinedAt)
            .addField("Total members", message.guild.memberCount);
+       await message.delete();
        return message.channel.send(server_embed);
    }
     if (cmd === `${prefix}botinfo`){
@@ -164,6 +172,7 @@ bot.on("message", async message => {
             .setThumbnail(b_icon)
             .addField("Bot Name", bot.user.username)
             .addField("Created on", bot.user.createdAt);
+        await message.delete();
         return message.channel.send(bot_embed);
     }
     if (cmd === `${prefix}say`){
@@ -171,17 +180,18 @@ bot.on("message", async message => {
             let bot_embed = new Discord.RichEmbed()
                 .setColor(args[0])
                 .setDescription(localArgs.join(' '));
+        await message.delete();
         return message.channel.send(bot_embed);
     }
-    if (cmd === `${prefix}ssay`){
+    if (cmd === `${prefix}ssay`) {
         let localArgs = messageArray.slice(2);
         let bot_embed = new Discord.RichEmbed()
             .setColor(args[0])
             .setThumbnail("https://cdn.discordapp.com/attachments/579769933219758148/605478475033346081/Icon.png")
             .setDescription(localArgs.join(' '));
+        await message.delete();
         return message.channel.send(bot_embed);
     }
-   
 });
 
 
