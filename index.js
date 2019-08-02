@@ -60,7 +60,8 @@ bot.on("message", async message => {
 
            await user.send(`You have been banned from ${message.guild.name} for the following reason(s): ${banReason}`);
            await message.guild.ban(user);
-
+           await message.delete();
+           
            const banConfirmationEmbed = new Discord.RichEmbed()
                .setColor('RED')
                .setDescription(`:white_check_mark: ${user.tag} has been successfully banned!`);
@@ -80,7 +81,6 @@ bot.on("message", async message => {
                    embed: banConfirmationEmbedModlog
                });
            }
-           await message.delete();
        } else{
            await message.delete();
            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
@@ -107,6 +107,7 @@ bot.on("message", async message => {
 
             await user.send(`You have been kick from ${message.guild.name} for the following reason(s): ${kickReason}`);
             await message.guild.kick(user);
+            await message.delete();
 
             const kickConfirmationEmbed = new Discord.RichEmbed()
                 .setColor('RED')
@@ -127,7 +128,6 @@ bot.on("message", async message => {
                     embed: kickConfirmationEmbedModlog
                 });
             }
-            await message.delete();
         } else{
             await message.delete();
             return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
