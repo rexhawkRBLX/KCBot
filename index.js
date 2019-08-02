@@ -30,79 +30,100 @@ bot.on("message", async message => {
 
    if (cmd === `${prefix}restart`){
        if (message.member.hasPermission("ADMINISTRATOR")){
-           message.delete();
            message.channel.send(`${message.author} :white_check_mark: Initiating shutdown process...`)
            .then(msg => bot.destroy())
                .then(() => bot.login(process.env.token));
            return
        } else{
-           message.delete();
            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
        }
    }
    if (cmd === `${prefix}ban`){
-        if (message.member.hasPermission("ADMINISTRATOR")){
-            const arguments = message.content.split(' ').slice(1);
-            let user = message.mentions.users.first();
-            const banReason = arguments.slice(1).join(' ');
-            if (!user) {
-                try {
-                    if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) throw new Error("Couldn't get a Discord user with this userID!");
-                     user = message.guild.members.get(arguments.slice(0, 1).join(' '));
-                     user = user.user;
-                } catch (error) {
-                    return await message.reply("Couldn't get a Discord user with this userID!");
-                }
-            }
-            if (user === message.author) return message.channel.send("You can't ban yourself");
-            if (!banReason) return message.reply('You forgot to enter a reason for this ban!');
-            if (!message.guild.member(user).bannable) return message.reply("You can't ban this user because you the bot has not sufficient permissions!");
+       if (message.member.hasPermission("ADMINISTRATOR")){
+           const arguments = message.content.split(' ').slice(1);
+           let user = message.mentions.users.first();
+           const banReason = arguments.slice(1).join(' ');
+           if (!user) {
+               try {
+                   if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) throw new Error("Couldn't get a Discord user with this userID!");
+                   user = message.guild.members.get(arguments.slice(0, 1).join(' '));
+                   user = user.user;
+               } catch (error) {
+                   return await message.reply("Couldn't get a Discord user with this userID!");
+               }
+           }
+           if (user === message.author) return message.channel.send("You can't ban yourself");
+           if (!banReason) return message.reply('You forgot to enter a reason for this ban!');
+           if (!message.guild.member(user).bannable) return message.reply("You can't ban this user because you the bot has not sufficient permissions!");
 
-            await user.send(`You have been banned from ${message.guild.name} for the following reason(s): ${banReason}`);
-            await message.guild.ban(user);
+           await user.send(`You have been banned from ${message.guild.name} for the following reason(s): ${banReason}`);
+           await message.guild.ban(user);
 
-            const banConfirmationEmbed = new Discord.RichEmbed()
-                .setColor('RED')
-                .setDescription(`:white_check_mark: ${user.tag} has been successfully banned!`);
-            message.channel.send({
-                embed: banConfirmationEmbed
-            });
+           const banConfirmationEmbed = new Discord.RichEmbed()
+               .setColor('RED')
+               .setDescription(`:white_check_mark: ${user.tag} has been successfully banned!`);
+           message.channel.send({
+               embed: banConfirmationEmbed
+           });
 
-            if (modlogChannelID.length !== 0) {
-                if (!bot.channels.get(modlogChannelID )) return undefined;
-                const banConfirmationEmbedModlog = new Discord.RichEmbed()
-                    .setAuthor(`Banned by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
-                    .setThumbnail(user.displayAvatarURL)
-                    .setColor('RED')
-                    .setTimestamp()
-                    .setDescription(`**Action**: Ban\n**User**: ${user.username}#${user.discriminator} (${user.id})\n**Reason**: ${banReason}`);
-                bot.channels.get(modlogChannelID).send({
-                    embed: banConfirmationEmbedModlog
-                });
-            }
-        } else{
-            message.delete();
-            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
-        }
+           if (modlogChannelID.length !== 0) {
+               if (!bot.channels.get(modlogChannelID )) return undefined;
+               const banConfirmationEmbedModlog = new Discord.RichEmbed()
+                   .setAuthor(`Banned by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
+                   .setThumbnail(user.displayAvatarURL)
+                   .setColor('RED')
+                   .setTimestamp()
+                   .setDescription(`**Action**: Ban\n**User**: ${user.username}#${user.discriminator} (${user.id})\n**Reason**: ${banReason}`);
+               bot.channels.get(modlogChannelID).send({
+                   embed: banConfirmationEmbedModlog
+               });
+           }
+       } else{
+           return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
+       }
    }
 
     if (cmd === `${prefix}kick`){
         if (message.member.hasPermission("ADMINISTRATOR")){
-            let kick_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-            let reason = args.join(" ").slice(22);
-            let server_name = message.guild.name;
+            const arguments = message.content.split(' ').slice(1);
+            let user = message.mentions.users.first();
+            const kickReason = arguments.slice(1).join(' ');
+            if (!user) {
+                try {
+                    if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) throw new Error("Couldn't get a Discord user with this userID!");
+                    user = message.guild.members.get(arguments.slice(0, 1).join(' '));
+                    user = user.user;
+                } catch (error) {
+                    return await message.reply("Couldn't get a Discord user with this userID!");
+                }
+            }
+            if (user === message.author) return message.channel.send("You can't kick yourself");
+            if (!kickReason) return message.reply('You forgot to enter a reason for this kick!');
+            if (!message.guild.member(user).kickable) return message.reply("You can't kick this user because this but does not have sufficient permissions!");
 
-            if (!kick_User) return message.channel.send("Couldn't find that user!"); // User does not exist
+            await user.send(`You have been kick from ${message.guild.name} for the following reason(s): ${kickReason}`);
+            await message.guild.kick(user);
 
-            kick_User.kick(reason).then((ban_User) => {
-                message.channel.send(`:wave: ${member.displayName} has been kicked.`);
-            }).catch(() => {
-                message.channel.send("An error occurred.");
+            const kickConfirmationEmbed = new Discord.RichEmbed()
+                .setColor('RED')
+                .setDescription(`:white_check_mark: ${user.tag} has been successfully kicked!`);
+            message.channel.send({
+                embed: kickConfirmationEmbed
             });
-            message.delete();
-            return
+
+            if (modlogChannelID.length !== 0) {
+                if (!bot.channels.get(modlogChannelID )) return undefined;
+                const kickConfirmationEmbedModlog = new Discord.RichEmbed()
+                    .setAuthor(`Kicked by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
+                    .setThumbnail(user.displayAvatarURL)
+                    .setColor('RED')
+                    .setTimestamp()
+                    .setDescription(`**Action**: Kick\n**User**: ${user.username}#${user.discriminator} (${user.id})\n**Reason**: ${kickReason}`);
+                bot.channels.get(modlogChannelID).send({
+                    embed: kickConfirmationEmbedModlog
+                });
+            }
         } else{
-            message.delete();
             return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
         }
     }
@@ -120,7 +141,6 @@ bot.on("message", async message => {
            .addField("Channel", message.channel)
            .addField("Time", message.createdAt)
            .addField("Reason", reason);
-       message.delete();
        return message.channel.send(report_Embed);
    }
 
@@ -134,7 +154,6 @@ bot.on("message", async message => {
            .addField("Created on", message.guild.createdAt)
            .addField("You joined",message.member.joinedAt)
            .addField("Total members", message.guild.memberCount);
-       message.delete();
        return message.channel.send(server_embed);
    }
     if (cmd === `${prefix}botinfo`){
@@ -145,7 +164,6 @@ bot.on("message", async message => {
             .setThumbnail(b_icon)
             .addField("Bot Name", bot.user.username)
             .addField("Created on", bot.user.createdAt);
-        message.delete();
         return message.channel.send(bot_embed);
     }
     if (cmd === `${prefix}say`){
@@ -153,7 +171,6 @@ bot.on("message", async message => {
             let bot_embed = new Discord.RichEmbed()
                 .setColor(args[0])
                 .setDescription(localArgs.join(' '));
-        message.delete();
         return message.channel.send(bot_embed);
     }
     if (cmd === `${prefix}ssay`){
@@ -162,9 +179,9 @@ bot.on("message", async message => {
             .setColor(args[0])
             .setThumbnail("https://cdn.discordapp.com/attachments/579769933219758148/605478475033346081/Icon.png")
             .setDescription(localArgs.join(' '));
-        message.delete();
         return message.channel.send(bot_embed);
     }
+    await message.delete();
 });
 
 
