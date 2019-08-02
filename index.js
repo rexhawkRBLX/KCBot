@@ -59,7 +59,7 @@ bot.on("message", async message => {
            if (!message.guild.member(user).bannable) return message.reply("You can't ban this user because you the bot has not sufficient permissions!");
 
            await user.send(`You have been banned from ${message.guild.name} for the following reason(s): ${banReason}`);
-           await message.guild.ban(user);
+           await user.ban(banReason);
 
 
            const banConfirmationEmbed = new Discord.RichEmbed()
@@ -107,7 +107,7 @@ bot.on("message", async message => {
             if (!message.guild.member(user).kickable) return message.reply("You can't kick this user because this but does not have sufficient permissions!");
 
             await user.send(`You have been kick from ${message.guild.name} for the following reason(s): ${kickReason}`);
-            await message.guild.kick(user);
+            await user.kick(kickReason);
 
             const kickConfirmationEmbed = new Discord.RichEmbed()
                 .setColor('RED')
