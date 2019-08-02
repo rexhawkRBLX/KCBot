@@ -92,6 +92,7 @@ bot.on("message", async message => {
         if (message.member.hasPermission("ADMINISTRATOR")){
             const arguments = message.content.split(' ').slice(1);
             let member = message.mentions.members.first();
+            let member_user = message.mentions.users.first();
             const kickReason = arguments.slice(1).join(' ');
             if (!member) {
                 try {
@@ -111,7 +112,7 @@ bot.on("message", async message => {
 
             const kickConfirmationEmbed = new Discord.RichEmbed()
                 .setColor('RED')
-                .setDescription(`:white_check_mark: ${member.tag} has been successfully kicked!`);
+                .setDescription(`:white_check_mark: ${member_user.tag} has been successfully kicked!`);
             message.channel.send({
                 embed: kickConfirmationEmbed
             });
@@ -123,7 +124,7 @@ bot.on("message", async message => {
                     .setThumbnail(member.displayAvatarURL)
                     .setColor('RED')
                     .setTimestamp()
-                    .setDescription(`**Action**: Kick\n**User**: ${member.username}#${member.discriminator} (${member.id})\n**Reason**: ${kickReason}`);
+                    .setDescription(`**Action**: Kick\n**User**: ${member_user.username}#${member_user.discriminator} (${member_user.id})\n**Reason**: ${kickReason}`);
                 bot.channels.get(modlogChannelID).send({
                     embed: kickConfirmationEmbedModlog
                 });
