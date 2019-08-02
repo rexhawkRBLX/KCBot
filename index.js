@@ -16,7 +16,7 @@ app.listen(PORT, () => {
 bot.on("ready", async() => {
     console.log(`${bot.user.username} is online!`);
     bot.channels.get('569673111516217345').send(':white_check_mark: KC Bot is online!');
-    bot.channels.get('569673111516217345').send('@rexhawk good morning, father.');
+    bot.channels.get('569673111516217345').send('@606683900441526276 good morning, father.');
     await bot.user.setActivity("King City, California", {type: "PLAYING"});
 });
 
