@@ -58,7 +58,7 @@ bot.on("message", async message => {
             if (!banReason) return message.reply('You forgot to enter a reason for this ban!');
             if (!message.guild.member(user).bannable) return message.reply("You can't ban this user because you the bot has not sufficient permissions!");
 
-            await message.author.send(`You have been banned from ${message.guild.name} for the following reason(s): ${banReason}`);
+            await user.send(`You have been banned from ${message.guild.name} for the following reason(s): ${banReason}`);
             await message.guild.ban(user);
 
             const banConfirmationEmbed = new Discord.RichEmbed()
