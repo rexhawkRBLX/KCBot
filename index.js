@@ -181,7 +181,7 @@ bot.on("message", async message => {
             .setDescription(localArgs.join(' '));
         return message.channel.send(bot_embed);
     }
-    await message.delete();
+   
 });
 
 
