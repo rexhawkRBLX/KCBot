@@ -43,28 +43,29 @@ bot.on("message", async message => {
    if (cmd === `${prefix}ban`){
        if (message.member.hasPermission("ADMINISTRATOR")){
            const arguments = message.content.split(' ').slice(1);
-           let user = message.mentions.users.first();
+           let member = message.mentions.members.first();
+           let member_user = message.mentions.users.first();
            const banReason = arguments.slice(1).join(' ');
-           if (!user) {
+           if (!member) {
                try {
                    if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) throw new Error("Couldn't get a Discord user with this userID!");
-                   user = message.guild.members.get(arguments.slice(0, 1).join(' '));
-                   user = user.user;
+                   member = message.guild.members.get(arguments.slice(0, 1).join(' '));
+                   member = member.user;
                } catch (error) {
                    return await message.reply("Couldn't get a Discord user with this userID!");
                }
            }
-           if (user === message.author) return message.channel.send("You can't ban yourself");
+           if (member === message.author) return message.channel.send("You can't ban yourself");
            if (!banReason) return message.reply('You forgot to enter a reason for this ban!');
-           if (!message.guild.member(user).bannable) return message.reply("You can't ban this user because you the bot has not sufficient permissions!");
+           if (!message.guild.member(member).bannable) return message.reply("You can't ban this user because you the bot has not sufficient permissions!");
 
-           await user.send(`You have been banned from ${message.guild.name} for the following reason(s): ${banReason}`);
-           await user.ban(banReason);
+           await member.send(`You have been banned from ${message.guild.name} for the following reason(s): ${banReason}`);
+           await member.ban(banReason);
 
 
            const banConfirmationEmbed = new Discord.RichEmbed()
                .setColor('RED')
-               .setDescription(`:white_check_mark: ${user.tag} has been successfully banned!`);
+               .setDescription(`:white_check_mark: ${member_user.tag} has been successfully banned!`);
            message.channel.send({
                embed: banConfirmationEmbed
            });
@@ -73,10 +74,10 @@ bot.on("message", async message => {
                if (!bot.channels.get(modlogChannelID )) return undefined;
                const banConfirmationEmbedModlog = new Discord.RichEmbed()
                    .setAuthor(`Banned by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
-                   .setThumbnail(user.displayAvatarURL)
+                   .setThumbnail(member.displayAvatarURL)
                    .setColor('RED')
                    .setTimestamp()
-                   .setDescription(`**Action**: Ban\n**User**: ${user.username}#${user.discriminator} (${user.id})\n**Reason**: ${banReason}`);
+                   .setDescription(`**Action**: Ban\n**User**: ${member_user.username}#${member_user.discriminator} (${member_user.id})\n**Reason**: ${banReason}`);
                bot.channels.get(modlogChannelID).send({
                    embed: banConfirmationEmbedModlog
                });
