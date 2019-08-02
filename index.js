@@ -91,7 +91,7 @@ bot.on("message", async message => {
     if (cmd === `${prefix}kick`){
         if (message.member.hasPermission("ADMINISTRATOR")){
             const arguments = message.content.split(' ').slice(1);
-            let member = message.mentions.members.first()
+            let member = message.mentions.members.first();
             const kickReason = arguments.slice(1).join(' ');
             if (!member) {
                 try {
