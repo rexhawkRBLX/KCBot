@@ -40,6 +40,21 @@ bot.on("message", async message => {
            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
        }
    }
+
+    if (cmd === `${prefix}shutdown`){
+        if (message.member.hasPermission("ADMINISTRATOR")){
+            message.channel.send(`${message.author} :white_check_mark: Shutting down...`);
+            if (message.author.id === "551451030471049222") {
+                message.channel.send(`Goodnight, father.`);
+            }
+            await bot.destroy();
+            return
+        } else{
+            await message.delete();
+            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
+        }
+    }
+
    if (cmd === `${prefix}ban`){
        if (message.member.hasPermission("ADMINISTRATOR")){
            const arguments = message.content.split(' ').slice(1);
@@ -74,7 +89,7 @@ bot.on("message", async message => {
                if (!bot.channels.get(modlogChannelID )) return undefined;
                const banConfirmationEmbedModlog = new Discord.RichEmbed()
                    .setAuthor(`Banned by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
-                   .setThumbnail(member.displayAvatarURL)
+                   .setThumbnail(member_user.displayAvatarURL)
                    .setColor('RED')
                    .setTimestamp()
                    .setDescription(`**Action**: Ban\n**User**: ${member_user.username}#${member_user.discriminator} (${member_user.id})\n**Reason**: ${banReason}`);
@@ -122,7 +137,7 @@ bot.on("message", async message => {
                 if (!bot.channels.get(modlogChannelID )) return undefined;
                 const kickConfirmationEmbedModlog = new Discord.RichEmbed()
                     .setAuthor(`Kicked by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
-                    .setThumbnail(member.displayAvatarURL)
+                    .setThumbnail(member_user.displayAvatarURL)
                     .setColor('RED')
                     .setTimestamp()
                     .setDescription(`**Action**: Kick\n**User**: ${member_user.username}#${member_user.discriminator} (${member_user.id})\n**Reason**: ${kickReason}`);
