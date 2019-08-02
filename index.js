@@ -91,27 +91,27 @@ bot.on("message", async message => {
     if (cmd === `${prefix}kick`){
         if (message.member.hasPermission("ADMINISTRATOR")){
             const arguments = message.content.split(' ').slice(1);
-            let user = message.mentions.users.first();
+            let member = message.mentions.members.first()
             const kickReason = arguments.slice(1).join(' ');
-            if (!user) {
+            if (!member) {
                 try {
                     if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) throw new Error("Couldn't get a Discord user with this userID!");
-                    user = message.guild.members.get(arguments.slice(0, 1).join(' '));
-                    user = user.user;
+                    member = message.guild.members.get(arguments.slice(0, 1).join(' '));
+                    member = member.user;
                 } catch (error) {
                     return await message.reply("Couldn't get a Discord user with this userID!");
                 }
             }
-            if (user === message.author) return message.channel.send("You can't kick yourself");
+            if (member === message.author) return message.channel.send("You can't kick yourself");
             if (!kickReason) return message.reply('You forgot to enter a reason for this kick!');
-            if (!message.guild.member(user).kickable) return message.reply("You can't kick this user because this but does not have sufficient permissions!");
+            if (!message.guild.member(member).kickable) return message.reply("You can't kick this user because this but does not have sufficient permissions!");
 
-            await user.send(`You have been kick from ${message.guild.name} for the following reason(s): ${kickReason}`);
-            await user.kick(kickReason);
+            await member.send(`You have been kick from ${message.guild.name} for the following reason(s): ${kickReason}`);
+            await member.kick(kickReason);
 
             const kickConfirmationEmbed = new Discord.RichEmbed()
                 .setColor('RED')
-                .setDescription(`:white_check_mark: ${user.tag} has been successfully kicked!`);
+                .setDescription(`:white_check_mark: ${member.tag} has been successfully kicked!`);
             message.channel.send({
                 embed: kickConfirmationEmbed
             });
@@ -120,10 +120,10 @@ bot.on("message", async message => {
                 if (!bot.channels.get(modlogChannelID )) return undefined;
                 const kickConfirmationEmbedModlog = new Discord.RichEmbed()
                     .setAuthor(`Kicked by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
-                    .setThumbnail(user.displayAvatarURL)
+                    .setThumbnail(member.displayAvatarURL)
                     .setColor('RED')
                     .setTimestamp()
-                    .setDescription(`**Action**: Kick\n**User**: ${user.username}#${user.discriminator} (${user.id})\n**Reason**: ${kickReason}`);
+                    .setDescription(`**Action**: Kick\n**User**: ${member.username}#${member.discriminator} (${member.id})\n**Reason**: ${kickReason}`);
                 bot.channels.get(modlogChannelID).send({
                     embed: kickConfirmationEmbedModlog
                 });
