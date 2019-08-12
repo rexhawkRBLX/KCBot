@@ -211,6 +211,11 @@ bot.on("message", async message => {
         await message.delete();
         return message.channel.send(bot_embed);
     }
+    if (cmd === `${prefix}talk`) {
+        let localArgs = messageArray.slice(1);
+        await message.delete();
+        return message.channel.send(localArgs.join(' '));
+    }
 });
 
 
