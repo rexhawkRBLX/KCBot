@@ -67,13 +67,12 @@ bot.on("message", async message => {
 
     if (cmd === `${prefix}role`){
         if (message.member.hasPermission("ADMINISTRATOR")){
-
-            var username = args[1];
+            let localArgs = messageArray.slice(2);
             var rankIdentifier = Number(args[2]) ? Number(args[2]) : args[2];
             if (!rankIdentifier) return message.channel.send("Please enter a rank");
-            if (username) {
-                message.channel.send(`Checking ROBLOX for ${username}`);
-                roblox.getIdFromUsername(username)
+            if (localArgs[0]) {
+                message.channel.send(`Checking ROBLOX for ${localArgs[0]}`);
+                roblox.getIdFromUsername(localArgs[0])
                     .then(function (id) {
                         roblox.getRankInGroup(groupId, id)
                             .then(function (rank) {
@@ -93,7 +92,7 @@ bot.on("message", async message => {
                             message.channel.send("Couldn't get that player in the group.")
                         })
                     }).catch(function (err) {
-                    message.channel.send(`Sorry, but ${username} doesn't exist on ROBLOX.`)
+                    message.channel.send(`Sorry, but ${localArgs[0]} doesn't exist on ROBLOX.`)
                 });
             } else {
                 message.channel.send("Please enter a username.")
