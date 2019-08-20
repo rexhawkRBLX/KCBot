@@ -75,7 +75,6 @@ bot.on("message", async message => {
             await roblox.getCurrentUser();
             if (!rankIdentifier) return message.channel.send("Please enter a rank");
             if (username) {
-                message.channel.send(`Checking ROBLOX for ${username}`);
                 roblox.getIdFromUsername(username)
                     .then(function (id) {
                         roblox.getRankInGroup(groupId, id)
@@ -83,7 +82,7 @@ bot.on("message", async message => {
                             if (maximumRank <= rank) {
                                 message.channel.send(`${id} is rank ${rank} and not promotable.`);
                             } else {
-                                roblox.setRank(Number(groupId), Number(id), Number(rankIdentifier))
+                                roblox.setRank(Number(groupId), Number(id), rankIdentifier)
                                     .then(function(newRole){
                                         message.channel.send(`Changed rank to ${newRole.name}`)
                                     }).catch(function (err) {
