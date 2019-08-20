@@ -85,7 +85,7 @@ bot.on("message", async message => {
             } else {
                 message.channel.send("Please enter a username.")
             }
-            let currentUser = await rbx.getCurrentUser();
+            let currentUser = await roblox.getCurrentUser();
             return;
         } else{
             await message.delete();
