@@ -38,19 +38,6 @@ bot.on("message", async message => {
    let cmd = messageArray[0].toLowerCase();
    let args = messageArray.slice(1);
 
-   if (cmd === `${prefix}restart`){
-       if (message.member.hasPermission("ADMINISTRATOR")){
-           message.channel.send(`${message.author} :white_check_mark: Initiating shutdown process...`)
-           .then(msg => bot.destroy())
-               .then(() => bot.login(process.env.token));
-           await message.delete();
-           return
-       } else{
-           await message.delete();
-           return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
-       }
-   }
-
     if (cmd === `${prefix}shutdown`){
         if (message.member.hasPermission("ADMINISTRATOR")){
             message.channel.send(`${message.author} :white_check_mark: Shutting down...`);
