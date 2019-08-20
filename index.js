@@ -88,7 +88,7 @@ bot.on("message", async message => {
                                         message.channel.send(`Changed rank to ${newRole.Name}`)
                                     }).catch(function (err) {
                                     console.error(err);
-                                    message.channel.send("Failed to change rank.")
+                                    message.channel.send(`Failed to change rank. Error: ${err}`)
                                 });
                             }
                         }).catch(function (err) {
