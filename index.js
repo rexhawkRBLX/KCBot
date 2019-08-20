@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const bot = new Discord.Client({disableEveryone: true});
 const modlogChannelID = '606575885906083901';
-const roblox = require('noblox-js');
+const roblox = require('noblox.js');
 
 let groupId = 4876110;
 let maximumRank = 252;
