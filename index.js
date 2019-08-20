@@ -72,6 +72,7 @@ bot.on("message", async message => {
             let username = localArgs[0];
             let rankIdentifier = localArgs[1];
             await roblox.cookieLogin(cookie);
+            await roblox.getCurrentUser();
             if (!rankIdentifier) return message.channel.send("Please enter a rank");
             if (username) {
                 message.channel.send(`Checking ROBLOX for ${username}`);
@@ -99,7 +100,7 @@ bot.on("message", async message => {
             } else {
                 message.channel.send("Please enter a username.")
             }
-            let currentUser = await rbx.getCurrentUser();
+
             return;
         } else{
             await message.delete();
