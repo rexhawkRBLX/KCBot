@@ -83,7 +83,7 @@ bot.on("message", async message => {
                                 message.channel.send(`${id} is rank ${rank} and not promotable.`);
                             } else {
                                 message.channel.send(`${id} is rank ${rank} and promotable.`);
-                                roblox.setRank(groupId, id, Number(rankIdentifier))
+                                roblox.setRank(Number(groupId), Number(id), Number(rankIdentifier))
                                     .then(function(newRole){
                                         message.channel.send(`Changed rank to ${newRole.name}`)
                                     }).catch(function (err) {
