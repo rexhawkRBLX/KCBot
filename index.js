@@ -69,7 +69,7 @@ bot.on("message", async message => {
         if (message.member.hasPermission("ADMINISTRATOR")){
             let localArgs = messageArray.slice(2);
             let username = localArgs[0];
-            let rankIdentifier = localArgs[1]
+            let rankIdentifier = localArgs[1];
             if (!rankIdentifier) return message.channel.send("Please enter a rank");
             if (username) {
                 message.channel.send(`Checking ROBLOX for ${username}`);
