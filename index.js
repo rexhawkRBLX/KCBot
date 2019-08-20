@@ -67,7 +67,7 @@ bot.on("message", async message => {
 
     if (cmd === `${prefix}role`){
         if (message.member.hasPermission("ADMINISTRATOR")){
-            let localArgs = messageArray.slice(2);
+            let localArgs = messageArray.slice(0);
 
             let username = localArgs[0];
             let rankIdentifier = localArgs[1];
