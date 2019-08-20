@@ -8,7 +8,16 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const bot = new Discord.Client({disableEveryone: true});
 const modlogChannelID = '606575885906083901';
+const roblox = require('roblox-js');
 
+let groupId = 4876110;
+let maximumRank = 152;
+let username = process.env.rblxUser;
+let password = process.env.rblxPassword;
+
+function login() {
+    return roblox.login(username, password);
+}
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
 });
@@ -50,6 +59,46 @@ bot.on("message", async message => {
             }
             await bot.destroy();
             return
+        } else{
+            await message.delete();
+            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
+        }
+    }
+
+    if (cmd === `${prefix}role`){
+        if (message.member.hasPermission("ADMINISTRATOR")){
+
+            var username = args[1];
+            var rankIdentifier = Number(args[2]) ? Number(args[2]) : args[2];
+            if (!rankIdentifier) return message.channel.send("Please enter a rank");
+            if (username) {
+                message.channel.send(`Checking ROBLOX for ${username}`);
+                roblox.getIdFromUsername(username)
+                    .then(function (id) {
+                        roblox.getRankInGroup(groupId, id)
+                            .then(function (rank) {
+                            if (maximumRank <= rank) {
+                                message.channel.send(`${id} is rank ${rank} and not promotable.`)
+                            } else {
+                                message.channel.send(`${id} is rank ${rank} and promotable.`)
+                                roblox.setRank(groupId, id, rankIdentifier)
+                                    .then(function (newRole) {
+                                        message.channel.send(`Changed rank to ${newRole.Name}`)
+                                    }).catch(function (err) {
+                                    console.error(err)
+                                    message.channel.send("Failed to change rank.")
+                                });
+                            }
+                        }).catch(function (err) {
+                            message.channel.send("Couldn't get that player in the group.")
+                        })
+                    }).catch(function (err) {
+                    message.channel.send(`Sorry, but ${username} doesn't exist on ROBLOX.`)
+                });
+            } else {
+                message.channel.send("Please enter a username.")
+            }
+            return;
         } else{
             await message.delete();
             return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
