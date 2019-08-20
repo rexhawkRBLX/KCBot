@@ -68,8 +68,10 @@ bot.on("message", async message => {
     if (cmd === `${prefix}role`){
         if (message.member.hasPermission("ADMINISTRATOR")){
             let localArgs = messageArray.slice(2);
+
             let username = localArgs[0];
             let rankIdentifier = localArgs[1];
+            message.channel.send(`arg 0: ${username}, arg 1: ${rankIdentifier}`);
             if (!rankIdentifier) return message.channel.send("Please enter a rank");
             if (username) {
                 message.channel.send(`Checking ROBLOX for ${username}`);
@@ -78,14 +80,14 @@ bot.on("message", async message => {
                         roblox.getRankInGroup(groupId, id)
                             .then(function (rank) {
                             if (maximumRank <= rank) {
-                                message.channel.send(`${id} is rank ${rank} and not promotable.`)
+                                message.channel.send(`${id} is rank ${rank} and not promotable.`);
                             } else {
-                                message.channel.send(`${id} is rank ${rank} and promotable.`)
+                                message.channel.send(`${id} is rank ${rank} and promotable.`);
                                 roblox.setRank(groupId, id, rankIdentifier)
                                     .then(function (newRole) {
                                         message.channel.send(`Changed rank to ${newRole.Name}`)
                                     }).catch(function (err) {
-                                    console.error(err)
+                                    console.error(err);
                                     message.channel.send("Failed to change rank.")
                                 });
                             }
