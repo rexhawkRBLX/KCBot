@@ -71,7 +71,7 @@ bot.on("message", async message => {
 
             let username = localArgs[0];
             let rankIdentifier = localArgs[1];
-            await rbx.cookieLogin(cookie);
+            await roblox.cookieLogin(cookie);
             message.channel.send(`arg 0: ${username}, arg 1: ${rankIdentifier}`);
             if (!rankIdentifier) return message.channel.send("Please enter a rank");
             if (username) {
