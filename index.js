@@ -8,15 +8,15 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const bot = new Discord.Client({disableEveryone: true});
 const modlogChannelID = '606575885906083901';
-const roblox = require('roblox-js');
+const roblox = require('noblox-js');
 
 let groupId = 4876110;
 let maximumRank = 252;
-let username = process.env.rblxUser;
-let password = process.env.rblxPassword;
+
+let cookie = process.env.rblxCookie;
 
 function login() {
-    return roblox.login(username, password);
+    return roblox.cookieLogin(cookie);
 }
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
@@ -84,11 +84,11 @@ bot.on("message", async message => {
                             } else {
                                 message.channel.send(`${id} is rank ${rank} and promotable.`);
                                 roblox.setRank(groupId, id, rankIdentifier)
-                                    .then(function (newRole) {
-                                        message.channel.send(`Changed rank to ${newRole.Name}`)
+                                    .then(function(newRole){
+                                        message.channel.send(`Changed rank to ${newRole.name}`)
                                     }).catch(function (err) {
                                     console.error(err);
-                                    message.channel.send(`Failed to change rank. Error: ${err}`)
+                                    message.channel.send(`Failed to change rank. ${err}`)
                                 });
                             }
                         }).catch(function (err) {
