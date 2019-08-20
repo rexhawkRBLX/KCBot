@@ -69,7 +69,7 @@ bot.on("message", async message => {
 
         if (message.member.hasPermission("ADMINISTRATOR")){
             let localArgs = messageArray.slice(1);
-            message.channel.send(`starting`);
+            message.channel.send(`starting...`);
             let username = localArgs[0];
             let rankIdentifier = localArgs[1];
             await roblox.cookieLogin(cookie);
