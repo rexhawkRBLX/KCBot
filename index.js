@@ -11,7 +11,7 @@ const modlogChannelID = '606575885906083901';
 const roblox = require('roblox-js');
 
 let groupId = 4876110;
-let maximumRank = 152;
+let maximumRank = 252;
 let username = process.env.rblxUser;
 let password = process.env.rblxPassword;
 
