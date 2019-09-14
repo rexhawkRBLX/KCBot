@@ -54,7 +54,8 @@ bot.on("message", async message => {
     if (cmd === `${prefix}info`){
 
         let rich_Embed = new Discord.RichEmbed()
-            .setDescription("Game Information")
+            .setTitle("Game Information")
+            .setThumbnail("https://cdn.discordapp.com/attachments/622223331915202560/622551240626143232/King_City_CA.png")
             .setColor("#689ff5")
             .addField("King City Game",`[King City, California](https://www.roblox.com/games/3571375889/King-City-California)`)
             .addField("King City Groups", `[California Highway Patrol](https://www.roblox.com/groups/4876110/California-Highway-Patrol-Coastal-Division)\n[King City Police Department](https://www.roblox.com/groups/4897046/King-City-Police-Department)\n[King City Fire Department](https://www.roblox.com/groups/4898855/King-City-Fire-Department)`)
