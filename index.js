@@ -51,6 +51,17 @@ bot.on("message", async message => {
        }
    }
 
+    if (cmd === `${prefix}info`){
+
+        let rich_Embed = new Discord.RichEmbed()
+            .setDescription("Game Information")
+            .setColor("#6d60f5")
+            .addField("Game Page",`[King City, California](https://www.roblox.com/games/3571375889/King-City-California)`)
+            .addField("Game Groups", `[CHP](https://www.roblox.com/groups/4876110/California-Highway-Patrol-Coastal-Division),\n[KCPD](https://www.roblox.com/groups/4897046/King-City-Police-Department),\n[KCFD](https://www.roblox.com/groups/4898855/King-City-Fire-Department)`)
+            .addField("Additional Information", "Additional Information can be found in the #information channel of the CHP server.");
+        return message.channel.send(rich_Embed);
+    }
+
     if (cmd === `${prefix}shutdown`){
         if (message.member.hasPermission("ADMINISTRATOR")){
             message.channel.send(`${message.author} :white_check_mark: Shutting down...`);
