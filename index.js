@@ -55,9 +55,10 @@ bot.on("message", async message => {
 
         let rich_Embed = new Discord.RichEmbed()
             .setDescription("Game Information")
-            .setColor("#6d60f5")
-            .addField("Game Page",`[King City, California](https://www.roblox.com/games/3571375889/King-City-California)`)
-            .addField("Game Groups", `[CHP](https://www.roblox.com/groups/4876110/California-Highway-Patrol-Coastal-Division),\n[KCPD](https://www.roblox.com/groups/4897046/King-City-Police-Department),\n[KCFD](https://www.roblox.com/groups/4898855/King-City-Fire-Department)`)
+            .setColor("#689ff5")
+            .addField("King City Game",`[King City, California](https://www.roblox.com/games/3571375889/King-City-California)`)
+            .addField("King City Groups", `[California Highway Patrol](https://www.roblox.com/groups/4876110/California-Highway-Patrol-Coastal-Division)\n[King City Police Department](https://www.roblox.com/groups/4897046/King-City-Police-Department),\n[King City Fire Department](https://www.roblox.com/groups/4898855/King-City-Fire-Department)`)
+            .addField("Discord Servers",`[California Highway Patrol](https://discord.gg/syXRhgh)\n[King City Police Department](https://discord.gg/M3WKaBe)\n[King City Fire Department](https://discord.gg/Be3uZJx)`)
             .addField("Additional Information", "Additional Information can be found in the #information channel of the CHP server.");
         return message.channel.send(rich_Embed);
     }
