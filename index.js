@@ -9,7 +9,7 @@ const app = express();
 const bot = new Discord.Client({disableEveryone: true});
 const modlogChannelID = '592492329257140234';
 const roblox = require('noblox.js');
-
+const version = "v".concat("1");
 let groupId = 4876110;
 let maximumRank = 252;
 
@@ -296,16 +296,14 @@ bot.on("message", async message => {
        let reason = args.join(" ").slice(22);
 
        let reportEmbed = new Discord.RichEmbed()
+           .setTitle("Report")
            .setColor("#f54242")
            .setAuthor(message.author,message.author.avatar)
            .setDescription(`Reporting ${reported_User}`)
            .addField("Reason",reason)
            .timestamp;
-
        await message.delete();
-       bot.channels.get("630934304393920512").send({
-           embed: reportEmbed
-       });
+       bot.channels.get("630934304393920512").send(reportEmbed);
        return message.channel.send(`:white_check_mark: Successfully reported ${reported_User} for `.concat("`",`${reason}`,"`."));
    }
 
