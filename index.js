@@ -306,7 +306,7 @@ bot.on("message", async message => {
        return message.channel.send(`:white_check_mark: Successfully reported ${String(reported_User)} for `.concat("`",`${reason}`,"`."));
    }
    if (cmd === `${prefix}version`){
-        return message.channel.send(version);
+        return message.channel.send("`".concat(version,"`"));
    }
    if (cmd === `${prefix}serverinfo`){
        let s_icon = message.guild.iconURL;
