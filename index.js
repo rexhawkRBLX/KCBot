@@ -224,7 +224,7 @@ bot.on("message", async message => {
            let richEmbed = new Discord.RichEmbed()
                .setColor("#f54242")
                .setTitle("**Command:** >Report");
-           let arr = ["**Description: **Report a member for later moderation", "**Usage: **>report [user] [reason]", "**Example: **>report @rexhawk being too beautiful!"];
+           let arr = ["arg1", "arg2", "arg2"];
            for (let string of arr) {
                if (string) {
                    richEmbed.setDescription(`${richEmbed.description}\n${string}`);
