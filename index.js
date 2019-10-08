@@ -303,7 +303,7 @@ bot.on("message", async message => {
            .addField("Reason",reason)
            .timestamp;
        await message.delete();
-       bot.channels.get("630934304393920512").send(reportEmbed);
+       await bot.channels.get("630934304393920512").send(reportEmbed);
        return message.channel.send(`:white_check_mark: Successfully reported ${reported_User} for `.concat("`",`${reason}`,"`."));
    }
 
