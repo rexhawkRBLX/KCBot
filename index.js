@@ -322,9 +322,9 @@ bot.on("message", async message => {
             }
             if (isNaN(args[0])) return message.channel.send(`${message.author} :negative_squared_cross_mark: Invalid amount. Please supply a number between `.concat("`","1","` and ","`","100","`"));
             if (Number(args[0]) > 100) return message.channel.send(`${message.author} :negative_squared_cross_mark: Invalid amount. Please supply a number between `.concat("`","1","` and ","`","100","`"));
-            await message.channel.bulkDelete(args[0])
+            await message.delete();
+            message.channel.bulkDelete(args[0])
                 .catch( error => message.channel.send(`Error: \`${error.message}\``));
-            message.channel.send(`:white_check_mark: Successfully deleted \`${messages.size}/${args[0]}\` messages.`).then( msg => msg.delete({ timeout: 15 }));
         }else{
             await message.delete();
             return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","manage_messages","` permission to execute this command."));
