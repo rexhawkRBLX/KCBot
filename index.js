@@ -305,7 +305,7 @@ bot.on("message", async message => {
        let reportEmbed = new Discord.RichEmbed()
            .setColor("#f54242")
            .setAuthor(message.author.tag,message.author.avatarURL)
-           .setDescription(`Reporting ${reported_User}\n[Jump to message](${message.url})`)
+           .setDescription(`Reporting ${reported_User}\n\n\`[Jump to message](${message.url})\``)
            .addField("Reason","`".concat(reason,"`"))
            .setTimestamp(message.createdAt);
        await message.delete();
