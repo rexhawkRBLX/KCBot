@@ -217,19 +217,14 @@ bot.on("message", async message => {
     }
 
    if (cmd === `${prefix}report`){
-       console.log(message.content.split(" ").slice(0));
-       if (String(message.content.split(" ").slice(0)) === `${prefix}report`) {
-           await message.delete().catch(O_o => {
-           });
+       console.log(message.content.split(" "));
+       if (String(message.content.split(" ")) === `${prefix}report`) {
+           await message.delete().catch(O_o => {});
            let richEmbed = new Discord.RichEmbed()
                .setColor("#f54242")
                .setTitle("**Command:** >Report");
-           let arr = ["arg1", "arg2", "arg2"];
-           for (let string of arr) {
-               if (string) {
-                   richEmbed.setDescription(`${richEmbed.description}\n${string}`);
-               }
-           }
+           let array = ['msg1', 'msg2', 'msg3'];
+           richEmbed.setDescription(array.join('\n'));
            return message.channel.send(richEmbed);
        }
        let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
