@@ -301,9 +301,11 @@ bot.on("message", async message => {
            .setDescription(`Reporting ${reported_User}`)
            .addField("Reason",reason)
            .timestamp;
-       let reportsChannel = message.guild.channels.find("name","report-log");
+
        await message.delete();
-       reportsChannel.send(reportEmbed);
+       bot.channels.get("630934304393920512").send({
+           embed: reportEmbed
+       });
        return message.channel.send(`:white_check_mark: Successfully reported ${reported_User} for `.concat("`",`${reason}`,"`."));
    }
 
