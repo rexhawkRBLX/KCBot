@@ -221,7 +221,8 @@ bot.on("message", async message => {
            await message.delete();
            let richEmbed = new Discord.RichEmbed()
                .setColor("#f54242")
-               .setTitle("**Command:** >Report");
+               .setTitle("**Command:** >Report")
+               .setFooter("Abuse of this command will result in administrative action.");
            let array = ["**Description: **Report a member for later moderation", "**Usage: **>report [user] [reason]", "**Example: **>report @rexhawk being too beautiful!"];
            richEmbed.setDescription(array.join('\n'));
            return message.channel.send(richEmbed);
@@ -230,7 +231,7 @@ bot.on("message", async message => {
        if (!reported_User) return message.channel.send("Couldn't find that user!");
        let reason = args.join(" ").slice(22);
        await message.delete().catch(O_o=>{});
-       return message.channel.send(`${message.author} :white_check_mark: Successfully reported ${reported_User} for `.concat("`",`${reason}`,"`"));
+       return message.channel.send(`:white_check_mark: Successfully reported ${reported_User} for `.concat("`",`${reason}`,"`."));
    }
 
    if (cmd === `${prefix}serverinfo`){
