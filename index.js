@@ -38,12 +38,11 @@ bot.on("message", async message => {
    let args = messageArray.slice(1);
 
    function helpBox (command){
-       if (command === String("restart")){
+       if (command === String("role")){
            let richEmbed = new Discord.RichEmbed()
                .setColor("#333333")
-               .setTitle("**Command:** >restart")
-               .setFooter("Abuse of this command will result in administrative action.");
-           let array = ["**Description: **Restart bot if it is causing issues.", "**Usage: **>restart", "**Example: **>restart"];
+               .setTitle("**Command:** >role");
+           let array = ["**Description: **Role a player in the group straight from discord", "**Usage: **>role [username] [rank]", "**Example: **>role rexhawk 240"];
            richEmbed.setDescription(array.join('\n'));
            return richEmbed;
        } else if (command === String("report")){
@@ -52,6 +51,41 @@ bot.on("message", async message => {
                .setTitle("**Command:** >report")
                .setFooter("Abuse of this command will result in administrative action.");
            let array = ["**Description: **Report a member for later moderation", "**Usage: **>report [user] [reason]", "**Example: **>report @rexhawk being too beautiful!"];
+           richEmbed.setDescription(array.join('\n'));
+           return richEmbed;
+       } else if (command === String("ban")) {
+           let richEmbed = new Discord.RichEmbed()
+               .setColor("#333333")
+               .setTitle("**Command:** >ban");
+           let array = ["**Description: **Ban a member from the server", "**Usage: **>ban [user] [reason]", "**Example: **>ban @rexhawk being too beautiful!"];
+           richEmbed.setDescription(array.join('\n'));
+           return richEmbed;
+       }else if (command === String("kick")) {
+           let richEmbed = new Discord.RichEmbed()
+               .setColor("#333333")
+               .setTitle("**Command:** >kick");
+           let array = ["**Description: **Kick a member from the server", "**Usage: **>kick [user] [reason]", "**Example: **>kick @rexhawk being too beautiful!"];
+           richEmbed.setDescription(array.join('\n'));
+           return richEmbed;
+       }else if (command === String("say")) {
+           let richEmbed = new Discord.RichEmbed()
+               .setColor("#333333")
+               .setTitle("**Command:** >say");
+           let array = ["**Description: **Make KCBot say message inside of rich embed", "**Usage: **>say [COLOR] [message]", "**Example: **>say RED rexhawk is too beautiful!"];
+           richEmbed.setDescription(array.join('\n'));
+           return richEmbed;
+       }else if (command === String("server_say")) {
+           let richEmbed = new Discord.RichEmbed()
+               .setColor("#333333")
+               .setTitle("**Command:** >server_say");
+           let array = ["**Description: **Make KCBot say message inside of rich embed with CHP's logo", "**Usage: **>server_say [COLOR] [message]", "**Example: **>say RED rexhawk is too beautiful!"];
+           richEmbed.setDescription(array.join('\n'));
+           return richEmbed;
+       }else if (command === String("talk")) {
+           let richEmbed = new Discord.RichEmbed()
+               .setColor("#333333")
+               .setTitle("**Command:** >talk");
+           let array = ["**Description: **Make KCBot say message", "**Usage: **>talk [message]", "**Example: **>talk rexhawk is too beautiful!"];
            richEmbed.setDescription(array.join('\n'));
            return richEmbed;
        }
@@ -95,8 +129,13 @@ bot.on("message", async message => {
     }
 
     if (cmd === `${prefix}role`){
-
         if (message.member.hasPermission("ADMINISTRATOR")){
+            // If there is no arguments
+            if (String(message.content.split(" ")) === `${prefix}role`) {
+                await message.delete();
+                let richEmbed = helpBox("role");
+                return message.channel.send(richEmbed);
+            }
             let localArgs = messageArray.slice(1);
             let username = localArgs[0];
             let rankIdentifier = localArgs[1];
@@ -138,22 +177,28 @@ bot.on("message", async message => {
 
    if (cmd === `${prefix}ban`){
        if (message.member.hasPermission("BAN_MEMBERS")){
+           // If there is no arguments
+           if (String(message.content.split(" ")) === `${prefix}ban`) {
+               await message.delete();
+               let richEmbed = helpBox("ban");
+               return message.channel.send(richEmbed);
+           }
            const arguments = message.content.split(' ').slice(1);
            let member = message.mentions.members.first();
            let member_user = message.mentions.users.first();
            const banReason = arguments.slice(1).join(' ');
            if (!member) {
                try {
-                   if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) throw new Error("Couldn't get a Discord user with this userID!");
+                   if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) throw new Error(":negative_squared_cross_mark: Couldn't get a Discord user with this userID");
                    member = message.guild.members.get(arguments.slice(0, 1).join(' '));
                    member = member.user;
                } catch (error) {
-                   return await message.reply("Couldn't get a Discord user with this userID!");
+                   return await message.reply(":negative_squared_cross_mark: Couldn't get a Discord user with this userID");
                }
            }
-           if (member === message.author) return message.channel.send("You can't ban yourself");
-           if (!banReason) return message.reply('You forgot to enter a reason for this ban!');
-           if (!message.guild.member(member).bannable) return message.reply("You can't ban this user because you the bot has not sufficient permissions!");
+           if (member === message.author) return message.channel.send("You can't ban yourself... :unamused:");
+           if (!banReason) return message.reply('You forgot to enter a reason for this ban');
+           if (!message.guild.member(member).bannable) return message.reply("You can't ban this user because the bot does not have sufficient permissions");
 
            await member.send(`You have been banned from ${message.guild.name} for the following reason(s): ${banReason}`);
            await member.ban(banReason);
@@ -161,7 +206,7 @@ bot.on("message", async message => {
 
            const banConfirmationEmbed = new Discord.RichEmbed()
                .setColor('RED')
-               .setDescription(`:white_check_mark: ${member_user.tag} has been successfully banned!`);
+               .setDescription(`:white_check_mark: `.concat("`",`${member_user.tag}`,"` has been successfully banned!"));
            message.channel.send({
                embed: banConfirmationEmbed
            });
@@ -181,28 +226,34 @@ bot.on("message", async message => {
            message.delete();
        } else{
            await message.delete();
-           return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
+           return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","ban_members","` permission to execute this command."));
        }
    }
 
     if (cmd === `${prefix}kick`){
         if (message.member.hasPermission("KICK_MEMBERS")){
+            // If there is no arguments
+            if (String(message.content.split(" ")) === `${prefix}kick`) {
+                await message.delete();
+                let richEmbed = helpBox("kick");
+                return message.channel.send(richEmbed);
+            }
             const arguments = message.content.split(' ').slice(1);
             let member = message.mentions.members.first();
             let member_user = message.mentions.users.first();
             const kickReason = arguments.slice(1).join(' ');
             if (!member) {
                 try {
-                    if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) throw new Error("Couldn't get a Discord user with this userID!");
+                    if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) throw new Error("Couldn't get a Discord user with this userID");
                     member = message.guild.members.get(arguments.slice(0, 1).join(' '));
                     member = member.user;
                 } catch (error) {
-                    return await message.reply("Couldn't get a Discord user with this userID!");
+                    return await message.reply("Couldn't get a Discord user with this userID");
                 }
             }
-            if (member === message.author) return message.channel.send("You can't kick yourself");
-            if (!kickReason) return message.reply('You forgot to enter a reason for this kick!');
-            if (!message.guild.member(member).kickable) return message.reply("You can't kick this user because this but does not have sufficient permissions!");
+            if (member === message.author) return message.channel.send("You can't ban yourself... :unamused:");
+            if (!kickReason) return message.reply('You forgot to enter a reason for this kick');
+            if (!message.guild.member(member).kickable) return message.reply("You can't ban this user because the bot does not have sufficient permissions");
 
             await member.send(`You have been kick from ${message.guild.name} for the following reason(s): ${kickReason}`);
             await member.kick(kickReason);
@@ -229,7 +280,7 @@ bot.on("message", async message => {
             message.delete();
         } else{
             await message.delete();
-            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
+            return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","kick_members","` permission to execute this command."));
         }
     }
 
@@ -272,26 +323,74 @@ bot.on("message", async message => {
         return message.channel.send(bot_embed);
     }
     if (cmd === `${prefix}say`){
-        let localArgs = messageArray.slice(2);
-            let bot_embed = new Discord.RichEmbed()
-                .setColor(args[0])
-                .setDescription(localArgs.join(' '));
-        await message.delete();
-        return message.channel.send(bot_embed);
+        if (message.member.hasPermission("KICK_MEMBERS")) {
+            if (message.member.hasPermission("BAN_MEMBERS")) {
+                // If there is no arguments
+                if (String(message.content.split(" ")) === `${prefix}say`) {
+                    await message.delete();
+                    let richEmbed = helpBox("say");
+                    return message.channel.send(richEmbed);
+                }
+                let localArgs = messageArray.slice(2);
+                let bot_embed = new Discord.RichEmbed()
+                    .setColor(args[0])
+                    .setDescription(localArgs.join(' '));
+                await message.delete();
+                return message.channel.send(bot_embed);
+            }else {
+                await message.delete();
+                return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","kick_members, ban_members","` permission to execute this command."));
+            }
+        }else {
+            await message.delete();
+            return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","kick_members, ban_members","` permission to execute this command."));
+        }
     }
-    if (cmd === `${prefix}ssay`) {
-        let localArgs = messageArray.slice(2);
-        let bot_embed = new Discord.RichEmbed()
-            .setColor(args[0])
-            .setThumbnail("https://cdn.discordapp.com/attachments/579769933219758148/605478475033346081/Icon.png")
-            .setDescription(localArgs.join(' '));
-        await message.delete();
-        return message.channel.send(bot_embed);
+    if (cmd === `${prefix}server_say`) {
+        if (message.member.hasPermission("KICK_MEMBERS")) {
+            if (message.member.hasPermission("BAN_MEMBERS")) {
+                // If there is no arguments
+                if (String(message.content.split(" ")) === `${prefix}server_say`) {
+                    await message.delete();
+                    let richEmbed = helpBox("server_say");
+                    return message.channel.send(richEmbed);
+                }
+                let localArgs = messageArray.slice(2);
+                let bot_embed = new Discord.RichEmbed()
+                    .setColor(args[0])
+                    .setThumbnail("https://cdn.discordapp.com/attachments/579769933219758148/605478475033346081/Icon.png")
+                    .setDescription(localArgs.join(' '));
+                await message.delete();
+                return message.channel.send(bot_embed);
+            } else {
+                await message.delete();
+                return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`", "kick_members, ban_members", "` permission to execute this command."));
+            }
+        } else {
+            await message.delete();
+            return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`", "kick_members, ban_members", "` permission to execute this command."));
+        }
     }
     if (cmd === `${prefix}talk`) {
-        let localArgs = messageArray.slice(1);
-        await message.delete();
-        return message.channel.send(localArgs.join(' '));
+        if (message.member.hasPermission("KICK_MEMBERS")) {
+            if (message.member.hasPermission("BAN_MEMBERS")) {
+                // If there is no arguments
+                if (String(message.content.split(" ")) === `${prefix}talk`) {
+                    await message.delete();
+                    let richEmbed = helpBox("talk");
+                    return message.channel.send(richEmbed);
+                }
+                let localArgs = messageArray.slice(1);
+                await message.delete();
+                return message.channel.send(localArgs.join(' '));
+            } else {
+                await message.delete();
+                return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`", "kick_members, ban_members", "` permission to execute this command."));
+            }
+        } else {
+            await message.delete();
+            return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`", "kick_members, ban_members", "` permission to execute this command."));
+        }
     }
 });
 
