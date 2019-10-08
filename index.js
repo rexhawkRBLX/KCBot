@@ -82,10 +82,17 @@ bot.on("message", async message => {
            richEmbed.setDescription(array.join('\n'));
            return richEmbed;
        }else if (command === String("talk")) {
+               let richEmbed = new Discord.RichEmbed()
+                   .setColor("#333333")
+                   .setTitle("**Command:** >talk");
+               let array = ["**Description: **Make KCBot say message", "**Usage: **>talk [message]", "**Example: **>talk rexhawk is too beautiful!"];
+               richEmbed.setDescription(array.join('\n'));
+               return richEmbed;
+       }else if (command === String("prune")) {
            let richEmbed = new Discord.RichEmbed()
                .setColor("#333333")
-               .setTitle("**Command:** >talk");
-           let array = ["**Description: **Make KCBot say message", "**Usage: **>talk [message]", "**Example: **>talk rexhawk is too beautiful!"];
+               .setTitle("**Command:** >prune");
+           let array = ["**Description: **Delete a set number of messages", "**Usage: **>prune [amount]", "**Example: **>prune 50"];
            richEmbed.setDescription(array.join('\n'));
            return richEmbed;
        }
@@ -305,6 +312,24 @@ bot.on("message", async message => {
        await bot.channels.get("630934304393920512").send(reportEmbed);
        return message.channel.send(`:white_check_mark: Successfully reported ${String(reported_User)} for `.concat("`",`${reason}`,"`."));
    }
+    if (cmd === `${prefix}prune`){
+        if (message.member.hasPermission("MANAGE_MESSAGES")) {
+            // If there is no arguments
+            if (String(message.content.split(" ")) === `${prefix}prune`) {
+                await message.delete();
+                let richEmbed = helpBox("prune");
+                return message.channel.send(richEmbed);
+            }
+            if (isNAN(args[0])) return message.channel.send(`${message.author} :negative_squared_cross_mark: Invalid amount. Please supply a number between `.concat("`","1","` and ","`","100","`"));
+            if (Number(args[0]) > 100) return message.channel.send(`${message.author} :negative_squared_cross_mark: Invalid amount. Please supply a number between `.concat("`","1","` and ","`","100","`"));
+            message.channel.bulkDelete(args[0])
+                .then( messages => message.channel.send(`:white_check_mark: Successfully deleted \`${messages.size}/${args[0]}\` messages.`).then( msg => msg.delete({ timeout: 15 })))
+                .catch( error => message.channel.send(`Error: \`${error.message}\``));
+        }else{
+            await message.delete();
+            return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","manage_messages","` permission to execute this command."));
+        }
+    }
    if (cmd === `${prefix}version`){
         return message.channel.send("`".concat(version,"`"));
    }
