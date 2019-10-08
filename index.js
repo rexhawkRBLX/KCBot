@@ -297,13 +297,13 @@ bot.on("message", async message => {
 
        let reportEmbed = new Discord.RichEmbed()
            .setColor("#f54242")
-           .setAuthor(message.author.username.concat("#",message.author.tag),message.author.avatarURL)
+           .setAuthor(message.author.tag,message.author.avatarURL)
            .setDescription(`Reporting ${reported_User}`)
            .addField("Reason","`".concat(reason,"`"))
            .setTimestamp(message.createdAt);
        await message.delete();
        await bot.channels.get("630934304393920512").send(reportEmbed);
-       return message.channel.send(`:white_check_mark: Successfully reported ${reported_User} for `.concat("`",`${reason}`,"`."));
+       return message.channel.send(`:white_check_mark: Successfully reported ${reported_User.tag} for `.concat("`",`${reason}`,"`."));
    }
    if (cmd === `${prefix}version`){
         return message.channel.send(version);
