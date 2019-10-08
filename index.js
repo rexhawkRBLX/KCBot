@@ -294,7 +294,16 @@ bot.on("message", async message => {
        let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
        if (!reported_User) return message.channel.send("Couldn't find that user!");
        let reason = args.join(" ").slice(22);
-       await message.delete().catch(O_o=>{});
+
+       let reportEmbed = new Discord.RichEmbed()
+           .setColor("#f54242")
+           .setAuthor(message.author,message.author.avatar)
+           .setDescription(`Reporting ${reported_User}`)
+           .addField("Reason",reason)
+           .timestamp;
+       let reportsChannel = message.guild.channels.find("name","report-log");
+       await message.delete();
+       reportsChannel.send(reportEmbed);
        return message.channel.send(`:white_check_mark: Successfully reported ${reported_User} for `.concat("`",`${reason}`,"`."));
    }
 
