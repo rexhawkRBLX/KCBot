@@ -320,7 +320,7 @@ bot.on("message", async message => {
                 let richEmbed = helpBox("prune");
                 return message.channel.send(richEmbed);
             }
-            if (isNAN(args[0])) return message.channel.send(`${message.author} :negative_squared_cross_mark: Invalid amount. Please supply a number between `.concat("`","1","` and ","`","100","`"));
+            if (isNaN(args[0])) return message.channel.send(`${message.author} :negative_squared_cross_mark: Invalid amount. Please supply a number between `.concat("`","1","` and ","`","100","`"));
             if (Number(args[0]) > 100) return message.channel.send(`${message.author} :negative_squared_cross_mark: Invalid amount. Please supply a number between `.concat("`","1","` and ","`","100","`"));
             message.channel.bulkDelete(args[0])
                 .then( messages => message.channel.send(`:white_check_mark: Successfully deleted \`${messages.size}/${args[0]}\` messages.`).then( msg => msg.delete({ timeout: 15 })))
