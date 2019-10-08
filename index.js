@@ -226,7 +226,7 @@ bot.on("message", async message => {
                //.addField("Description: ","Report a member for later moderation", true)
               // .addField("Usage: ",">report [user] [reason]", true)
               // .addField("Example: ", ">report @rexhawk being too beautiful",true);
-            let arr = ["string", "string2", "string3"];
+            let arr = ["**Description: **Report a member for later moderation", "**Usage: **>report [user] [reason]", "**Example: **>report @rexhawk being too beautiful!"];
             for (let string of arr) {
                 richEmbed.setDescription(`${richEmbed.description}\n${string}`);
             }
