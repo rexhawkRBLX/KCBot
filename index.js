@@ -222,7 +222,7 @@ bot.on("message", async message => {
            let richEmbed = new Discord.RichEmbed()
 
                .setColor("#f54242")
-               .setTitle("**Command:** >Report")
+               .setTitle("**Command:** >Report");
                //.addField("Description: ","Report a member for later moderation", true)
               // .addField("Usage: ",">report [user] [reason]", true)
               // .addField("Example: ", ">report @rexhawk being too beautiful",true);
