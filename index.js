@@ -306,7 +306,9 @@ bot.on("message", async message => {
        await bot.channels.get("630934304393920512").send(reportEmbed);
        return message.channel.send(`:white_check_mark: Successfully reported ${reported_User} for `.concat("`",`${reason}`,"`."));
    }
-
+   if (cmd === `${prefix}version`){
+        return message.channel.send(version);
+   }
    if (cmd === `${prefix}serverinfo`){
        let s_icon = message.guild.iconURL;
        let server_embed = new Discord.RichEmbed()
