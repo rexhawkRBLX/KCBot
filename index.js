@@ -223,7 +223,7 @@ bot.on("message", async message => {
            let richEmbed = new Discord.RichEmbed()
                .setColor("#f54242")
                .setTitle("**Command:** >Report");
-           let array = ['msg1', 'msg2', 'msg3'];
+           let array = ["**Description: **Report a member for later moderation", "**Usage: **>report [user] [reason]", "**Example: **>report @rexhawk being too beautiful!"];
            richEmbed.setDescription(array.join('\n'));
            return message.channel.send(richEmbed);
        }
