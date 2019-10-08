@@ -217,20 +217,20 @@ bot.on("message", async message => {
     }
 
    if (cmd === `${prefix}report`){
-       if (!args)
-           await message.delete().catch(O_o=>{});
+       if (!args) {
+           await message.delete().catch(O_o => {
+           });
            let richEmbed = new Discord.RichEmbed()
-
                .setColor("#f54242")
                .setTitle("**Command:** >Report");
-               //.addField("Description: ","Report a member for later moderation", true)
-              // .addField("Usage: ",">report [user] [reason]", true)
-              // .addField("Example: ", ">report @rexhawk being too beautiful",true);
-            let arr = ["**Description: **Report a member for later moderation", "**Usage: **>report [user] [reason]", "**Example: **>report @rexhawk being too beautiful!"];
-            for (let string of arr) {
-                richEmbed.setDescription(`${richEmbed.description}\n${string}`);
-            }
+           let arr = ["**Description: **Report a member for later moderation", "**Usage: **>report [user] [reason]", "**Example: **>report @rexhawk being too beautiful!"];
+           for (let string of arr) {
+               if (string) {
+                   richEmbed.setDescription(`${richEmbed.description}\n${string}`);
+               }
+           }
            return message.channel.send(richEmbed);
+       }
        let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
        if (!reported_User) return message.channel.send("Couldn't find that user!");
        let reason = args.join(" ").slice(22);
