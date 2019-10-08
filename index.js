@@ -300,9 +300,9 @@ bot.on("message", async message => {
            .setColor("#f54242")
            .setAuthor(message.author,message.author.avatar)
            .setDescription(`Reporting ${reported_User}`)
-           .addField("Reason",reason)
-           .timestamp;
+           .addField("Reason",reason);
        await message.delete();
+       console.log(reportEmbed);
        await bot.channels.get("630934304393920512").send(reportEmbed);
        return message.channel.send(`:white_check_mark: Successfully reported ${reported_User} for `.concat("`",`${reason}`,"`."));
    }
