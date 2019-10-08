@@ -297,9 +297,9 @@ bot.on("message", async message => {
 
        let reportEmbed = new Discord.RichEmbed()
            .setColor("#f54242")
-           .setAuthor(message.author.username,message.author.avatarURL)
+           .setAuthor(message.author.username.concat("#",message.author.tag),message.author.avatarURL)
            .setDescription(`Reporting ${reported_User}`)
-           .addField("Reason",reason)
+           .addField("Reason","`".concat(reason,"`"))
            .setTimestamp(message.createdAt);
        await message.delete();
        await bot.channels.get("630934304393920512").send(reportEmbed);
