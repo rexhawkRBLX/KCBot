@@ -298,7 +298,7 @@ bot.on("message", async message => {
        let reportEmbed = new Discord.RichEmbed()
            .setTitle("Report")
            .setColor("#f54242")
-           .setAuthor(message.author,message.author.avatar)
+           .setAuthor(message.author,message.author.avatarURL)
            .setDescription(`Reporting ${reported_User}`)
            .addField("Reason",reason);
        await message.delete();
