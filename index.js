@@ -303,7 +303,7 @@ bot.on("message", async message => {
            .setTimestamp(message.createdAt);
        await message.delete();
        await bot.channels.get("630934304393920512").send(reportEmbed);
-       return message.channel.send(`:white_check_mark: Successfully reported ${reported_User.tag} for `.concat("`",`${reason}`,"`."));
+       return message.channel.send(`:white_check_mark: Successfully reported ${String(reported_User)} for `.concat("`",`${reason}`,"`."));
    }
    if (cmd === `${prefix}version`){
         return message.channel.send(version);
