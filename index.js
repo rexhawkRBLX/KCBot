@@ -296,13 +296,12 @@ bot.on("message", async message => {
        let reason = args.join(" ").slice(22);
 
        let reportEmbed = new Discord.RichEmbed()
-           .setTitle("Report")
            .setColor("#f54242")
-           .setAuthor(message.author,message.author.avatarURL)
+           .setAuthor(message.author.username,message.author.avatarURL)
            .setDescription(`Reporting ${reported_User}`)
-           .addField("Reason",reason);
+           .addField("Reason",reason)
+           .setTimestamp(message.createdAt);
        await message.delete();
-       console.log(reportEmbed);
        await bot.channels.get("630934304393920512").send(reportEmbed);
        return message.channel.send(`:white_check_mark: Successfully reported ${reported_User} for `.concat("`",`${reason}`,"`."));
    }
