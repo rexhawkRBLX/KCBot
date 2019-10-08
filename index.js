@@ -24,7 +24,7 @@ app.listen(PORT, () => {
 
 bot.on("ready", async() => {
     console.log(`${bot.user.username} is online!`);
-    bot.channels.get('592492329257140234').send('KC Bot is online back online.');
+    bot.channels.get('592492329257140234').send('KC Bot is online back online...');
     await bot.user.setActivity("King City, California", {type: "PLAYING"});
 });
 
@@ -55,11 +55,11 @@ bot.on("message", async message => {
         let rich_Embed = new Discord.RichEmbed()
             .setTitle("Game Information")
             .setThumbnail("https://cdn.discordapp.com/attachments/622223331915202560/622551240626143232/King_City_CA.png")
-            .setFooter("Additional Information can be found in the #information channel of the CHP server.")
+            .setFooter("Additional Information can be found in the #information channel of the King City server.")
             .setColor("#689ff5")
             .addField("King City Game",`[King City, California](https://www.roblox.com/games/3571375889/King-City-California)`)
             .addField("King City Groups", `[California Highway Patrol](https://www.roblox.com/groups/4876110/California-Highway-Patrol-Coastal-Division)\n[King City Police Department](https://www.roblox.com/groups/4897046/King-City-Police-Department)\n[King City Fire Department](https://www.roblox.com/groups/4898855/King-City-Fire-Department)`)
-            .addField("Discord Servers",`[California Highway Patrol](https://discord.gg/syXRhgh)\n[King City Police Department](https://discord.gg/M3WKaBe)\n[King City Fire Department](https://discord.gg/Be3uZJx)`)
+            .addField("Discord Servers",`[King City](https://discord.gg/dVtCgDh)\n[California Highway Patrol](https://discord.gg/syXRhgh)\n[King City Police Department](https://discord.gg/M3WKaBe)\n[King City Fire Department](https://discord.gg/Be3uZJx)`)
         return message.reply(rich_Embed);
     }
 
@@ -120,7 +120,7 @@ bot.on("message", async message => {
     }
 
    if (cmd === `${prefix}ban`){
-       if (message.member.hasPermission("ADMINISTRATOR")){
+       if (message.member.hasPermission("BAN MEMBERS")){
            const arguments = message.content.split(' ').slice(1);
            let member = message.mentions.members.first();
            let member_user = message.mentions.users.first();
@@ -169,7 +169,7 @@ bot.on("message", async message => {
    }
 
     if (cmd === `${prefix}kick`){
-        if (message.member.hasPermission("ADMINISTRATOR")){
+        if (message.member.hasPermission("KICK MEMBERS")){
             const arguments = message.content.split(' ').slice(1);
             let member = message.mentions.members.first();
             let member_user = message.mentions.users.first();
@@ -220,17 +220,8 @@ bot.on("message", async message => {
        let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
        if (!reported_User) return message.channel.send("Couldn't find that user!");
        let reason = args.join(" ").slice(22);
-
-       let report_Embed = new Discord.RichEmbed()
-           .setDescription("Reports")
-           .setColor("#f54242")
-           .addField("Reported User",`${reported_User} with ID: ${reported_User.id}`)
-           .addField("Report by", `${message.author} with ID: ${message.author.id}`)
-           .addField("Channel", message.channel)
-           .addField("Time", message.createdAt)
-           .addField("Reason", reason);
        await message.delete();
-       return message.channel.send(report_Embed);
+       return message.channel.send(`${message.author} :white_check_mark: Successfully reported ${reported_User} for ${reason}.`);
    }
 
    if (cmd === `${prefix}serverinfo`){
