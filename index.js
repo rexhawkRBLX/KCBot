@@ -38,10 +38,18 @@ bot.on("message", async message => {
    let args = messageArray.slice(1);
 
    function helpBox (command){
-       if (command === String("report")){
+       if (command === String("restart")){
            let richEmbed = new Discord.RichEmbed()
-               .setColor("#f54242")
-               .setTitle("**Command:** >Report")
+               .setColor("#333333")
+               .setTitle("**Command:** >restart")
+               .setFooter("Abuse of this command will result in administrative action.");
+           let array = ["**Description: **Restart bot if it is causing issues.", "**Usage: **>restart", "**Example: **>restart"];
+           richEmbed.setDescription(array.join('\n'));
+           return richEmbed;
+       } else if (command === String("report")){
+           let richEmbed = new Discord.RichEmbed()
+               .setColor("#333333")
+               .setTitle("**Command:** >report")
                .setFooter("Abuse of this command will result in administrative action.");
            let array = ["**Description: **Report a member for later moderation", "**Usage: **>report [user] [reason]", "**Example: **>report @rexhawk being too beautiful!"];
            richEmbed.setDescription(array.join('\n'));
@@ -51,22 +59,19 @@ bot.on("message", async message => {
 
    // Restart
    if (cmd === `${prefix}restart`){
-       // If there is no arguments
-      
        if (message.member.hasPermission("ADMINISTRATOR")){
-           message.channel.send(`${message.author} :white_check_mark: Initiating shutdown process...`)
+           message.channel.send(`${message.author} :white_check_mark: Initiating`.concat("`","restart","` process..."))
            .then(msg => bot.destroy())
                .then(() => bot.login(process.env.token));
            await message.delete();
            return
        } else{
            await message.delete();
-           return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
+           return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","Administrator","` permission to execute this command."));
        }
    }
 
     if (cmd === `${prefix}info`){
-
         let rich_Embed = new Discord.RichEmbed()
             .setTitle("Game Information")
             .setThumbnail("https://cdn.discordapp.com/attachments/622223331915202560/622551240626143232/King_City_CA.png")
@@ -80,15 +85,12 @@ bot.on("message", async message => {
 
     if (cmd === `${prefix}shutdown`){
         if (message.member.hasPermission("ADMINISTRATOR")){
-            message.channel.send(`${message.author} :white_check_mark: Shutting down...`);
-            if (message.author.id === "551451030471049222") {
-                message.channel.send(`Goodnight, father.`);
-            }
+            message.channel.send(`${message.author} :white_check_mark: Initiating`.concat("`","shutdown","` process..."));
             await bot.destroy();
             return
         } else{
             await message.delete();
-            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
+            return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","Administrator","` permission to execute this command."));
         }
     }
 
@@ -135,7 +137,7 @@ bot.on("message", async message => {
     }
 
    if (cmd === `${prefix}ban`){
-       if (message.member.hasPermission("BAN MEMBERS")){
+       if (message.member.hasPermission("BAN_MEMBERS")){
            const arguments = message.content.split(' ').slice(1);
            let member = message.mentions.members.first();
            let member_user = message.mentions.users.first();
@@ -184,7 +186,7 @@ bot.on("message", async message => {
    }
 
     if (cmd === `${prefix}kick`){
-        if (message.member.hasPermission("KICK MEMBERS")){
+        if (message.member.hasPermission("KICK_MEMBERS")){
             const arguments = message.content.split(' ').slice(1);
             let member = message.mentions.members.first();
             let member_user = message.mentions.users.first();
