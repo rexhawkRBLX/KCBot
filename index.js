@@ -219,14 +219,14 @@ bot.on("message", async message => {
    if (cmd === `${prefix}report`){
        if (!args)
            await message.delete().catch(O_o=>{});
-            let richEmbed = new Discord.RichEmbed()
-                .setColor("#f54242")
-                .setTitle("**Command:** >Report")
-                .addField("Description: ","Report a member for later moderation", true)
-                .addField("Usage: ",">report [user] [reason]", true)
-                .addField("Example: ", ">report @rexhawk being too beautiful",true);
-             return message.channel.send(richEmbed);
-       let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]) || message.guild.members.);
+           let richEmbed = new Discord.RichEmbed()
+               .setColor("#f54242")
+               .setTitle("**Command:** >Report")
+               .addField("Description: ","Report a member for later moderation", true)
+               .addField("Usage: ",">report [user] [reason]", true)
+               .addField("Example: ", ">report @rexhawk being too beautiful",true);
+           return message.channel.send(richEmbed);
+       let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
        if (!reported_User) return message.channel.send("Couldn't find that user!");
        let reason = args.join(" ").slice(22);
        await message.delete().catch(O_o=>{});
