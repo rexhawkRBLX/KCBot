@@ -7,7 +7,7 @@ const bot_token = process.env.token;
 const PORT = process.env.PORT || 3000;
 const app = express();
 const bot = new Discord.Client({disableEveryone: true});
-const modlogChannelID = '606575885906083901';
+const modlogChannelID = '592492329257140234';
 const roblox = require('noblox.js');
 
 let groupId = 4876110;
@@ -217,10 +217,19 @@ bot.on("message", async message => {
     }
 
    if (cmd === `${prefix}report`){
-       let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+       if (!args)
+           await message.delete().catch(O_o=>{});
+            let richEmbed = new Discord.RichEmbed()
+                .setColor("#f54242")
+                .setTitle("**Command:** >Report")
+                .addField("Description: ","Report a member for later moderation", true)
+                .addField("Usage: ",">report [user] [reason]", true)
+                .addField("Example: ", ">report @rexhawk being too beautiful",true);
+             return message.channel.send(richEmbed);
+       let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]) || message.guild.members.);
        if (!reported_User) return message.channel.send("Couldn't find that user!");
        let reason = args.join(" ").slice(22);
-       await message.delete();
+       await message.delete().catch(O_o=>{});
        return message.channel.send(`${message.author} :white_check_mark: Successfully reported ${reported_User} for ${reason}.`);
    }
 
