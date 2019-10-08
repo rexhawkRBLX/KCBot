@@ -37,7 +37,22 @@ bot.on("message", async message => {
    let cmd = messageArray[0].toLowerCase();
    let args = messageArray.slice(1);
 
+   function helpBox (command){
+       if (command === String("report")){
+           let richEmbed = new Discord.RichEmbed()
+               .setColor("#f54242")
+               .setTitle("**Command:** >Report")
+               .setFooter("Abuse of this command will result in administrative action.");
+           let array = ["**Description: **Report a member for later moderation", "**Usage: **>report [user] [reason]", "**Example: **>report @rexhawk being too beautiful!"];
+           richEmbed.setDescription(array.join('\n'));
+           return richEmbed;
+       }
+   }
+
+   // Restart
    if (cmd === `${prefix}restart`){
+       // If there is no arguments
+      
        if (message.member.hasPermission("ADMINISTRATOR")){
            message.channel.send(`${message.author} :white_check_mark: Initiating shutdown process...`)
            .then(msg => bot.destroy())
@@ -217,14 +232,10 @@ bot.on("message", async message => {
     }
 
    if (cmd === `${prefix}report`){
+       // If there is no arguments
        if (String(message.content.split(" ")) === `${prefix}report`) {
            await message.delete();
-           let richEmbed = new Discord.RichEmbed()
-               .setColor("#f54242")
-               .setTitle("**Command:** >Report")
-               .setFooter("Abuse of this command will result in administrative action.");
-           let array = ["**Description: **Report a member for later moderation", "**Usage: **>report [user] [reason]", "**Example: **>report @rexhawk being too beautiful!"];
-           richEmbed.setDescription(array.join('\n'));
+           let richEmbed = helpBox("report");
            return message.channel.send(richEmbed);
        }
        let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
