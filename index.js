@@ -217,6 +217,7 @@ bot.on("message", async message => {
     }
 
    if (cmd === `${prefix}report`){
+       console.log(message.content.split(" ").slice(0));
        if (message.content.split(" ").slice(0) === cmd) {
            await message.delete().catch(O_o => {
            });
