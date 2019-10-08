@@ -230,7 +230,7 @@ bot.on("message", async message => {
        if (!reported_User) return message.channel.send("Couldn't find that user!");
        let reason = args.join(" ").slice(22);
        await message.delete().catch(O_o=>{});
-       return message.channel.send(`${message.author} :white_check_mark: Successfully reported ${reported_User} for ` + ``${reason}``);
+       return message.channel.send(`${message.author} :white_check_mark: Successfully reported ${reported_User} for ` + "`" + ${reason} + "`");
    }
 
    if (cmd === `${prefix}serverinfo`){
