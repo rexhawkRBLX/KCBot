@@ -5,9 +5,9 @@ const Discord = require("discord.js");
 const PORT = process.env.PORT || 3000;
 const app = require("express")();
 const bot = new Discord.Client({disableEveryone: true});
-const roblox = require('noblox.js');
-const version = "v".concat("1.1.12");
+const version = "v".concat("1.1.15");
 const prefix = bot_config.prefix;
+let activity = "King City, California";
 
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
@@ -18,10 +18,14 @@ bot.on("ready", async() => {
     // Set Activity
     function setActivity() {
         setInterval(function () {
-            let actions = ["King City, California", "KC, California | >help"];
-            bot.user.setActivity(actions[Math.floor(actions.length * Math.random())], {type: "PLAYING"});
-            console.log("set activity");
-        }, 30000); // every 30 seconds
+            if (activity === "King City, California") {
+                bot.user.setActivity("King City, California", {type: "PLAYING"});
+                activity = "KC, California | >help";
+            } else if (activity === "KC, California | >help") {
+                bot.user.setActivity("KC, California | >help", {type: "PLAYING"});
+                activity = "King City, California";
+            }
+        }, 15000); // every 15 seconds
     }
     setActivity(); // Set activity to bot
 });
