@@ -325,12 +325,18 @@ bot.on("message", async message => {
 
     // Bot Info
     if (cmd === `${prefix}bot_info`){
+        let date = new Date,
+            dateformat = [date.getMonth()+1,
+                date.getDate(),
+                date.getFullYear()].join('/')+' '+[date.getHours(),
+                date.getMinutes(),
+                date.getSeconds()].join(':');
         let bot_embed = new Discord.RichEmbed()
             .setTitle("Bot Information")
 
             .setAuthor(bot.user.tag,bot.user.avatarURL)
-            .addField("Bot Name", bot.user.username)
-            .addField("Created on", `${bot.user.createdAt.getDate()} by rexhawk 2019`);
+            .addField("Bot Name", bot.user.username,true)
+            .addField("Created on", `${dateformat} by rexhawk 2019`,true);
         await message.delete();
         return message.channel.send(bot_embed);
     }
