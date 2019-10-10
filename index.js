@@ -398,7 +398,7 @@ bot.on("message", async message => {
             return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
         }
     }
-});
+}
 
 
 // Prevent exit 143 (Idle exit)
