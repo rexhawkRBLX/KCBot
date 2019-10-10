@@ -309,16 +309,19 @@ bot.on("message", async message => {
 
    // Server Info
    if (cmd === `${prefix}serverinfo`){
+       let dateformat = [message.guild.createdAt.getMonth()+1,
+           message.guild.createdAt.getDate(),
+           message.guild.createdAt.getFullYear()].join('/');
        let server_embed = new Discord.RichEmbed()
            .addField("Server Owner",message.guild.ownerID,true)
            .addField("Humans",message.guild.members.filter(member => !member.user.bot).size,true)
            .addField("Bots",message.guild.members.filter(member => member.user.bot).size,true)
-           .addField("Text Channels",message.guild.channels.size,true)
+           .addField("Text Channels",message.guild.channels.size,false)
            .addField("Text Channels",message.guild.roles.size,true)
-           .addField("Amount of members",message.guild.memberCount)
-           .addField("Creation date",message.guild.createdAt.getDate(),true)
+           .addField("Amount of members",message.guild.memberCount,true)
+           .setFooter(`${message.guild.id} • Created on ${dateformat}`)
            .setColor("#689FF5")
-           .setAuthor(message.guild.name,bot.user.avatarURL)
+           .setAuthor(message.guild.name,bot.user.avatarURL);
        await message.delete();
        return message.channel.send(server_embed);
    }
