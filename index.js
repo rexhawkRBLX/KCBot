@@ -313,7 +313,7 @@ bot.on("message", async message => {
            message.guild.createdAt.getDate(),
            message.guild.createdAt.getFullYear()].join('/');
        let server_embed = new Discord.RichEmbed()
-           .addField("Server Owner",message.guild.ownerID,true)
+           .addField("Server Owner",message.guild.owner.user.tag,true)
            .addField("Humans",message.guild.members.filter(member => !member.user.bot).size,true)
            .addField("Bots",message.guild.members.filter(member => member.user.bot).size,true)
            .addField("Total members",message.guild.memberCount,true)
