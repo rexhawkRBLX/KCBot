@@ -203,7 +203,9 @@ bot.on("message", async message => {
            return message.reply(`:negative_squared_cross_mark: error: \`permission(s): ban_members needed\``);
        }
     }
-
+    if (cmd === `${prefix}help`){
+        return await message.channel.send("This feature is coming soon.. hang in there!");
+    }
     // Kick
     if (cmd === `${prefix}kick`){
         if (message.member.hasPermission("KICK_MEMBERS")){
@@ -327,7 +329,7 @@ bot.on("message", async message => {
    }
 
     // Bot Info
-    if (cmd === `${prefix}bot_info`){
+    if (cmd === `${prefix}botinfo`){
         let dateformat = [bot.user.createdAt.getMonth()+1,
             bot.user.createdAt.getDate(),
             bot.user.createdAt.getFullYear()].join('/');
