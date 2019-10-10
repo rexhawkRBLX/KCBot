@@ -366,11 +366,11 @@ bot.on("message", async message => {
                 return message.channel.send(bot_embed);
             }else {
                 await message.delete();
-                return message.reply(`${errorMsg} error: \`permission(s): kick_members, ban_members needed\``);
+                return message.reply(`${errorMsg.toString()} error: \`permission(s): kick_members, ban_members needed\``);
             }
         }else {
             await message.delete();
-            return message.reply(`${errorMsg} error: \`permission(s): kick_members, ban_members needed\``);
+            return message.reply(`${errorMsg.toString()} error: \`permission(s): kick_members, ban_members needed\``);
         }
     }}
 
