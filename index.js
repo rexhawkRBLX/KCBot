@@ -15,6 +15,14 @@ app.listen(PORT, () => {
 
 bot.on("ready", async() => {
     bot.channels.get('592492329257140234').send(`KC Bot is online back online running on port \`${PORT}\``);
+    // Set Activity
+    function setActivity() {
+        setInterval(function () {
+            let actions = ["King City, California", "KC, California | >help"];
+            bot.user.setActivity(actions[Math.floor(actions.length * Math.random())], {type: "PLAYING"});
+        }, 30); // every 30 seconds
+    }
+    setActivity(); // Set activity to bot
 });
 
 bot.on("message", async message => {
@@ -422,16 +430,9 @@ function startKeepAlive() {
         });
     }, 20 * 60 * 1000); // load every 20 minutes
 }
-// Set Activity
-function setActivity() {
-    setInterval(function () {
-        let actions = ["King City, California", "KC, California | >help"];
-        bot.user.setActivity(actions[Math.floor(actions.length * Math.random())], {type: "PLAYING"});
-    }, 30); // every 30 seconds
-}
 
 
 startKeepAlive(); // Keep from idling
-setActivity(); // Set activity to bot
+
 
 bot.login(process.env.token).catch(err => console.log(err));
