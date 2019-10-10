@@ -126,7 +126,7 @@ bot.on("message", async message => {
                return
          } else{
              await message.delete();
-             return message.reply(`:negative_squared_cross_mark: You must have the \`Administrator\` permission to execute this command.`);
+             return message.reply(`:KCError: You must have the \`Administrator\` permission to execute this command.`);
          }
     }
 
@@ -151,7 +151,7 @@ bot.on("message", async message => {
             return
         } else{
             await message.delete();
-            return message.reply(`:negative_squared_cross_mark: You must have the \`Administrator\` permission to execute this command.`);
+            return message.reply(`:KCError: You must have the \`Administrator\` permission to execute this command.`);
         }
     }
 
@@ -172,16 +172,16 @@ bot.on("message", async message => {
 
            if (!member) {
                try {
-                   if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) await message.reply(":negative_squared_cross_mark: error: \`user not found\`");
+                   if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) await message.reply(":KCError: error: \`user not found\`");
                    member = message.guild.members.get(arguments.slice(0, 1).join(' '));
                    member = member.user;
                } catch (error) {
-                   return await message.reply(":negative_squared_cross_mark: error: \`user not found\`");
+                   return await message.reply(":KCError: error: \`user not found\`");
                }
            }
-           if (member === message.author) return message.reply(":negative_squared_cross_mark: error: \`you cannot ban yourself.\`");
-           if (!banReason) return message.reply(':negative_squared_cross_mark: error: \`invalid reason\`');
-           if (!message.guild.member(member).bannable) return message.reply(":negative_squared_cross_mark: error: \`sufficient permissions\`");
+           if (member === message.author) return message.reply(":KCError: error: \`you cannot ban yourself.\`");
+           if (!banReason) return message.reply(':KCError: error: \`invalid reason\`');
+           if (!message.guild.member(member).bannable) return message.reply(":KCError: error: \`sufficient permissions\`");
 
            await member.send(`You have been banned from ${message.guild.name} for the following reason(s): ${banReason}`);
            await member.ban(banReason);
@@ -204,7 +204,7 @@ bot.on("message", async message => {
            await message.delete();
        } else{
            await message.delete();
-           return message.reply(`:negative_squared_cross_mark: error: \`permission(s): ban_members needed\``);
+           return message.reply(`:KCError: error: \`permission(s): ban_members needed\``);
        }
     }
     if (cmd === `${prefix}help`){
@@ -227,16 +227,16 @@ bot.on("message", async message => {
 
             if (!member) {
                 try {
-                    if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) await message.reply(":negative_squared_cross_mark: error: \`user not found\`");
+                    if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) await message.reply(":KCError: error: \`user not found\`");
                     member = message.guild.members.get(arguments.slice(0, 1).join(' '));
                     member = member.user;
                 } catch (error) {
-                    return await message.reply(":negative_squared_cross_mark: error: \`user not found\`");
+                    return await message.reply(":KCError: error: \`user not found\`");
                 }
             }
-            if (member === message.author) return message.reply(":negative_squared_cross_mark: error: \`you cannot kick yourself.\`");
-            if (!kickReason) return message.reply(':negative_squared_cross_mark: error: \`invalid reason\`');
-            if (!message.guild.member(member).bannable) return message.reply(":negative_squared_cross_mark: error: \`sufficient permissions\`");
+            if (member === message.author) return message.reply(":KCError: error: \`you cannot kick yourself.\`");
+            if (!kickReason) return message.reply(':KCError: error: \`invalid reason\`');
+            if (!message.guild.member(member).bannable) return message.reply(":KCError: error: \`sufficient permissions\`");
 
             await member.send(`You have been kicked from ${message.guild.name} for the following reason(s): ${kickReason}. You may rejoin with this [link](${getServer(message,"invite")})`);
             await member.kick(kickReason);
@@ -259,7 +259,7 @@ bot.on("message", async message => {
             await message.delete();
         } else{
             await message.delete();
-            return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members needed\``);
+            return message.reply(`:KCError: error: \`permission(s): kick_members needed\``);
         }
     }
 
@@ -275,7 +275,7 @@ bot.on("message", async message => {
            return message.channel.send(richEmbed);
        }
 
-       if (!reported_User) return message.channel.send(`:negative_squared_cross_mark: error: \`user not found\` `);
+       if (!reported_User) return message.channel.send(`:KCError: error: \`user not found\` `);
 
        let reportEmbed = new Discord.RichEmbed()
            .setColor("#f54242")
@@ -297,14 +297,14 @@ bot.on("message", async message => {
                 let richEmbed = helpBox("prune");
                 return message.channel.send(richEmbed);
             }
-            if (isNaN(args[0])) return message.reply(`:negative_squared_cross_mark: Invalid amount. Please supply a number between \`1\` and \`100\``);
-            if (Number(args[0]) > 100) return message.reply(`:negative_squared_cross_mark: Invalid amount. Please supply a number between \`1\` and \`100\``);
+            if (isNaN(args[0])) return message.reply(`:KCError: Invalid amount. Please supply a number between \`1\` and \`100\``);
+            if (Number(args[0]) > 100) return message.reply(`:KCError: Invalid amount. Please supply a number between \`1\` and \`100\``);
             await message.delete();
             message.channel.bulkDelete(args[0])
                 .catch( error => message.channel.send(`Error: \`${error.message}\``));
         }else{
             await message.delete();
-            return message.reply(`:negative_squared_cross_mark: error: \`permission(s): manage_messages needed\``);
+            return message.reply(`:KCError: error: \`permission(s): manage_messages needed\``);
         }
    }
 
@@ -365,11 +365,11 @@ bot.on("message", async message => {
                 return message.channel.send(bot_embed);
             }else {
                 await message.delete();
-                return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
+                return message.reply(`:KCError: error: \`permission(s): kick_members, ban_members needed\``);
             }
         }else {
             await message.delete();
-            return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
+            return message.reply(`:KCError: error: \`permission(s): kick_members, ban_members needed\``);
         }
     }}
 
@@ -392,11 +392,11 @@ bot.on("message", async message => {
                 return message.channel.send(bot_embed);
             } else {
                 await message.delete();
-                return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
+                return message.reply(`:KCError: error: \`permission(s): kick_members, ban_members needed\``);
             }
         } else {
             await message.delete();
-            return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
+            return message.reply(`:KCError: error: \`permission(s): kick_members, ban_members needed\``);
         }
     }
     if (cmd === `${prefix}talk`) {
@@ -413,11 +413,11 @@ bot.on("message", async message => {
                 return message.channel.send(localArgs.join(' '));
             } else {
                 await message.delete();
-                return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
+                return message.reply(`:KCError: error: \`permission(s): kick_members, ban_members needed\``);
             }
         } else {
             await message.delete();
-            return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
+            return message.reply(`:KCError: error: \`permission(s): kick_members, ban_members needed\``);
         }
     }
 });
