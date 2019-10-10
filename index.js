@@ -37,6 +37,14 @@ bot.on("message", async message => {
    let cmd = messageArray[0].toLowerCase();
    let args = messageArray.slice(1);
 
+   function getServer(message){
+       if (message.guild.id === "621475864546115611") {
+            return "631668484073455645";
+       } else if (message.guild.id === "569636982528016425") {
+            return "630934304393920512";
+       }
+   }
+
    function helpBox (command){
        if (command === String("role")){
            let richEmbed = new Discord.RichEmbed()
@@ -137,6 +145,7 @@ bot.on("message", async message => {
 
     if (cmd === `${prefix}role`){
         if (message.member.hasPermission("ADMINISTRATOR")){
+
             // If there is no arguments
             if (String(message.content.split(" ")) === `${prefix}role`) {
                 await message.delete();
@@ -309,7 +318,7 @@ bot.on("message", async message => {
            .addField("Reason","`".concat(reason,"`"))
            .setTimestamp(message.createdAt);
        await message.delete();
-       await bot.channels.get("630934304393920512").send(reportEmbed);
+       await bot.channels.get(getServer(message)).send(reportEmbed);
        return message.channel.send(`:white_check_mark: Successfully reported ${String(reported_User)} for `.concat("`",`${reason}`,"`."));
    }
     if (cmd === `${prefix}prune`){
