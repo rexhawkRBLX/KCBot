@@ -20,6 +20,7 @@ bot.on("ready", async() => {
         setInterval(function () {
             let actions = ["King City, California", "KC, California | >help"];
             bot.user.setActivity(actions[Math.floor(actions.length * Math.random())], {type: "PLAYING"});
+            console.log("set activity");
         }, 30); // every 30 seconds
     }
     setActivity(); // Set activity to bot
