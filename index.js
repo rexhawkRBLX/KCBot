@@ -336,7 +336,8 @@ bot.on("message", async message => {
             .addField("Bot Name", bot.user.username,true)
             .addField("Created on", `${dateformat}`,true)
             .addField("Number of commands","13",true)
-            .setFooter(`${bot.user.id} • by rexhawk#0132`);
+            .setFooter(`${bot.user.id} • by rexhawk#0132`)
+            .setColor("#689FF5");
         await message.delete();
         return message.channel.send(bot_embed);
     }
