@@ -316,7 +316,7 @@ bot.on("message", async message => {
            .addField("Server Owner",message.guild.ownerID,true)
            .addField("Humans",message.guild.members.filter(member => !member.user.bot).size,true)
            .addField("Bots",message.guild.members.filter(member => member.user.bot).size,true)
-           .addField("Text Channels",message.guild.channels.size,false)
+           .addField("Text Channels",message.guild.channels.size,true)
            .addField("Text Channels",message.guild.roles.size,true)
            .addField("Amount of members",message.guild.memberCount,true)
            .setFooter(`${message.guild.id} • Created on ${dateformat}`)
