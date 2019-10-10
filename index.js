@@ -1,59 +1,52 @@
 const http = require("http");
 
 const bot_config = require("./botconfig.json");
-const express = require("express");
 const Discord = require("discord.js");
-const bot_token = process.env.token;
 const PORT = process.env.PORT || 3000;
-const app = express();
+const app = require("express")();
 const bot = new Discord.Client({disableEveryone: true});
-const modlogChannelID = '592492329257140234';
 const roblox = require('noblox.js');
-const version = "v".concat("1");
-let groupId = 4876110;
-let maximumRank = 252;
+const version = "v".concat("1.1.12");
+const prefix = bot_config.prefix;
 
-let cookie = process.env.rblxCookie;
-
-function login() {
-    return roblox.cookieLogin(cookie);
-}
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
 });
 
 bot.on("ready", async() => {
-    console.log(`${bot.user.username} is online!`);
-    bot.channels.get('592492329257140234').send('KC Bot is online back online...');
-    await bot.user.setActivity("King City, California", {type: "PLAYING"});
+    bot.channels.get('592492329257140234').send(`KC Bot is online back online running on port \`${PORT}\``);
 });
 
 bot.on("message", async message => {
    if (message.author.bot) return;
    if (message.channel.type === "dm") return;
-
-   let prefix = bot_config.prefix;
    let messageArray = message.content.split(" ");
    let cmd = messageArray[0].toLowerCase();
    let args = messageArray.slice(1);
-
-   function getServer(message){
-       if (message.guild.id === "621475864546115611") {
-            return "631668484073455645";
-       } else if (message.guild.id === "569636982528016425") {
-            return "630934304393920512";
+   // Functions
+   function getServer(message,type){
+       if (type === "report") {
+           if (message.guild.id === "621475864546115611") {
+               return "631668484073455645";
+           } else if (message.guild.id === "569636982528016425") {
+               return "630934304393920512";
+           }
+       } else if (type === "log") {
+           if (message.guild.id === "621475864546115611") {
+               return "622224689309155338";
+           } else if (message.guild.id === "569636982528016425") {
+               return "592492329257140234";
+           }
+       }  else if (type === "invite") {
+           if (message.guild.id === "621475864546115611") {
+               return "https://discord.gg/dVtCgDh";
+           } else if (message.guild.id === "569636982528016425") {
+               return "https://discord.gg/syXRhgh";
+           }
        }
    }
-
    function helpBox (command){
-       if (command === String("role")){
-           let richEmbed = new Discord.RichEmbed()
-               .setColor("#333333")
-               .setTitle("**Command:** >role");
-           let array = ["**Description: **Role a player in the group straight from discord", "**Usage: **>role [username] [rank]", "**Example: **>role rexhawk 240"];
-           richEmbed.setDescription(array.join('\n'));
-           return richEmbed;
-       } else if (command === String("report")){
+      if (command === String("report")){
            let richEmbed = new Discord.RichEmbed()
                .setColor("#333333")
                .setTitle("**Command:** >report")
@@ -106,20 +99,25 @@ bot.on("message", async message => {
        }
    }
 
-   // Restart
-   if (cmd === `${prefix}restart`){
-       if (message.member.hasPermission("ADMINISTRATOR")){
-           message.channel.send(`${message.author} :white_check_mark: Initiating`.concat("`","restart","` process..."))
-           .then(msg => bot.destroy())
-               .then(() => bot.login(process.env.token));
-           await message.delete();
-           return
-       } else{
-           await message.delete();
-           return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","Administrator","` permission to execute this command."));
-       }
-   }
 
+   // Commands
+
+
+   // Restart
+    if (cmd === `${prefix}restart`){
+         if (message.member.hasPermission("ADMINISTRATOR")){
+               message.channel.send(`${message.author} :white_check_mark: Initiating \`restart\` process...`)
+                   .then(msg => bot.destroy())
+                   .then(() => bot.login(process.env.token));
+               await message.delete();
+               return
+         } else{
+             await message.delete();
+             return message.reply(`:negative_squared_cross_mark: You must have the \`Administrator\` permission to execute this command.`);
+         }
+    }
+
+    // Info
     if (cmd === `${prefix}info`){
         let rich_Embed = new Discord.RichEmbed()
             .setTitle("Game Information")
@@ -132,184 +130,137 @@ bot.on("message", async message => {
         return message.reply(rich_Embed);
     }
 
+    // Shutdown
     if (cmd === `${prefix}shutdown`){
         if (message.member.hasPermission("ADMINISTRATOR")){
-            message.channel.send(`${message.author} :white_check_mark: Initiating`.concat("`","shutdown","` process..."));
+            await message.reply(`:white_check_mark: Initiating \`shutdown\` process...`);
             await bot.destroy();
             return
         } else{
             await message.delete();
-            return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","Administrator","` permission to execute this command."));
+            return message.reply(`:negative_squared_cross_mark: You must have the \`Administrator\` permission to execute this command.`);
         }
     }
 
-    if (cmd === `${prefix}role`){
-        if (message.member.hasPermission("ADMINISTRATOR")){
-
-            // If there is no arguments
-            if (String(message.content.split(" ")) === `${prefix}role`) {
-                await message.delete();
-                let richEmbed = helpBox("role");
-                return message.channel.send(richEmbed);
-            }
-            let localArgs = messageArray.slice(1);
-            let username = localArgs[0];
-            let rankIdentifier = localArgs[1];
-            await roblox.cookieLogin(cookie);
-            await roblox.getCurrentUser();
-            if (!rankIdentifier) return message.channel.send("Please enter a rank");
-            if (username) {
-                roblox.getIdFromUsername(username)
-                    .then(function (id) {
-                        roblox.getRankInGroup(groupId, id)
-                            .then(function (rank) {
-                            if (maximumRank <= rank) {
-                                message.channel.send(`${id} is rank ${rank} and not promotable.`);
-                            } else {
-                                roblox.setRank(Number(groupId), Number(id), rankIdentifier)
-                                    .then(function(newRole){
-                                        message.channel.send(`Changed rank to ${newRole.name}`)
-                                    }).catch(function (err) {
-                                    console.error(err);
-                                    message.channel.send(`Failed to change rank. ${err}`)
-                                });
-                            }
-                        }).catch(function (err) {
-                            message.channel.send("Couldn't get that player in the group.")
-                        })
-                    }).catch(function (err) {
-                    message.channel.send(`Sorry, but ${username} doesn't exist on ROBLOX.`)
-                });
-            } else {
-                message.channel.send("Please enter a username.")
-            }
-
-            return;
-        } else{
-            await message.delete();
-            return message.channel.send(`${message.author} :x: You don't have the permission to execute this command.`);
-        }
-    }
-
-   if (cmd === `${prefix}ban`){
+    // Ban
+    if (cmd === `${prefix}ban`){
        if (message.member.hasPermission("BAN_MEMBERS")){
+           const arguments = message.content.split(' ').slice(1);
+           const member_user = message.mentions.users.first();
+           const banReason = arguments.slice(1).join(' ');
+           let member = message.mentions.members.first();
+
            // If there is no arguments
            if (String(message.content.split(" ")) === `${prefix}ban`) {
                await message.delete();
                let richEmbed = helpBox("ban");
                return message.channel.send(richEmbed);
            }
-           const arguments = message.content.split(' ').slice(1);
-           let member = message.mentions.members.first();
-           let member_user = message.mentions.users.first();
-           const banReason = arguments.slice(1).join(' ');
+
            if (!member) {
                try {
-                   if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) throw new Error(":negative_squared_cross_mark: Couldn't get a Discord user with this userID");
+                   if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) await message.reply(":negative_squared_cross_mark: error: \`user not found\`");
                    member = message.guild.members.get(arguments.slice(0, 1).join(' '));
                    member = member.user;
                } catch (error) {
-                   return await message.reply(":negative_squared_cross_mark: Couldn't get a Discord user with this userID");
+                   return await message.reply(":negative_squared_cross_mark: error: \`user not found\`");
                }
            }
-           if (member === message.author) return message.channel.send("You can't ban yourself... :unamused:");
-           if (!banReason) return message.reply('You forgot to enter a reason for this ban');
-           if (!message.guild.member(member).bannable) return message.reply("You can't ban this user because the bot does not have sufficient permissions");
+           if (member === message.author) return message.reply(":negative_squared_cross_mark: error: \`you cannot ban yourself.\`");
+           if (!banReason) return message.reply(':negative_squared_cross_mark: error: \`invalid reason\`');
+           if (!message.guild.member(member).bannable) return message.reply(":negative_squared_cross_mark: error: \`sufficient permissions\`");
 
            await member.send(`You have been banned from ${message.guild.name} for the following reason(s): ${banReason}`);
            await member.ban(banReason);
 
-
            const banConfirmationEmbed = new Discord.RichEmbed()
-               .setColor('RED')
-               .setDescription(`:white_check_mark: `.concat("`",`${member_user.tag}`,"` has been successfully banned!"));
-           message.channel.send({
-               embed: banConfirmationEmbed
-           });
+               .setColor('#f54242')
+               .setDescription(`:white_check_mark: \`${member_user.tag}\` has been successfully banned`);
+           await message.channel.send(banConfirmationEmbed);
 
-           if (modlogChannelID.length !== 0) {
-               if (!bot.channels.get(modlogChannelID )) return undefined;
-               const banConfirmationEmbedModlog = new Discord.RichEmbed()
+           if (getServer(message,"log").length !== 0) {
+               if (!getServer(message,"log")) return undefined;
+               let banConfirmationEmbedModlog = new Discord.RichEmbed()
                    .setAuthor(`Banned by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
                    .setThumbnail(member_user.displayAvatarURL)
-                   .setColor('RED')
-                   .setTimestamp()
+                   .setColor('#f54242')
+                   .setTimestamp(message.createdAt)
                    .setDescription(`**Action**: Ban\n**User**: ${member_user.username}#${member_user.discriminator} (${member_user.id})\n**Reason**: ${banReason}`);
-               bot.channels.get(modlogChannelID).send({
-                   embed: banConfirmationEmbedModlog
-               });
+               bot.channels.get(getServer(message,"log")).send(banConfirmationEmbedModlog);
            }
-           message.delete();
+           await message.delete();
        } else{
            await message.delete();
-           return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","ban_members","` permission to execute this command."));
+           return message.reply(`:negative_squared_cross_mark: error: \`permission(s): ban_members needed\``);
        }
-   }
+    }
 
+    // Kick
     if (cmd === `${prefix}kick`){
         if (message.member.hasPermission("KICK_MEMBERS")){
+            const arguments = message.content.split(' ').slice(1);
+            const member_user = message.mentions.users.first();
+            const kickReason = arguments.slice(1).join(' ');
+            let member = message.mentions.members.first();
+
             // If there is no arguments
             if (String(message.content.split(" ")) === `${prefix}kick`) {
                 await message.delete();
                 let richEmbed = helpBox("kick");
                 return message.channel.send(richEmbed);
             }
-            const arguments = message.content.split(' ').slice(1);
-            let member = message.mentions.members.first();
-            let member_user = message.mentions.users.first();
-            const kickReason = arguments.slice(1).join(' ');
+
             if (!member) {
                 try {
-                    if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) throw new Error("Couldn't get a Discord user with this userID");
+                    if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) await message.reply(":negative_squared_cross_mark: error: \`user not found\`");
                     member = message.guild.members.get(arguments.slice(0, 1).join(' '));
                     member = member.user;
                 } catch (error) {
-                    return await message.reply("Couldn't get a Discord user with this userID");
+                    return await message.reply(":negative_squared_cross_mark: error: \`user not found\`");
                 }
             }
-            if (member === message.author) return message.channel.send("You can't ban yourself... :unamused:");
-            if (!kickReason) return message.reply('You forgot to enter a reason for this kick');
-            if (!message.guild.member(member).kickable) return message.reply("You can't ban this user because the bot does not have sufficient permissions");
+            if (member === message.author) return message.reply(":negative_squared_cross_mark: error: \`you cannot kick yourself.\`");
+            if (!kickReason) return message.reply(':negative_squared_cross_mark: error: \`invalid reason\`');
+            if (!message.guild.member(member).bannable) return message.reply(":negative_squared_cross_mark: error: \`sufficient permissions\`");
 
-            await member.send(`You have been kick from ${message.guild.name} for the following reason(s): ${kickReason}`);
+            await member.send(`You have been kicked from ${message.guild.name} for the following reason(s): ${kickReason}. You may rejoin with this [link](${getServer(message,"invite")})`);
             await member.kick(kickReason);
 
             const kickConfirmationEmbed = new Discord.RichEmbed()
-                .setColor('RED')
-                .setDescription(`:white_check_mark: ${member_user.tag} has been successfully kicked!`);
-            message.channel.send({
-                embed: kickConfirmationEmbed
-            });
+                .setColor('#f54242')
+                .setDescription(`:white_check_mark: \`${member_user.tag}\` has been successfully kicked`);
+            await message.channel.send(kickConfirmationEmbed);
 
-            if (modlogChannelID.length !== 0) {
-                if (!bot.channels.get(modlogChannelID )) return undefined;
-                const kickConfirmationEmbedModlog = new Discord.RichEmbed()
-                    .setAuthor(`Kicked by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
+            if (getServer(message,"log").length !== 0) {
+                if (!getServer(message,"log")) return undefined;
+                let kickConfirmationEmbedModlog = new Discord.RichEmbed()
+                    .setAuthor(`Banned by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
                     .setThumbnail(member_user.displayAvatarURL)
-                    .setColor('RED')
-                    .setTimestamp()
+                    .setColor('#f54242')
+                    .setTimestamp(message.createdAt)
                     .setDescription(`**Action**: Kick\n**User**: ${member_user.username}#${member_user.discriminator} (${member_user.id})\n**Reason**: ${kickReason}`);
-                bot.channels.get(modlogChannelID).send({
-                    embed: kickConfirmationEmbedModlog
-                });
+                bot.channels.get(getServer(message,"log")).send(kickConfirmationEmbedModlog);
             }
-            message.delete();
+            await message.delete();
         } else{
             await message.delete();
-            return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","kick_members","` permission to execute this command."));
+            return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members needed\``);
         }
     }
 
+   // Report
    if (cmd === `${prefix}report`){
+       let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+       let reason = args.join(" ").slice(22);
+
        // If there is no arguments
        if (String(message.content.split(" ")) === `${prefix}report`) {
            await message.delete();
            let richEmbed = helpBox("report");
            return message.channel.send(richEmbed);
        }
-       let reported_User = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-       if (!reported_User) return message.channel.send("Couldn't find that user!");
-       let reason = args.join(" ").slice(22);
+
+       if (!reported_User) return message.channel.send(`:negative_squared_cross_mark: error: \`user not found\` `);
 
        let reportEmbed = new Discord.RichEmbed()
            .setColor("#f54242")
@@ -319,9 +270,11 @@ bot.on("message", async message => {
            .setTimestamp(message.createdAt);
        await message.delete();
        await bot.channels.get(getServer(message)).send(reportEmbed);
-       return message.channel.send(`:white_check_mark: Successfully reported ${String(reported_User)} for `.concat("`",`${reason}`,"`."));
+       return message.channel.send(`:white_check_mark: Successfully reported ${String(reported_User)} for \`${reason}\`.`);
    }
-    if (cmd === `${prefix}prune`){
+
+   // Prune
+   if (cmd === `${prefix}prune`){
         if (message.member.hasPermission("MANAGE_MESSAGES")) {
             // If there is no arguments
             if (String(message.content.split(" ")) === `${prefix}prune`) {
@@ -329,44 +282,53 @@ bot.on("message", async message => {
                 let richEmbed = helpBox("prune");
                 return message.channel.send(richEmbed);
             }
-            if (isNaN(args[0])) return message.channel.send(`${message.author} :negative_squared_cross_mark: Invalid amount. Please supply a number between `.concat("`","1","` and ","`","100","`"));
-            if (Number(args[0]) > 100) return message.channel.send(`${message.author} :negative_squared_cross_mark: Invalid amount. Please supply a number between `.concat("`","1","` and ","`","100","`"));
+            if (isNaN(args[0])) return message.reply(`:negative_squared_cross_mark: Invalid amount. Please supply a number between \`1\` and \`100\``);
+            if (Number(args[0]) > 100) return message.reply(`:negative_squared_cross_mark: Invalid amount. Please supply a number between \`1\` and \`100\``);
             await message.delete();
             message.channel.bulkDelete(args[0])
                 .catch( error => message.channel.send(`Error: \`${error.message}\``));
         }else{
             await message.delete();
-            return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","manage_messages","` permission to execute this command."));
+            return message.reply(`:negative_squared_cross_mark: error: \`permission(s): manage_messages needed\``);
         }
-    }
-   if (cmd === `${prefix}version`){
-        return message.channel.send("`".concat(version,"`"));
    }
+
+   // Version
+   if (cmd === `${prefix}version`){
+        return message.channel.send(`\`${version}\``);
+   }
+
+   // Server Info
    if (cmd === `${prefix}serverinfo`){
-       let s_icon = message.guild.iconURL;
        let server_embed = new Discord.RichEmbed()
-           .setDescription("Server Information")
-           .setColor("#f54242")
-           .setThumbnail(s_icon)
-           .addField("Server name", message.guild.name)
-           .addField("Created on", message.guild.createdAt)
-           .addField("You joined",message.member.joinedAt)
-           .addField("Total members", message.guild.memberCount);
+           .addField("Server Owner",message.guild.ownerID,true)
+           .addField("Humans",message.guild.members.filter(member => !member.user.bot).size,true)
+           .addField("Bots",message.guild.members.filter(member => member.user.bot).size,true)
+           .addField("Text Channels",message.guild.channels.size,true)
+           .addField("Text Channels",message.guild.roles.size,true)
+           .addField("Amount of members",message.guild.memberCount)
+           .addField("Creation date",message.guild.createdAt.getDate(),true)
+           .setColor("#689FF5")
+           .setAuthor(message.guild.name,bot.user.avatarURL)
        await message.delete();
        return message.channel.send(server_embed);
    }
-    if (cmd === `${prefix}botinfo`){
-        let b_icon = bot.user.displayAvatarURL;
+
+    // Bot Info
+    if (cmd === `${prefix}bot_info`){
         let bot_embed = new Discord.RichEmbed()
-            .setDescription("Bot Information")
-            .setColor("#f54242")
-            .setThumbnail(b_icon)
+            .setTitle("Bot Information")
+
+            .setAuthor(bot.user.tag,bot.user.avatarURL)
             .addField("Bot Name", bot.user.username)
-            .addField("Created on", bot.user.createdAt);
+            .addField("Created on", `${bot.user.createdAt.getDate()} by rexhawk 2019`);
         await message.delete();
         return message.channel.send(bot_embed);
     }
+
+    // Say
     if (cmd === `${prefix}say`){
+        let localArgs = messageArray.slice(2);
         if (message.member.hasPermission("KICK_MEMBERS")) {
             if (message.member.hasPermission("BAN_MEMBERS")) {
                 // If there is no arguments
@@ -374,8 +336,6 @@ bot.on("message", async message => {
                     await message.delete();
                     let richEmbed = helpBox("say");
                     return message.channel.send(richEmbed);
-                }
-                let localArgs = messageArray.slice(2);
                 let bot_embed = new Discord.RichEmbed()
                     .setColor(args[0])
                     .setDescription(localArgs.join(' '));
@@ -383,14 +343,17 @@ bot.on("message", async message => {
                 return message.channel.send(bot_embed);
             }else {
                 await message.delete();
-                return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","kick_members, ban_members","` permission to execute this command."));
+                return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
             }
         }else {
             await message.delete();
-            return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`","kick_members, ban_members","` permission to execute this command."));
+            return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
         }
     }
+
+    // Server Say
     if (cmd === `${prefix}server_say`) {
+        let localArgs = messageArray.slice(2);
         if (message.member.hasPermission("KICK_MEMBERS")) {
             if (message.member.hasPermission("BAN_MEMBERS")) {
                 // If there is no arguments
@@ -399,7 +362,6 @@ bot.on("message", async message => {
                     let richEmbed = helpBox("server_say");
                     return message.channel.send(richEmbed);
                 }
-                let localArgs = messageArray.slice(2);
                 let bot_embed = new Discord.RichEmbed()
                     .setColor(args[0])
                     .setThumbnail("https://cdn.discordapp.com/attachments/579769933219758148/605478475033346081/Icon.png")
@@ -408,14 +370,15 @@ bot.on("message", async message => {
                 return message.channel.send(bot_embed);
             } else {
                 await message.delete();
-                return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`", "kick_members, ban_members", "` permission to execute this command."));
+                return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
             }
         } else {
             await message.delete();
-            return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`", "kick_members, ban_members", "` permission to execute this command."));
+            return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
         }
     }
     if (cmd === `${prefix}talk`) {
+        let localArgs = messageArray.slice(1);
         if (message.member.hasPermission("KICK_MEMBERS")) {
             if (message.member.hasPermission("BAN_MEMBERS")) {
                 // If there is no arguments
@@ -424,23 +387,21 @@ bot.on("message", async message => {
                     let richEmbed = helpBox("talk");
                     return message.channel.send(richEmbed);
                 }
-                let localArgs = messageArray.slice(1);
                 await message.delete();
                 return message.channel.send(localArgs.join(' '));
             } else {
                 await message.delete();
-                return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`", "kick_members, ban_members", "` permission to execute this command."));
+                return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
             }
         } else {
             await message.delete();
-            return message.channel.send(`${message.author} :negative_squared_cross_mark: You must have the `.concat("`", "kick_members, ban_members", "` permission to execute this command."));
+            return message.reply(`:negative_squared_cross_mark: error: \`permission(s): kick_members, ban_members needed\``);
         }
     }
 });
 
 
 // Prevent exit 143 (Idle exit)
-
 function startKeepAlive() {
     setInterval(function() {
         let options = {
@@ -461,7 +422,16 @@ function startKeepAlive() {
         });
     }, 20 * 60 * 1000); // load every 20 minutes
 }
+// Set Activity
+function setActivity() {
+    setInterval(function () {
+        let actions = ["King City, California", "KC, California | >help"];
+        bot.user.setActivity(actions[Math.floor(actions.length * Math.random())], {type: "PLAYING"});
+    }, 30); // every 30 seconds
+}
 
 
 startKeepAlive(); // Keep from idling
-bot.login(bot_token).catch(err => console.log(err));
+setActivity(); // Set activity to bot
+
+bot.login(process.env.token).catch(err => console.log(err));
