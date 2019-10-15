@@ -423,7 +423,7 @@ bot.on("message", async message => {
     }
 
     if (cmd === `${prefix}serverphoto`) {
-        return message.reply(`${message.guild.icon}`)
+        return message.reply(`${message.guild.iconURL}`)
     }
 });
 
