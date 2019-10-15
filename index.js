@@ -421,6 +421,10 @@ bot.on("message", async message => {
             return message.reply(`${errorMsg} error: \`permission(s): kick_members, ban_members needed\``);
         }
     }
+
+    if (cmd === `${prefix}serverphoto`) {
+        return message.reply(`${message.guild.icon}`)
+    }
 });
 
 
