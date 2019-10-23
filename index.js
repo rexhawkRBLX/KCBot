@@ -352,8 +352,8 @@ bot.on("message", async message => {
     // Say
     if (cmd === `${prefix}say`){
         let localArgs = messageArray.slice(2);
-        if (message.member.hasPermission("KICK_MEMBERS")) {
-            if (message.member.hasPermission("BAN_MEMBERS")) {
+        if (message.member.hasPermission("KICK_MEMBERS") || member.member.hasPermission("ADMINISTRATOR"))  {
+            if (message.member.hasPermission("BAN_MEMBERS") || member.member.hasPermission("ADMINISTRATOR")) {
                 // If there is no arguments
                 if (String(message.content.split(" ")) === `${prefix}say`) {
                     await message.delete();
