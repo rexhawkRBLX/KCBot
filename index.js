@@ -382,7 +382,7 @@ bot.on("message", async message => {
                 return message.channel.send(richEmbed);
             }else {
                 await message.delete();
-                return message.channel.send(localArgs.join(' '));
+                await message.channel.send(localArgs.join(' '));
             }
         } else {
             await message.delete();
