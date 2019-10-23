@@ -373,7 +373,7 @@ bot.on("message", async message => {
     }
 
     if (cmd === `${prefix}talk`){
-        let localArgs = messageArray.slice(2);
+        let localArgs = messageArray.slice(1);
         if (message.member.hasPermission("MANAGE_MESSAGES"))  {
             // If there is no arguments
             if (String(message.content.split(" ")) === `${prefix}talk`) {
