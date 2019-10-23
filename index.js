@@ -14,7 +14,8 @@ app.listen(PORT, () => {
 });
 
 bot.on("ready", async() => {
-    bot.channels.get('592492329257140234').send(`KC Bot is online back online running on port \`${PORT}\``);
+
+    bot.channels.get('622224689309155338').send(`KC Bot is online back online running on port \`${PORT}\``);
     // Set Activity
     function setActivity() {
         setInterval(function () {
