@@ -135,12 +135,13 @@ bot.on("message", async message => {
     // Info
     if (cmd === `${prefix}info`){
         let rich_Embed = new Discord.RichEmbed()
-            .setTitle("Game Information")
+            .setAuthor("Game Information",bot.user.avatarURL,"https://www.roblox.com/groups/5210085/King-City-California")
             .setThumbnail("https://cdn.discordapp.com/attachments/622223331915202560/622551240626143232/King_City_CA.png")
             .setFooter("Additional Information can be found in the #information channel of the King City server.")
             .setColor("#689ff5")
             .addField("King City Groups", `[King City, California](https://www.roblox.com/groups/5210085/King-City-California)\n[California Highway Patrol](https://www.roblox.com/groups/4876110/California-Highway-Patrol-Coastal-Division)\n[King City Police Department](https://www.roblox.com/groups/4897046/King-City-Police-Department)\n[King City Fire Department](https://www.roblox.com/groups/4898855/King-City-Fire-Department)\n[King City DoPW](https://www.roblox.com/groups/5232362/King-City-Department-of-Public-Works)`,true)
             .addField("Discord Servers",`[King City, California](https://discord.gg/dVtCgDh)\n[California Highway Patrol](https://discord.gg/syXRhgh)\n[King City Police Department](https://discord.gg/M3WKaBe)\n[King City Fire Department](https://discord.gg/Be3uZJx)\n[King City DoPW](https://discord.gg/bBh4mrK)`, true)
+            .addBlankField()
             .addField("King City Game",`[King City, California](https://www.roblox.com/games/3571375889/King-City-California)`);
         return message.reply(rich_Embed);
     }
