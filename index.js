@@ -352,27 +352,24 @@ bot.on("message", async message => {
     // Say
     if (cmd === `${prefix}say`){
         let localArgs = messageArray.slice(2);
-        if (message.member.hasPermission("KICK_MEMBERS") || member.member.hasPermission("ADMINISTRATOR"))  {
-            if (message.member.hasPermission("BAN_MEMBERS") || member.member.hasPermission("ADMINISTRATOR")) {
-                // If there is no arguments
-                if (String(message.content.split(" ")) === `${prefix}say`) {
-                    await message.delete();
-                    let richEmbed = helpBox("say");
-                    return message.channel.send(richEmbed);
+        if (message.member.hasPermission("MANAGE_MESSAGES"))  {
+            // If there is no arguments
+            if (String(message.content.split(" ")) === `${prefix}say`) {
+                await message.delete();
+                let richEmbed = helpBox("say");
+                return message.channel.send(richEmbed);
+            }else {
                 let bot_embed = new Discord.RichEmbed()
                     .setColor(args[0])
                     .setDescription(localArgs.join(' '));
                 await message.delete();
                 return message.channel.send(bot_embed);
-            }else {
-                await message.delete();
-                return message.reply(`${String(errorMsg)} error: \`permission(s): kick_members, ban_members needed\``);
             }
-        }else {
+        } else {
             await message.delete();
-            return message.reply(`${String(errorMsg)} error: \`permission(s): kick_members, ban_members needed\``);
+            return message.reply(`${errorMsg} error: \`permission(s): kick_members, ban_members needed\``);
         }
-    }}
+    }
 
     // Server Say
     if (cmd === `${prefix}server_say`) {
