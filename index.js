@@ -131,9 +131,7 @@ bot.on("message", async message => {
              return message.reply(`**ERROR**: You must have the \`ADMINISTRATOR\` permission to execute this command.`);
          }
     }
-    if (cmd === `${prefix}who'scool`){
-        return message.reply(`rexhawk is cool. Nickiy6666 is not.`);
-    }
+
     // Info
     if (cmd === `${prefix}info`){
         let rich_Embed = new Discord.RichEmbed()
