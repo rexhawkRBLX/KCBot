@@ -367,55 +367,25 @@ bot.on("message", async message => {
             }
         } else {
             await message.delete();
-            return message.reply(`**ERROR**: \`permission(s): kick_members, ban_members\` needed`);
+            return message.reply(`**ERROR**: \`permission(s): MANAGE_MESSAGES\` needed`);
         }
     }
 
-    // Server Say
-    if (cmd === `${prefix}server_say`) {
+    if (cmd === `${prefix}talk`){
         let localArgs = messageArray.slice(2);
-        if (message.member.hasPermission("KICK_MEMBERS")) {
-            if (message.member.hasPermission("BAN_MEMBERS")) {
-                // If there is no arguments
-                if (String(message.content.split(" ")) === `${prefix}server_say`) {
-                    await message.delete();
-                    let richEmbed = helpBox("server_say");
-                    return message.channel.send(richEmbed);
-                }
-                let bot_embed = new Discord.RichEmbed()
-                    .setColor(args[0])
-                    .setThumbnail("https://cdn.discordapp.com/attachments/579769933219758148/605478475033346081/Icon.png")
-                    .setDescription(localArgs.join(' '));
+        if (message.member.hasPermission("MANAGE_MESSAGES"))  {
+            // If there is no arguments
+            if (String(message.content.split(" ")) === `${prefix}talk`) {
                 await message.delete();
-                return message.channel.send(bot_embed);
-            } else {
-                await message.delete();
-                return message.reply(`**ERROR**: \`permission(s): kick_members, ban_members\` needed`);
-            }
-        } else {
-            await message.delete();
-            return message.reply(`**ERROR**: \`permission(s): kick_members, ban_members\` needed`);
-        }
-    }
-    if (cmd === `${prefix}talk`) {
-        let localArgs = messageArray.slice(1);
-        if (message.member.hasPermission("KICK_MEMBERS")) {
-            if (message.member.hasPermission("BAN_MEMBERS")) {
-                // If there is no arguments
-                if (String(message.content.split(" ")) === `${prefix}talk`) {
-                    await message.delete();
-                    let richEmbed = helpBox("talk");
-                    return message.channel.send(richEmbed);
-                }
+                let richEmbed = helpBox("talk");
+                return message.channel.send(richEmbed);
+            }else {
                 await message.delete();
                 return message.channel.send(localArgs.join(' '));
-            } else {
-                await message.delete();
-                return message.reply(`**ERROR**: \`permission(s): kick_members, ban_members\` needed`);
             }
         } else {
             await message.delete();
-            return message.reply(`**ERROR**: \`permission(s): kick_members, ban_members\` needed`);
+            return message.reply(`**ERROR**: \`permission(s): MANAGE_MESSAGES\` needed`);
         }
     }
 
