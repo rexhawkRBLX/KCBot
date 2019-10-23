@@ -127,7 +127,7 @@ bot.on("message", async message => {
                return
          } else{
              await message.delete();
-             return message.reply(`${errorMsg} You must have the \`Administrator\` permission to execute this command.`);
+             return message.reply(`**ERROR**: You must have the \`ADMINISTRATOR\` permission to execute this command.`);
          }
     }
 
@@ -152,7 +152,7 @@ bot.on("message", async message => {
             return
         } else{
             await message.delete();
-            return message.reply(`${errorMsg} You must have the \`Administrator\` permission to execute this command.`);
+            return message.reply(`**ERROR**: You must have the \`ADMINISTRATOR\` permission to execute this command.`);
         }
     }
 
@@ -173,18 +173,18 @@ bot.on("message", async message => {
 
            if (!member) {
                try {
-                   if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) await message.reply(`${errorMsg} error: \`user not found\``);
+                   if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) await message.reply(`**ERROR**: \`user not found\``);
                    member = message.guild.members.get(arguments.slice(0, 1).join(' '));
                    member = member.user;
                } catch (error) {
-                   return await message.reply(`${errorMsg} error: \`user not found\``);
+                   return await message.reply(`**ERROR**: \`user not found\``);
                }
            }
-           if (member === message.author) return message.reply(`${errorMsg} error: \`you cannot ban yourself.\``);
-           if (!banReason) return message.reply(`${errorMsg} error: \`invalid reason\``);
-           if (!message.guild.member(member).bannable) return message.reply("\:error\: error: \`insufficient permissions\`");
+           if (member === message.author) return message.reply(`**ERROR**: \`you cannot ban yourself.\``);
+           if (!banReason) return message.reply(`**ERROR**: \`invalid reason\``);
+           if (!message.guild.member(member).bannable) return message.reply("**ERROR**: \`insufficient permissions\`");
 
-           await member.send(`You have been banned from ${message.guild.name} for the following reason(s): ${banReason}`);
+           await member.send(`You have been banned from \`${message.guild.name}\` for the following reason(s): \`${banReason}\``);
            await member.ban(banReason);
 
            const banConfirmationEmbed = new Discord.RichEmbed()
@@ -205,7 +205,7 @@ bot.on("message", async message => {
            await message.delete();
        } else{
            await message.delete();
-           return message.reply(`${errorMsg} error: \`permission(s): ban_members needed\``);
+           return message.reply(`**ERROR**: \`permission(s): ban_members\` needed`);
        }
     }
     if (cmd === `${prefix}help`){
@@ -228,18 +228,18 @@ bot.on("message", async message => {
 
             if (!member) {
                 try {
-                    if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) await message.reply(`${errorMsg} error: \`user not found\``);
+                    if (!message.guild.members.get(arguments.slice(0, 1).join(' '))) await message.reply(`**ERROR**: \`user not found\``);
                     member = message.guild.members.get(arguments.slice(0, 1).join(' '));
                     member = member.user;
                 } catch (error) {
-                    return await message.reply(`${errorMsg} error: \`user not found\``);
+                    return await message.reply(`**ERROR**: \`user not found\``);
                 }
             }
-            if (member === message.author) return message.reply(`${errorMsg} error: \`you cannot kick yourself.\``);
-            if (!kickReason) return message.reply(`${errorMsg} error: \`invalid reason\``);
-            if (!message.guild.member(member).bannable) return message.reply(`${errorMsg} error: \`sufficient permissions\``);
+            if (member === message.author) return message.reply(`**ERROR**: \`you cannot kick yourself.\``);
+            if (!kickReason) return message.reply(`**ERROR**: \`invalid reason\``);
+            if (!message.guild.member(member).bannable) return message.reply(`**ERROR**: \`sufficient permissions\``);
 
-            await member.send(`You have been kicked from ${message.guild.name} for the following reason(s): ${kickReason}. You may rejoin with this [link](${getServer(message,"invite")})`);
+            await member.send(`You have been kicked from \`${message.guild.name}\` for the following reason(s): \`${kickReason}\`. You may rejoin with this [link](${getServer(message,"invite")})`);
             await member.kick(kickReason);
 
             const kickConfirmationEmbed = new Discord.RichEmbed()
@@ -250,7 +250,7 @@ bot.on("message", async message => {
             if (getServer(message,"log").length !== 0) {
                 if (!getServer(message,"log")) return undefined;
                 let kickConfirmationEmbedModlog = new Discord.RichEmbed()
-                    .setAuthor(`Banned by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
+                    .setAuthor(`Kicked by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL)
                     .setThumbnail(member_user.displayAvatarURL)
                     .setColor('#f54242')
                     .setTimestamp(message.createdAt)
@@ -260,7 +260,7 @@ bot.on("message", async message => {
             await message.delete();
         } else{
             await message.delete();
-            return message.reply(`${errorMsg} error: \`permission(s): kick_members needed\``);
+            return message.reply(`**ERROR**: \`permission(s): KICK_MEMBERS\` needed`);
         }
     }
 
@@ -276,7 +276,7 @@ bot.on("message", async message => {
            return message.channel.send(richEmbed);
        }
 
-       if (!reported_User) return message.channel.send(`${errorMsg} error: \`user not found\` `);
+       if (!reported_User) return message.channel.send(`**ERROR**: \`user not found\` `);
 
        let reportEmbed = new Discord.RichEmbed()
            .setColor("#f54242")
@@ -285,7 +285,7 @@ bot.on("message", async message => {
            .addField("Reason","`".concat(reason,"`"))
            .setTimestamp(message.createdAt);
        await message.delete();
-       await bot.channels.get(getServer(message)).send(reportEmbed);
+       await bot.channels.get(getServer(message,"report")).send(reportEmbed);
        return message.channel.send(`:white_check_mark: Successfully reported ${String(reported_User)} for \`${reason}\`.`);
    }
 
@@ -298,14 +298,14 @@ bot.on("message", async message => {
                 let richEmbed = helpBox("prune");
                 return message.channel.send(richEmbed);
             }
-            if (isNaN(args[0])) return message.reply(`${errorMsg} Invalid amount. Please supply a number between \`1\` and \`100\``);
-            if (Number(args[0]) > 100) return message.reply(`${errorMsg} Invalid amount. Please supply a number between \`1\` and \`100\``);
+            if (isNaN(args[0])) return message.reply(`**ERROR**: Invalid amount. Please supply a number between \`1\` and \`100\``);
+            if (Number(args[0]) > 100) return message.reply(`**ERROR**: Invalid amount. Please supply a number between \`1\` and \`100\``);
             await message.delete();
             message.channel.bulkDelete(args[0])
-                .catch( error => message.channel.send(`Error: \`${error.message}\``));
+                .catch( error => message.channel.send(`**ERROR**: \`${error.message}\``));
         }else{
             await message.delete();
-            return message.reply(`${errorMsg} error: \`permission(s): manage_messages needed\``);
+            return message.reply(`**ERROR**: \`permission(s): MANAGE_MESSAGES\` needed`);
         }
    }
 
@@ -367,7 +367,7 @@ bot.on("message", async message => {
             }
         } else {
             await message.delete();
-            return message.reply(`${errorMsg} error: \`permission(s): kick_members, ban_members needed\``);
+            return message.reply(`**ERROR**: \`permission(s): kick_members, ban_members\` needed`);
         }
     }
 
@@ -390,11 +390,11 @@ bot.on("message", async message => {
                 return message.channel.send(bot_embed);
             } else {
                 await message.delete();
-                return message.reply(`${errorMsg} error: \`permission(s): kick_members, ban_members needed\``);
+                return message.reply(`**ERROR**: \`permission(s): kick_members, ban_members\` needed`);
             }
         } else {
             await message.delete();
-            return message.reply(`${errorMsg} error: \`permission(s): kick_members, ban_members needed\``);
+            return message.reply(`**ERROR**: \`permission(s): kick_members, ban_members\` needed`);
         }
     }
     if (cmd === `${prefix}talk`) {
@@ -411,11 +411,11 @@ bot.on("message", async message => {
                 return message.channel.send(localArgs.join(' '));
             } else {
                 await message.delete();
-                return message.reply(`${errorMsg} error: \`permission(s): kick_members, ban_members needed\``);
+                return message.reply(`**ERROR**: \`permission(s): kick_members, ban_members\` needed`);
             }
         } else {
             await message.delete();
-            return message.reply(`${errorMsg} error: \`permission(s): kick_members, ban_members needed\``);
+            return message.reply(`**ERROR**: \`permission(s): kick_members, ban_members\` needed`);
         }
     }
 
