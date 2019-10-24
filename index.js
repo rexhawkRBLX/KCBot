@@ -127,10 +127,9 @@ bot.on("message", async message => {
             .addField("Fun","**>info**: Returns a list of current discord invites and group links. \`Everyone\`\n**>serverinfo**: Returns more detailed information about the current server \`Everyone\`\n**>serverphoto**: Returns the current server's photo \`Everyone\`\n**>say**: Uses the bot to repeat message inside of RichEmbed with specified color. \`Manage Messages Permission\`\n**>talk**: Uses the bot to repeat message \`Manage Messages Permission\`\n**>help**: Causes the bot to DM a list of commands \`Everyone\`\n")
             .addField("Moderation","**>ban**: Bans the specified player. \`Ban Permission\`\n**>kick**: Kicks the specified player. \`Kick Permission\`\n**>prune**: Bulk deletes the specified amount of messages. \`Manage Messages Permission\`\n**>report**: Reports the specified player for later moderation and punishment. \`Everyone\`\n")
             .setFooter("For additional information, DM the bot's creator: rexhawk#0132");
-        let waitMsg = message.channel.send("Working...");
+        let waitMsg = await message.channel.send("Working...");
         await message.author.send(pmEmbed);
-        waitMsg.delete();
-        return await message.reply(":white_check_mark: Check your DMs!");
+        return await waitMsg.edit(`${message.author} :white_check_mark: Complete! Check your DMs!`);
     }
 
    // Restart
