@@ -128,7 +128,7 @@ bot.on("message", async message => {
             .addField("Moderation","**>ban**: Bans the specified player. \`Ban Permission\`\n**>kick**: Kicks the specified player. \`Kick Permission\`\n**>prune**: Bulk deletes the specified amount of messages. \`Manage Messages Permission\`\n**>report**: Reports the specified player for later moderation and punishment. \`Everyone\`\n")
             .setFooter("For additional information, DM the bot's creator: rexhawk#0132");
         let waitMsg = message.channel.send("Working...");
-        await member.send(pmEmbed);
+        await message.author.send(pmEmbed);
         waitMsg.delete();
         return await message.reply(":white_check_mark: Check your DMs!");
     }
