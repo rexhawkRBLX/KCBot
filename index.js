@@ -118,6 +118,21 @@ bot.on("message", async message => {
    // Commands
 
 
+    if (cmd === `${prefix}help`){
+        let pmEmbed = new Discord.RichEmbed()
+            .setAuthor("KCBot Commands",bot.user.avatarURL,"https://www.roblox.com/groups/5210085/King-City-California")
+            .setColor("#689FF5")
+            .setImage(bot.user.avatarURL)
+            .addField("Bot Maintenance","**>restart**: Reboots the bot client to reset errors. \`Administrator\`\n**>shutdown**: Shuts down the bot client. (requires manual reboot) \`Administrator\`\n**>version**: Returns the current bot version. \`Everyone\`\n**>botinfo**: Returns more detailed information about KCBot. \`Everyone\`\n")
+            .addField("Fun","**>info**: Returns a list of current discord invites and group links. \`Everyone\`\n**>serverinfo**: Returns more detailed information about the current server \`Everyone\`\n**>serverphoto**: Returns the current server's photo \`Everyone\`\n**>say**: Uses the bot to repeat message inside of RichEmbed with specified color. \`Manage Messages Permission\`\n**>talk**: Uses the bot to repeat message \`Manage Messages Permission\`\n**>help**: Causes the bot to DM a list of commands \`Everyone\`\n")
+            .addField("Moderation","**>ban**: Bans the specified player. \`Ban Permission\`\n**>kick**: Kicks the specified player. \`Kick Permission\`\n**>prune**: Bulk deletes the specified amount of messages. \`Manage Messages Permission\`\n**>report**: Reports the specified player for later moderation and punishment. \`Everyone\`\n")
+            .setFooter("For additional information, DM the bot's creator: rexhawk#0132");
+        let waitMsg = await message.channel.sent("Working...");
+        await member.send(pmEmbed);
+        waitMsg.delete();
+        return await message.reply(":white_check_mark: Check your DMs!");
+    }
+
    // Restart
     if (cmd === `${prefix}restart`){
          if (message.member.hasPermission("ADMINISTRATOR")){
@@ -209,9 +224,6 @@ bot.on("message", async message => {
            await message.delete();
            return message.reply(`**ERROR**: \`permission(s): ban_members\` needed`);
        }
-    }
-    if (cmd === `${prefix}help`){
-        return await message.channel.send("This feature is coming soon.. hang in there!");
     }
     // Kick
     if (cmd === `${prefix}kick`){
