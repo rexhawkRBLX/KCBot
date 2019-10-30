@@ -401,7 +401,7 @@ bot.on("message", async message => {
                 return message.channel.send(richEmbed);
             }else {
                 let bot_embed = new Discord.RichEmbed()
-                    .setColor(args[0])
+                    .setColor(args[0].toUpperCase())
                     .setDescription(localArgs.join(' '));
                 await message.delete();
                 return message.channel.send(bot_embed);
