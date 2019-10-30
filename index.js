@@ -7,6 +7,7 @@ const app = require("express")();
 const bot = new Discord.Client({disableEveryone: true});
 const version = "v".concat("1.1.15");
 const prefix = bot_config.prefix;
+const arraySort = require("array-sort")
 let activity = "King City, California";
 
 app.listen(PORT, () => {
@@ -45,18 +46,30 @@ bot.on("message", async message => {
                return "631668484073455645";
            } else if (message.guild.id === "569636982528016425") {
                return "630934304393920512";
+           } else if (message.guild.id === "573681387094147085") {
+               return "639140229776932908";
+           } else if (message.guild.id === "632986602993614869") {
+               return "639141708252184576";
            }
        } else if (type === "log") {
            if (message.guild.id === "621475864546115611") {
                return "622224689309155338";
            } else if (message.guild.id === "569636982528016425") {
                return "592492329257140234";
+           } else if (message.guild.id === "573681387094147085") {
+               return "638726956140986368";
+           } else if (message.guild.id === "632986602993614869") {
+               return "639141686555049994";
            }
        }  else if (type === "invite") {
            if (message.guild.id === "621475864546115611") {
                return "https://discord.gg/dVtCgDh";
            } else if (message.guild.id === "569636982528016425") {
                return "https://discord.gg/syXRhgh";
+           } else if (message.guild.id === "573681387094147085") {
+               return "https://discord.gg/PjuemnY";
+           } else if (message.guild.id === "632986602993614869") {
+               return "https://discord.gg/bBh4mrK";
            }
        }
    }
@@ -111,7 +124,21 @@ bot.on("message", async message => {
            let array = ["**Description: **Delete a set number of messages", "**Usage: **>prune [amount]", "**Example: **>prune 50"];
            richEmbed.setDescription(array.join('\n'));
            return richEmbed;
-       }
+       }else if (command === String("prune")) {
+          let richEmbed = new Discord.RichEmbed()
+              .setColor("#333333")
+              .setTitle("**Command:** >prune");
+          let array = ["**Description: **Delete a set number of messages", "**Usage: **>prune [amount]", "**Example: **>prune 50"];
+          richEmbed.setDescription(array.join('\n'));
+          return richEmbed;
+      }else if (command === String("invites")) {
+          let richEmbed = new Discord.RichEmbed()
+              .setColor("#333333")
+              .setTitle("**Command:** >invites");
+          let array = ["**Description: **Return a leaderboard of the most used invites", "**Usage: **>invites", "**Example: **>invites"];
+          richEmbed.setDescription(array.join('\n'));
+          return richEmbed;
+      }
    }
 
 
@@ -124,12 +151,14 @@ bot.on("message", async message => {
             .setColor("#689FF5")
             .addField("Bot Maintenance","**>restart**: Reboots the bot client to reset errors. \`Administrator\`\n**>shutdown**: Shuts down the bot client. (requires manual reboot) \`Administrator\`\n**>version**: Returns the current bot version. \`Everyone\`\n**>botinfo**: Returns more detailed information about KCBot. \`Everyone\`\n", true)
             .addField("Moderation","**>ban**: Bans the specified player. \`Ban Permission\`\n**>kick**: Kicks the specified player. \`Kick Permission\`\n**>prune**: Bulk deletes the specified amount of messages. \`Manage Messages Permission\`\n**>report**: Reports the specified player for later moderation and punishment. \`Everyone\`\n", true)
-            .addField("Fun","**>info**: Returns a list of current discord invites and group links. \`Everyone\`\n**>serverinfo**: Returns more detailed information about the current server \`Everyone\`\n**>serverphoto**: Returns the current server's photo \`Everyone\`\n**>say**: Uses the bot to repeat message inside of RichEmbed with specified color. \`Manage Messages Permission\`\n**>talk**: Uses the bot to repeat message \`Manage Messages Permission\`\n**>help**: Causes the bot to DM a list of commands \`Everyone\`\n")
+            .addField("Fun","**>info**: Returns a list of current discord invites and group links. \`Everyone\`\n**>invites**: Returns a leaderboard of the most used invites \'Everyone\'\n**>serverinfo**: Returns more detailed information about the current server \`Everyone\`\n**>serverphoto**: Returns the current server's photo \`Everyone\`\n**>say**: Uses the bot to repeat message inside of RichEmbed with specified color. \`Manage Messages Permission\`\n**>talk**: Uses the bot to repeat message \`Manage Messages Permission\`\n**>help**: Causes the bot to DM a list of commands \`Everyone\`\n")
             .setFooter("For additional information, DM the bot's creator: rexhawk#0132");
         let waitMsg = await message.channel.send("Working...");
         await message.author.send(pmEmbed);
         return await waitMsg.edit(`${message.author} :white_check_mark: Complete! Check your DMs!`);
     }
+
+
 
    // Restart
     if (cmd === `${prefix}restart`){
