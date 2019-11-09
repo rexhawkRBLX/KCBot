@@ -137,7 +137,7 @@ bot.on("message", async message => {
               .setTitle("**Command:** >invites");
           let array = ["**Description: **Return a leaderboard of the most used invites", "**Usage: **>invites", "**Example: **>invites"];
           richEmbed.setDescription(array.join('\n'));
-          return richEmbed;
+          return richEmbed
       }
    }
 
@@ -151,7 +151,7 @@ bot.on("message", async message => {
             .setColor("#689FF5")
             .addField("Bot Maintenance","**>restart**: Reboots the bot client to reset errors. \`Administrator\`\n**>shutdown**: Shuts down the bot client. (requires manual reboot) \`Administrator\`\n**>version**: Returns the current bot version. \`Everyone\`\n**>botinfo**: Returns more detailed information about KCBot. \`Everyone\`\n", true)
             .addField("Moderation","**>ban**: Bans the specified player. \`Ban Permission\`\n**>kick**: Kicks the specified player. \`Kick Permission\`\n**>prune**: Bulk deletes the specified amount of messages. \`Manage Messages Permission\`\n**>report**: Reports the specified player for later moderation and punishment. \`Everyone\`\n", true)
-            .addField("Fun","**>info**: Returns a list of current discord invites and group links. \`Everyone\`\n**>invites**: Returns a leaderboard of the most used invites \'Everyone\'\n**>serverinfo**: Returns more detailed information about the current server \`Everyone\`\n**>serverphoto**: Returns the current server's photo \`Everyone\`\n**>say**: Uses the bot to repeat message inside of RichEmbed with specified color. \`Manage Messages Permission\`\n**>talk**: Uses the bot to repeat message \`Manage Messages Permission\`\n**>help**: Causes the bot to DM a list of commands \`Everyone\`\n")
+            .addField("Fun","**>ssu**: Announces a server start up. \`Mange Messages Permission\`\n**>info**: Returns a list of current discord invites and group links. \`Everyone\`\n**>invites**: Returns a leaderboard of the most used invites \'Everyone\'\n**>serverinfo**: Returns more detailed information about the current server \`Everyone\`\n**>serverphoto**: Returns the current server's photo \`Everyone\`\n**>say**: Uses the bot to repeat message inside of RichEmbed with specified color. \`Manage Messages Permission\`\n**>talk**: Uses the bot to repeat message \`Manage Messages Permission\`\n**>help**: Causes the bot to DM a list of commands \`Everyone\`\n")
             .setFooter("For additional information, DM the bot's creator: rexhawk#0132");
         let waitMsg = await message.channel.send("Working...");
         await message.author.send(pmEmbed);
@@ -423,6 +423,25 @@ bot.on("message", async message => {
             }else {
                 await message.delete();
                 return await message.channel.send(localArgs.join(' '));
+            }
+        } else {
+            await message.delete();
+            return message.reply(`**ERROR**: \`permission(s): MANAGE_MESSAGES\` needed`);
+        }
+    }
+
+    if (cmd === `${prefix}serverphoto`) {
+        return message.reply(`${message.guild.iconURL}`)
+    }
+
+    if (cmd === `${prefix}ssu`){
+        if (message.member.hasPermission("MANAGE_MESSAGES"))  {
+            if (String(message.guild.id) === "621475864546115611") {
+                await message.delete();
+                return await bot.channels.get("636379801829244932").send("Test Message");
+            } else {
+                await message.delete();
+                return message.reply(`**ERROR**: \`Incorrect Server\``);
             }
         } else {
             await message.delete();
