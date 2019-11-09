@@ -435,8 +435,6 @@ bot.on("message", async message => {
     }
 
     if (cmd === `${prefix}ssu`){
-        let modRole = message.channel.server.roles.mention('name', 'Test ping');
-        bot.sendMessage(msg, modRole.mention() + " is anyone here?")
         if (message.member.hasPermission("MANAGE_MESSAGES"))  {
             if (String(message.guild.id) === "621475864546115611") {
                 await message.delete();
