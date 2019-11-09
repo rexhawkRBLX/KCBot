@@ -438,7 +438,7 @@ bot.on("message", async message => {
         if (message.member.hasPermission("MANAGE_MESSAGES"))  {
             if (String(message.guild.id) === "621475864546115611") {
                 await message.delete();
-                return await bot.channels.get("636379801829244932").send(`<@&642804948374913056> **Server Startup!**\n**This Server Startup is hosted by:**${message.member}\n**Game Link:** https://www.roblox.com/games/3571375889/King-City-California\n*Remember to follow the rules and have fun.*`);
+                return await bot.channels.get("636379801829244932").send(`<@&642804948374913056> **Server Startup!**\n**This Server Startup is hosted by: **${message.member}\n\n**Game Link:** https://www.roblox.com/games/3571375889/King-City-California\n\n*Remember to follow the rules and have fun.*`);
             } else {
                 await message.delete();
                 return message.reply(`**ERROR**: \`Incorrect Server\``);
