@@ -438,7 +438,7 @@ bot.on("message", async message => {
         if (message.member.hasPermission("MANAGE_MESSAGES"))  {
             if (String(message.guild.id) === "621475864546115611") {
                 await message.delete();
-                return await bot.channels.get("636379801829244932").send("Test Message");
+                return await bot.channels.get("636379801829244932").send("<@&642804948374913056> Test ping");
             } else {
                 await message.delete();
                 return message.reply(`**ERROR**: \`Incorrect Server\``);
