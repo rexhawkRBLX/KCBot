@@ -435,7 +435,7 @@ bot.on("message", async message => {
     }
 
     if (cmd === `${prefix}ssu`){
-        if (message.member.roles.has(message.guild.roles.find("name","Administrative Services")) || message.member.roles.has(message.guild.roles.find("name","Cabinet")))   {
+        if(message.member.roles.find(r => r.name === "Administrative Services") || message.member.roles.find(r => r.name === "Cabinet")){
             if (String(message.guild.id) === "621475864546115611") {
                 await message.delete();
                 return await bot.channels.get("636379801829244932").send(`<@&642804948374913056> **Server Startup!**\n**This Server Startup is hosted by: **${message.member}\n\n**Game Link:** https://www.roblox.com/games/3571375889/King-City-California\n\n*Remember to follow the rules and have fun.*`);
@@ -445,7 +445,7 @@ bot.on("message", async message => {
             }
         } else {
             await message.delete();
-            return message.reply(`**ERROR**: \`permission(s): MANAGE_MESSAGES\` needed`);
+            return message.reply(`**ERROR**: \`Incorrect Permissions\``);
         }
     }
 
