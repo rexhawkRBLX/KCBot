@@ -34,18 +34,19 @@ bot.on("ready", async() => {
 
     bot.channels.get('622224689309155338').send(`KC Bot is online back online running on port \`${PORT}\``);
     // Set Activity
-    function setActivity() {
-        setInterval(function () {
-            if (activity === "King City, California") {
-                bot.user.setActivity("King City, California", {type: "PLAYING"});
-                activity = "KC, California | >help";
-            } else if (activity === "KC, California | >help") {
-                bot.user.setActivity("KC, California | >help", {type: "PLAYING"});
-                activity = "King City, California";
-            }
-        }, 15000); // every 15 seconds
-    }
-    setActivity(); // Set activity to bot
+    // function setActivity() {
+    //     setInterval(function () {
+    //         if (activity === "King City, California") {
+    //             bot.user.setActivity("King City, California", {type: "PLAYING"});
+    //             activity = "KC, California | >help";
+    //         } else if (activity === "KC, California | >help") {
+    //             bot.user.setActivity("KC, California | >help", {type: "PLAYING"});
+    //             activity = "King City, California";
+    //         }
+    //     }, 15000); // every 15 seconds
+    // }
+    // setActivity(); // Set activity to bot
+    await bot.user.setActivity("Undergoing some serious changes", {type: "PLAYING"});
 });
 
 bot.on("message", async message => {

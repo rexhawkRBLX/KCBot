@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Reason",`\`${reason}\``)
         .setTimestamp(message.createdAt);
     await message.delete();
-    await bot.channels.get(require("./../retrieveInfo").getServerReport(String(message.guild.id))).send(reportEmbed);
+    await bot.channels.get(require("./../retrieveInfo").getServerReport[String(message.guild.id)]).send(reportEmbed);
     return message.channel.send(`:white_check_mark: Successfully reported ${String(reported_User)} for \`${reason}\`.`);
 };
 
