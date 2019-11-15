@@ -128,7 +128,7 @@ bot.on("message", async message => {
    //
    //
    //
-  
+
    //
    //  // Say
    //  if (cmd === `${prefix}say`){

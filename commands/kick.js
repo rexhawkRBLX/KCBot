@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) => {
         const kickReason = arguments.slice(1).join(' ');
         let member = message.mentions.members.first();
         // If there is no arguments
-        if (String(message.content.split(" ")) === `${prefix}kick`) {
+        if (String(message.content.split(" ")) === `${require("./../botconfig").prefix}kick`) {
             await message.delete();
             let richEmbed = new Discord.RichEmbed()
                 .setColor("#333333")
