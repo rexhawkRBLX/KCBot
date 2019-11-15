@@ -3,7 +3,7 @@ const fs = require("fs");
 
 module.exports.run = async (bot, message, args) => {
     let totalFiles = 0;
-    fs.readdir("./../commands/", (error, files) => {
+    fs.readdir("./../commands", (error, files) => {
         totalFiles = files.length;
     });
 
