@@ -4,7 +4,7 @@ const fs = require("fs");
 
 module.exports.run = async (bot, message, args) => {
     let amountOfCommands = 0;
-    fs.readdir("./", (err, files) => {
+    fs.readdir("./../commands", (err, files) => {
         amountOfCommands = files.length;
     });
 
