@@ -49,8 +49,10 @@ bot.on("message", async message => {
    let cmd = messageArray[0].toLowerCase();
    let args = messageArray.slice(1);
    // Functions
-   let commandFile = bot.commands.get(cmd.slice(prefix.length));
-   if (commandFile) await commandFile.run(bot,message,args);
+   if (message.content.startsWith(prefix)){
+       let commandFile = bot.commands.get(cmd.slice(prefix.length));
+       if (commandFile) await commandFile.run(bot,message,args);
+   }
 });
 // Prevent exit 143 (Idle exit)
 function startKeepAlive() {
