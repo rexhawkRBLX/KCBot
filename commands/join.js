@@ -8,7 +8,8 @@ module.exports.run = async (bot, message, args) => {
         if (message.member.roles.find(r => r.name === "SSU")) {
             return message.reply(`**ERROR**: You already have the ssu role. If you wish to remove it, say \`>leave ssu\``);
         } else {
-            message.member.addRole("SSU");
+            const guildMember = message.member;
+            guildMember.addRole(allowedRole);
             return message.reply(`You have successfully joined \`SSU\`.`);
         }
     } else {
