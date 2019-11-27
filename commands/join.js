@@ -19,13 +19,3 @@ module.exports.run = async (bot, message, args) => {
 module.exports.help = {
     name: "join"
 };
-
-
-if (command === "commandname"){
-    let allowedRole = message.guild.roles.find("name", "rolename");
-    if (message.member.roles.has(allowedRole.id) {
-        // allowed access to command
-    } else {
-        // not allowed access
-    }
-}
