@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 function createEmoji(bot,message){
     console.log("Three");
-    message.guild.createEmoji('./../kcEmoji/Cheer.png', 'kcSuccess')
+    message.guild.createEmoji('./../../kcEmoji/Cheer.png', 'kcSuccess')
         .then(emoji => console.log(`Created new emoji with name ${emoji.name}`))
         .catch(console.error);
 }
