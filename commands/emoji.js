@@ -5,7 +5,7 @@ function createEmoji(bot,message){
     console.log(message.guild.id);
     let role = message.guild.roles.find(role => role.name === "King City");
     if (role) {
-        message.guild.createEmoji('https://i.vgy.me/FsRyFm.png', 'kcSuccess', role)
+        message.guild.createEmoji('https://i.vgy.me/FsRyFm.png', 'kcSuccess', [role])
             .then(function () {
                 useEmoji(bot, message);
             })
