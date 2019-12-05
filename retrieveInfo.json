@@ -22,5 +22,13 @@
     "544031918912569356": "https://discord.gg/Gu6t48C",
     "648336531911606272": "https://discord.gg/96yAG2g"
   },
+  "kcEmoji": {
+    "cheer": "https://i.imgur.com/jHZ06IC.png",
+    "direction": "https://i.imgur.com/5VDlTuj.png",
+    "neutral": "https://i.imgur.com/sPhWqJ3.png",
+    "ponder": "https://i.imgur.com/sPhWqJ3.png",
+    "success": "https://i.imgur.com/OhAYcTP.png",
+    "thinking": "https://i.imgur.com/VsuOa06.png"
+  },
   "version": "v1.4"
 }
