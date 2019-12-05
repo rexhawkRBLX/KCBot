@@ -9,7 +9,7 @@ function createEmoji(bot,message){
 function useEmoji(bot,message) {
     if (message.guild.emojis.find(emoji => emoji.name === "kcSuccess")){
         return message.channel.send(`Found`);
-       // let emoji = bot.emojis.find(emoji => emoji.name === "kcSuccess");
+       // le emoji = bot.emojis.find(emoji => emoji.name === "kcSuccess");
        // return message.channel.send(`${emoji}`);
     } else {
         createEmoji(bot,message)
