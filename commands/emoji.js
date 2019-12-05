@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 function createEmoji(bot,message){
     console.log("Three");
     console.log(message.guild.id);
-    let role = message.guild.roles.find("name", "King City");
+    let role = message.guild.roles.find(role => role.name === "King City");
     if (role) {
         message.guild.createEmoji('https://i.vgy.me/FsRyFm.png', 'kcSuccess', role)
             .then(function () {
