@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 function createEmoji(bot,message){
     message.guild.createEmoji('https://i.imgur.com/w3duR07.png', 'kcSuccess')
         .then(function(){
-            useEmoji(bot,message)
+            useEmoji(bot,message);
         })
         .catch(console.error);
 }
