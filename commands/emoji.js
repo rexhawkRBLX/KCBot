@@ -3,11 +3,14 @@ const Discord = require("discord.js");
 function createEmoji(bot,message){
     console.log("Three");
     console.log(message.guild.id);
-    message.guild.createEmoji('https://i.vgy.me/FsRyFm.png', 'kcSuccess')
-        .then(function(){
-            useEmoji(bot,message);
-        })
-        .catch(console.error);
+    let role = message.guild.roles.find("name", "King City");
+    if (role) {
+        message.guild.createEmoji('https://i.vgy.me/FsRyFm.png', 'kcSuccess', role)
+            .then(function () {
+                useEmoji(bot, message);
+            })
+            .catch(console.error);
+    }
 }
 
 function useEmoji(bot,message) {
