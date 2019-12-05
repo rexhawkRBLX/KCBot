@@ -50,6 +50,7 @@ bot.on("message", async message => {
    let args = messageArray.slice(1);
    // Functions
    if (message.content.startsWith(prefix)){
+
        let commandFile = bot.commands.get(cmd.slice(prefix.length));
        if (commandFile) await commandFile.run(bot,message,args);
    }
