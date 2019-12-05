@@ -8,8 +8,9 @@ function createEmoji(bot){
 
 function useEmoji(bot) {
     if (bot.emojis.find(emoji => emoji.name === "kcSuccess")){
-        let emoji = bot.emojis.find(emoji => emoji.name === "kcSuccess");
-        return message.channel.send(`${emoji}`);
+        return message.channel.send(`Found`);
+       // let emoji = bot.emojis.find(emoji => emoji.name === "kcSuccess");
+       // return message.channel.send(`${emoji}`);
     } else {
         createEmoji(bot)
     }
