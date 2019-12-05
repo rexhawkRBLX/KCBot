@@ -3,8 +3,8 @@ const Discord = require("discord.js");
 function createEmoji(bot,message){
     console.log("Three");
     message.guild.createEmoji('https://i.imgur.com/w3duR07.png', 'kcSuccess')
-        .then(function(){
-            console.log("Four");
+        .then(emoji => {
+            console.log(`Four ${emoji}`);
             useEmoji(bot,message);
         })
         .catch(console.error);
