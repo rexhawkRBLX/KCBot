@@ -19,6 +19,7 @@ module.exports.useEmoji = async (bot,message,emoji) => {
             message.channel.send("Creating emoji");
             message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
                 .then(emoji => {
+                    message.channel.send("Emoji was created.");
                     finishedEmoji = emoji;
                 })
                 .catch(error => {
