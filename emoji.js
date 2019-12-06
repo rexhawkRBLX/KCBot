@@ -4,8 +4,8 @@ function createEmoji(bot,message,emoji){
     let role = message.guild.roles.find(role => role.name === "King City");
     if (role) {
         message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
-            .then(function () {
-                return useEmojiLocal(bot,message,emoji)
+            .then(emoji => {
+                return emoji
             })
             .catch(error => {
                 message.channel.send(`**Error: **${error}`)
