@@ -31,5 +31,5 @@ module.exports.useEmoji = async (bot,message,emoji) => {
     }
     setTimeout(function () {
         return finishedEmoji;
-    }, 5)
+    }, 5000)
 };
