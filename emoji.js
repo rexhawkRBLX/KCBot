@@ -16,6 +16,6 @@ module.exports.useEmoji = async (bot,message,emoji) => {
         return emojiValue;
     } else {
         await createEmoji(bot,message,emoji);
-        return await module.useEmoji(bot,message,emoji);
+        return await useEmoji(bot,message,emoji);
     }
 };
