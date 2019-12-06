@@ -30,6 +30,7 @@ module.exports.useEmoji = async (bot,message,emoji) => {
         }
     }
     await setTimeout(function () {
+        message.channel.send(`Finished timeout, returning emoji`);
         return finishedEmoji;
     }, 5000)
 };
