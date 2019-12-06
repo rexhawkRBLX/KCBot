@@ -14,7 +14,7 @@ module.exports.useEmoji = async (bot,message,emoji) => {
         message.channel.send("Checking to see if KCGuards role exists");
         let role = message.guild.roles.find(role => role.name === "King City");
         message.channel.send("Done checking to see if role exists.");
-        if (role) {
+       // if (role) {
             message.channel.send("Role exists");
             message.channel.send("Creating emoji");
             message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
@@ -24,9 +24,9 @@ module.exports.useEmoji = async (bot,message,emoji) => {
                 .catch(error => {
                     message.channel.send(`**Error: **${error}`);
                 });
-        } else {
-            message.channel.send("Role does not exist.");
-        }
+        //} else {
+         //   message.channel.send("Role does not exist.");
+        //}
     }
     return await finishedEmoji;
 };
