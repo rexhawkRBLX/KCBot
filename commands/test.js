@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const emoji = require("../emoji.js");
 
 module.exports.run = async (bot, message, args) => {
-    let emoji = useEmoji(bot,message,args[0]);
+    let emoji = emoji.useEmoji(bot,message,args[0]);
     if (emoji) {
         return message.channel.send(`${emoji}`);
     } else {
