@@ -23,6 +23,5 @@ function useEmojiLocal(bot,message,emoji){
 }
 
 module.exports.useEmoji = async (bot,message,emoji) => {
-    let Emoji = await useEmojiLocal(bot,message,emoji)
-    return Emoji
+    return await useEmojiLocal(bot,message,emoji);
 };
