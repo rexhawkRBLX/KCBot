@@ -25,12 +25,14 @@ module.exports.useEmoji = async (bot,message,emoji) => {
                 .catch(error => {
                     message.channel.send(`**Error: **${error}`);
                 });
+            message.channel.send("Test check");
+            await setTimeout(function () {
+                message.channel.send(`Finished timeout, returning emoji`);
+                return finishedEmoji;
+            }, 5000)
         } else {
             message.channel.send("Role does not exist.");
         }
     }
-    await setTimeout(function () {
-        message.channel.send(`Finished timeout, returning emoji`);
-        return finishedEmoji;
-    }, 5000)
+
 };
