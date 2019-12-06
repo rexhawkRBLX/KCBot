@@ -18,8 +18,8 @@ module.exports.useEmoji = async (bot,message,emoji) => {
             message.channel.send("Role exists");
             message.channel.send("Creating emoji");
             message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
-                .then(function(){
-                    finishedEmoji = bot.emojis.find(emojiValue => emojiValue.name === emojiNames[emoji]);
+                .then(emoji => {
+                    finishedEmoji = emoji;
                 })
                 .catch(error => {
                     message.channel.send(`**Error: **${error}`);

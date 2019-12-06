@@ -1,3 +1,5 @@
+// Heroku Logs Command:
+
 const http = require("http");
 const bot_config = require("./botconfig.json");
 const Discord = require("discord.js");
