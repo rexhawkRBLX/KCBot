@@ -1,29 +1,21 @@
-const Discord = require("discord.js");
+const emojiNames = {"cheer": "kcCheer","direction": "kcDirection","neutral": "kcNeutral","ponder": "kcPonder","success": "kcSuccess","thinking": "kcThinking"};
 
-function createEmoji(bot,message){
+function createEmoji(bot,message,emoji){
     let role = message.guild.roles.find(role => role.name === "King City");
     if (role) {
-        message.guild.createEmoji(require("./../retrieveInfo").kcEmoji.success, 'kcSuccess', [role])
+        message.guild.createEmoji(require("./../retrieveInfo").kcEmoji[emoji.lower], emojiNames[emoji.lower], [role])
             .then(function () {
-                useEmoji(bot, message);
+                useEmoji(bot, message, emoji);
             })
             .catch(console.error);
     }
 }
 
-function useEmoji(bot,message) {
-    let emoji = bot.emojis.find(emoji => emoji.name === "kcSuccess");
-    if (emoji){
-        return message.channel.send(`${emoji}`);
+function useEmoji(bot,message,emoji) {
+    let emojiValue = bot.emojis.find(emojiValue => emojiValue.name === emojiNames[emoji.lower]);
+    if (emojiValue){
+        return emojiValue;
     } else {
-        createEmoji(bot,message)
+        createEmoji(bot,message,emoji)
     }
 }
-
-module.exports.run = async (bot, message, args) => {
-    useEmoji(bot,message)
-};
-
-module.exports.help = {
-    name: "emoji"
-};
