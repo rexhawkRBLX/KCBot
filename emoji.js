@@ -7,6 +7,9 @@ function createEmoji(bot,message,emoji){
     if (role) {
         console.log("Seven");
         message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
+            .then(emoji => {
+                return emoji
+            })
             .catch(console.error);
     }
 }
@@ -19,7 +22,7 @@ module.exports.useEmoji = async (bot,message,emoji) => {
         console.log("Three");
         return emojiValue;
     } else {
-        await createEmoji(bot,message,emoji);
-        return bot.emojis.find(emojiValue => emojiValue.name === emojiNames[emoji]);
+        let newEmoji = await createEmoji(bot,message,emoji);
+        return newEmoji;
     }
 };
