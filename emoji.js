@@ -22,7 +22,7 @@ module.exports.useEmoji = async (bot,message,emoji) => {
         if (role) {
             message.channel.send("Role exists");
             message.channel.send("Creating emoji");
-            await message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
+            message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
                 .then(function () {
                     return returnNewEmoji(bot);
                 })
