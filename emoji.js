@@ -3,7 +3,7 @@ const emojiNames = {["cheer"]: "kcCheer",["direction"]: "kcDirection",["neutral"
 function createEmoji(bot,message,emoji){
     let role = message.guild.roles.find(role => role.name === "King City");
     if (role) {
-        message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
+        message.guild.createEmoji(`./kcEmoji/${emoji}.png`, emojiNames[emoji], [role])
             .catch(error => {
                 message.channel.send(`**Error: **${error}`)
             });
