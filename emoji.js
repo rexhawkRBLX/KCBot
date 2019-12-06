@@ -10,12 +10,20 @@ function createEmoji(bot,message,emoji){
     }
 }
 
-module.exports.useEmoji = async (bot,message,emoji) => {
+function useEmojiLocal(bot,message,emoji){
     let emojiValue = bot.emojis.find(emojiValue => emojiValue.name === emojiNames[emoji]);
     if (emojiValue){
         return emojiValue;
     } else {
-        await createEmoji(bot,message,emoji);
-        return await useEmoji(bot,message,emoji);
+        createEmoji(bot,message,emoji);
+        return entryPoint(bot,message,emoji);
     }
+}
+
+function entryPoint(bot,message,emoji){
+    useEmojiLocal(bot,message,emoji)
+}
+
+module.exports.useEmoji = async (bot,message,emoji) => {
+    entryPoint(bot,message,emoji)
 };
