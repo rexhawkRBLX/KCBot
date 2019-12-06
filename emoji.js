@@ -1,11 +1,5 @@
 const emojiNames = {["cheer"]: "kcCheer",["direction"]: "kcDirection",["neutral"]: "kcNeutral",["ponder"]: "kcPonder",["success"]: "kcSuccess",["thinking"]: "kcThinking"};
 
-function returnNewEmoji(bot){
-    message.channel.send("Emoji created. Returning new emoji...");
-    let newEmoji = bot.emojis.find(emojiValue => emojiValue.name === emojiNames[emoji]);
-    return newEmoji;
-}
-
 module.exports.useEmoji = async (bot,message,emoji) => {
     message.channel.send("Checking to see if emoji exists already...");
     let emojiValue = bot.emojis.find(emojiValue => emojiValue.name === emojiNames[emoji]);
@@ -23,8 +17,8 @@ module.exports.useEmoji = async (bot,message,emoji) => {
             message.channel.send("Role exists");
             message.channel.send("Creating emoji");
             message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
-                .then(function () {
-                    return returnNewEmoji(bot);
+                .then(emoji => {
+                    return emoji;
                 })
                 .catch(error => {
                     message.channel.send(`**Error: **${error}`);
