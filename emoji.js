@@ -3,16 +3,16 @@ const emojiNames = {["cheer"]: "kcCheer",["direction"]: "kcDirection",["neutral"
 module.exports.useEmoji = async (bot,message,emoji) => {
     let emojiValue = bot.emojis.find(emojiValue => emojiValue.name === emojiNames[emoji]);
     if (emojiValue){
-        return emojiValue;
+        return await emojiValue;
     } else {
         let role = message.guild.roles.find(role => role.name === "King City");
         if (role) {
             message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
                 .then(emoji => {
-                    return emoji
+                    return emoji;
                 })
                 .catch(error => {
-                    message.channel.send(`**Error: **${error}`)
+                    message.channel.send(`**Error: **${error}`);
                 });
         }
     }
