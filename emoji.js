@@ -14,20 +14,22 @@ module.exports.useEmoji = async (bot,message,emoji) => {
         message.channel.send("Checking to see if KCGuards role exists");
         let role = message.guild.roles.find(role => role.name === "King City");
         message.channel.send("Done checking to see if role exists.");
-       // if (role) {
+        if (role) {
             message.channel.send("Role exists");
             message.channel.send("Creating emoji");
             message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
                 .then(emoji => {
                     message.channel.send("Emoji was created.");
-                    finishedEmoji = emoji;
-                    return finishedEmoji;
+                    finishedEmoji = emoji
+                        .then(function () {
+                            return finishedEmoji;
+                        });
                 })
                 .catch(error => {
                     message.channel.send(`**Error: **${error}`);
                 });
-        //} else {
-         //   message.channel.send("Role does not exist.");
-        //}
+        } else {
+            message.channel.send("Role does not exist.");
+        }
     }
 };
