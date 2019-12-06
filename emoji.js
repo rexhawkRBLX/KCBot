@@ -14,6 +14,7 @@ module.exports.useEmoji = async (bot,message,emoji) => {
         return emojiValue;
     } else {
         await createEmoji(bot,message,emoji);
+        console.log("HI");
         return bot.emojis.find(emojiValue => emojiValue.name === emojiNames[emoji.lower]);
     }
 };
