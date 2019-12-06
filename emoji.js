@@ -20,10 +20,7 @@ module.exports.useEmoji = async (bot,message,emoji) => {
             message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
                 .then(emoji => {
                     message.channel.send("Emoji was created.");
-                    finishedEmoji = emoji
-                        .then(function () {
-                            return finishedEmoji;
-                        });
+                    finishedEmoji = emoji;
                 })
                 .catch(error => {
                     message.channel.send(`**Error: **${error}`);
@@ -32,4 +29,7 @@ module.exports.useEmoji = async (bot,message,emoji) => {
             message.channel.send("Role does not exist.");
         }
     }
+    setTimeout(function () {
+        return finishedEmoji;
+    }, 5)
 };
