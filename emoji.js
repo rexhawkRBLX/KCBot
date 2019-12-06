@@ -21,6 +21,7 @@ module.exports.useEmoji = async (bot,message,emoji) => {
                 .then(emoji => {
                     message.channel.send("Emoji was created.");
                     finishedEmoji = emoji;
+                    return finishedEmoji;
                 })
                 .catch(error => {
                     message.channel.send(`**Error: **${error}`);
@@ -29,5 +30,4 @@ module.exports.useEmoji = async (bot,message,emoji) => {
          //   message.channel.send("Role does not exist.");
         //}
     }
-    return await finishedEmoji;
 };

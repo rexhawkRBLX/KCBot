@@ -1,4 +1,4 @@
-// Heroku Logs Command:
+// Heroku Logs Command: heroku logs --app kingcity-bot -t
 
 const http = require("http");
 const bot_config = require("./botconfig.json");
