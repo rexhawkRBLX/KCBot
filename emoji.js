@@ -29,7 +29,7 @@ module.exports.useEmoji = async (bot,message,emoji) => {
             message.channel.send("Role does not exist.");
         }
     }
-    setTimeout(function () {
+    await setTimeout(function () {
         return finishedEmoji;
     }, 5000)
 };
