@@ -17,13 +17,12 @@ module.exports.useEmoji = async (bot,message,emoji) => {
             message.channel.send("Role exists");
             message.channel.send("Creating emoji");
             await message.guild.createEmoji(require("./retrieveInfo").kcEmoji[emoji], emojiNames[emoji], [role])
-                .then(emoji => {
-                    message.channel.send("Emoji created. Returning new emoji...");
-                    return emoji;
-                })
                 .catch(error => {
                     message.channel.send(`**Error: **${error}`);
                 });
+            message.channel.send("Emoji created. Returning new emoji...");
+            let newEmoji = await bot.emojis.find(emojiValue => emojiValue.name === emojiNames[emoji]);
+            return newEmoji;
         } else {
             message.channel.send("Role does not exist.");
         }
