@@ -16,9 +16,11 @@ module.exports.run = async (bot, message, args) => {
       return await message.channel.send(richEmbed);
   } else {
     let localArgs = message.content.split(" ").slice(1);
+    let currentDate = new Date();
+
     let data = {
         name: localArgs.join(' '),
-        desc: `Contributor: ${message.member.user.tag}`,
+        desc: `Contributor: ${message.member.user.tag}\nDate: ${currentDate.getMonth() + 1} - ${currentDate.getDate()} - ${currentDate.getFullYear()}`,
         idList: '5e1262520612231fb472979f', //REQUIRED
         idLabels: ['5e8a029d7bfaf66944b95d10'],
         urlSource: 'https://example.com',
