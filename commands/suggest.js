@@ -1,5 +1,25 @@
 const Discord = require("discord.js");
 
+var trelloNode = require('trello-node-api')(process.env.trello-api-key, process.env.trello-auth-key);
+
+
+var data = {
+        name: 'CARD_NAME',
+        desc: 'Card description',
+        pos: 'top',
+        idList: '5e1262520612231fb472979f', //REQUIRED
+        due: null,
+        dueComplete: false,
+        idMembers: ['MEMBER_ID', 'MEMBER_ID', 'MEMBER_ID'],
+        idLabels: ['LABEL_ID', 'LABEL_ID', 'LABEL_ID'],
+        urlSource: 'https://example.com',
+        fileSource: 'file',
+        idCardSource: 'CARD_ID',
+        keepFromSource: 'attachments,checklists,comments,due,labels,members,stickers'
+    };
+
+
+
 module.exports.run = async (bot, message, args) => {
 
   if (String(message.content.split(" ")) === `${require("./../botconfig").prefix}suggest`) {
@@ -10,11 +30,13 @@ module.exports.run = async (bot, message, args) => {
           .setDescription("**Description: **Create a new suggestion card in the [suggestions trello](https://trello.com/b/2Aio6E06)\n**Usage: **>suggest [content]\n**Example: **>suggest a statue of rexhawk");
       return await message.channel.send(richEmbed);
   } else {
-    if (message.member.roles.has("637802573914570752")){
-      return await message.reply(`found role`);
-    } else {
-      return await message.reply(`You must be verified to use this feature.`);
-    }
+
+    Trello.card.create(data).then(function (response) {
+        console.log('response ', response);
+    }).catch(function (error) {
+        console.log('error', error);
+    });
+    return await message.channel.send("Comlete");
   }
 };
 

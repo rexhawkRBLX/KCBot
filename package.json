@@ -12,7 +12,8 @@
     "discord.js": "^11.5.1",
     "express": "^4.17.1",
     "noblox.js": "^4.2.6",
-    "roblox-js": "^4.0.4"
+    "roblox-js": "^4.0.4",
+    "trello-node-api": "0.0.9"
   },
   "engines": {
     "node": "10.16.0"
