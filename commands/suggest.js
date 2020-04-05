@@ -7,14 +7,14 @@ module.exports.run = async (bot, message, args) => {
       let richEmbed = new Discord.RichEmbed()
           .setColor("#333333")
           .setTitle("**Command:** >suggest")
-          .setDescription("**Description: **Create a new suggestion card in the [suggestions trello](https://trello.com/b/2Aio6E06)\n**Usage: **>suggest [content]\n**Example: **>suggest flying cars!");
-      return message.channel.send(richEmbed);
-  }
-
-  if (message.member.roles.has("637802573914570752")){
-    return await message.reply(`found role`);
+          .setDescription("**Description: **Create a new suggestion card in the [suggestions trello](https://trello.com/b/2Aio6E06)\n**Usage: **>suggest [content]\n**Example: **>suggest a statue of rexhawk");
+      return await message.channel.send(richEmbed);
   } else {
-    return await message.reply(`You must be verified to use this feature.`);
+    if (message.member.roles.has("637802573914570752")){
+      return await message.reply(`found role`);
+    } else {
+      return await message.reply(`You must be verified to use this feature.`);
+    }
   }
 };
 
