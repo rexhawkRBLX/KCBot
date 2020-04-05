@@ -4,18 +4,13 @@ var Trello = require('trello-node-api')(`cc34781fdd051e02feaa7ed53a63eb52`, `eb6
 
 
 var data = {
-        name: 'CARD_NAME',
-        desc: 'Card description',
+        name: 'suggestion',
+        desc: 'this :)',
         pos: 'top',
         idList: '5e1262520612231fb472979f', //REQUIRED
         due: null,
         dueComplete: false,
-        idMembers: ['MEMBER_ID', 'MEMBER_ID', 'MEMBER_ID'],
-        idLabels: ['LABEL_ID', 'LABEL_ID', 'LABEL_ID'],
         urlSource: 'https://example.com',
-        fileSource: 'file',
-        idCardSource: 'CARD_ID',
-        keepFromSource: 'attachments,checklists,comments,due,labels,members,stickers'
     };
 
 
