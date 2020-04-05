@@ -9,7 +9,7 @@ function calcTime() {
     let date = new Date();
     let utc = date.getTime() + (date.getTimezoneOffset() * 60000);
 
-    let time = new Date(utc + (3600000));
+    let time = new Date(utc + (3600000*"-5"));
 
     // return time as a string
     return time.toLocaleString();
