@@ -9,7 +9,7 @@ function calcTime() {
     let date = new Date();
     let utc = date.getTime() + (date.getTimezoneOffset() * 60000);
 
-    let time = new Date(utc + (3600000*"+9"));
+    let time = new Date(utc + (3600000));
 
     // return time as a string
     return time.toLocaleString();
@@ -43,7 +43,7 @@ module.exports.run = async (bot, message, args) => {
     }).catch(function (error) {
         console.log('error', error);
     });
-    return await message.channel.send("Comlete");
+    return await message.channel.send("Complete");
   }
 };
 
