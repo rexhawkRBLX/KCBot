@@ -33,17 +33,23 @@ module.exports.run = async (bot, message, args) => {
         name: localArgs.join(' '),
         desc: `Contributor: ${message.member.user.tag}\nDate / Time (EST): ${calcTime()}`,
         idList: '5e1262520612231fb472979f', //REQUIRED
+        comment: "Thank you for your entry! Please check back later to confirm that your suggestion was approved.",
         idLabels: ['5e8a029d7bfaf66944b95d10'],
     };
 
     Trello.card.create(data).then(function (response) {
       let richEmbed = new Discord.RichEmbed()
-          .setColor("#333333")
+          .setColor("#008B8B")
           .setDescription(`Complete! You can find your new suggestion [here](${response.shortUrl}).`);
-      console.log('response ', response);
       return message.channel.send(richEmbed);
+      // console.log('response ', response);
     }).catch(function (error) {
-        console.log('error', error);
+      let richEmbed = new Discord.RichEmbed()
+          .setColor("#CD5555")
+          .setTitle("An Error Occurred")
+          .setDescription(error);
+      return message.channel.send(richEmbed);
+      // console.log('error', error);
     });
 
   }
