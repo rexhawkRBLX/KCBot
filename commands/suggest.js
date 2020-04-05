@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
     let localArgs = message.content.split(" ").slice(1);
     let data = {
         name: localArgs.join(' '),
-        desc: `Contributor: ${message.author.name}`,
+        desc: `Contributor: ${message.member.user.tag}`,
         idList: '5e1262520612231fb472979f', //REQUIRED
         idLabels: ['5e8a029d7bfaf66944b95d10'],
         urlSource: 'https://example.com',
