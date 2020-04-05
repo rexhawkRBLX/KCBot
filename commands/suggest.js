@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
           .setDescription("**Description: **Create a new suggestion card in the [suggestions trello](https://trello.com/b/2Aio6E06)\n**Usage: **>suggest [content]\n**Example: **>suggest a statue of rexhawk");
       return await message.channel.send(richEmbed);
   } else {
-    let localArgs = message.content.split(" ").slice(2);
+    let localArgs = message.content.split(" ").slice(1);
     let data = {
         name: localArgs.join(' '),
         desc: "aklsjdkasjdl",
