@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) => {
     let data = {
         name: localArgs.join(' '),
         desc: `Reporter: ${message.member.user.tag}\nDate / Time (EST): ${calcTime()}`,
-        idList: '5e1a3683e3009c458f017c7f', //REQUIRED
+        idList: '5e1262754bb170544645613f', //REQUIRED
         idLabels: ['5e1a3683e3009c458f017c7f'],
     };
 
