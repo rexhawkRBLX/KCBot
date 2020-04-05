@@ -20,12 +20,11 @@ function calcTime() {
 module.exports.run = async (bot, message, args) => {
 
   if (String(message.content.split(" ")) === `${require("./../botconfig").prefix}bug`) {
-    console.log("Aware");
       await message.delete();
       let richEmbed = new Discord.RichEmbed()
           .setColor("#333333")
           .setTitle("**Command:** >bug")
-          .setDescription("**Description: **Create a new bug report in the [bug report trello](https://trello.com/b/2Aio6E06)\n**Usage: **>bug [content]\n**Example: **>bug there is no rexhawk statue!");
+          .setDescription("**Description: **Create a new bug report in the [bug report trello list](https://trello.com/b/2Aio6E06)\n**Usage: **>bug [content]\n**Example: **>bug there is no rexhawk statue!");
       return await message.channel.send(richEmbed);
   } else {
     let localArgs = message.content.split(" ").slice(1);
