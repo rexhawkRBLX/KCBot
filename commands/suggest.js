@@ -5,6 +5,18 @@ let TrelloAuth = process.env.trelloAuthKey;
 
 let Trello = require('trello-node-api')(TrelloAPI.toString(), TrelloAuth.toString());
 
+function calcTime() {
+    let date = new Date();
+    let utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+
+    let time = new Date(utc + (3600000*"+9"));
+
+    // return time as a string
+    return time.toLocaleString();
+}
+
+
+
 module.exports.run = async (bot, message, args) => {
 
   if (String(message.content.split(" ")) === `${require("./../botconfig").prefix}suggest`) {
@@ -20,7 +32,7 @@ module.exports.run = async (bot, message, args) => {
 
     let data = {
         name: localArgs.join(' '),
-        desc: `Contributor: ${message.member.user.tag}\nDate: ${currentDate.getMonth() + 1} - ${currentDate.getDate()} - ${currentDate.getFullYear()}`,
+        desc: `Contributor: ${message.member.user.tag}\nDate: ${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getFullYear()}\nTime: ${calcTime()}`,
         idList: '5e1262520612231fb472979f', //REQUIRED
         idLabels: ['5e8a029d7bfaf66944b95d10'],
         urlSource: 'https://example.com',
