@@ -3,24 +3,7 @@ const Discord = require("discord.js");
 let TrelloAPI = process.env.trelloAPIKey;
 let TrelloAuth = process.env.trelloAuthKey;
 
-console.log(`Trello API: ${TrelloAPI}`)
-console.log(`Trello Auth: ${TrelloAuth}`)
-
 let Trello = require('trello-node-api')(TrelloAPI.toString(), TrelloAuth.toString());
-
-
-
-let data = {
-        name: 'suggestion',
-        desc: 'this :)',
-        pos: 'top',
-        idList: '5e1262520612231fb472979f', //REQUIRED
-        due: null,
-        dueComplete: false,
-        urlSource: 'https://example.com',
-    };
-
-
 
 module.exports.run = async (bot, message, args) => {
 
@@ -32,6 +15,14 @@ module.exports.run = async (bot, message, args) => {
           .setDescription("**Description: **Create a new suggestion card in the [suggestions trello](https://trello.com/b/2Aio6E06)\n**Usage: **>suggest [content]\n**Example: **>suggest a statue of rexhawk");
       return await message.channel.send(richEmbed);
   } else {
+
+    let data = {
+        name: message.content,
+        desc: "aklsjdkasjdl",
+        idList: '5e1262520612231fb472979f', //REQUIRED
+        idLabels: ['5e8a029d7bfaf66944b95d10'],
+        urlSource: 'https://example.com',
+    };
 
     Trello.card.create(data).then(function (response) {
         console.log('response ', response);
