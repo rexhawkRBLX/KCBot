@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-var Trello = require('trello-node-api')(process.env.trelloAPIKey, process.env.trelloAuthKey);
+var Trello = require('trello-node-api')(`${process.env.trelloAPIKey}`, `${process.env.trelloAuthKey}`);
 
 
 var data = {
