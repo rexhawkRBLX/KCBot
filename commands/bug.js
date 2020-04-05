@@ -20,6 +20,7 @@ function calcTime() {
 module.exports.run = async (bot, message, args) => {
 
   if (String(message.content.split(" ")) === `${require("./../botconfig").prefix}bug`) {
+    console.log("Aware");
       await message.delete();
       let richEmbed = new Discord.RichEmbed()
           .setColor("#333333")
