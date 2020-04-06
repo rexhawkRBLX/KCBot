@@ -3,8 +3,7 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
     if (message.member.hasPermission("ADMINISTRATOR")){
         message.channel.send(`${message.author} :white_check_mark: Initiating \`restart\` process...`)
-            .then(msg => bot.destroy())
-            .then(() => bot.login(process.env.token));
+            .then(msg => process.exit(1));
         await message.delete();
     } else{
         await message.delete();
