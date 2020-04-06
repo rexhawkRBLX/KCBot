@@ -20,7 +20,10 @@
     "573681387094147085": "https://discord.gg/PjuemnY",
     "632986602993614869": "https://discord.gg/bBh4mrK",
     "544031918912569356": "https://discord.gg/Gu6t48C",
-    "648336531911606272": "https://discord.gg/96yAG2g"
+    "648336531911606272": "https://discord.gg/96yAG2g",
+    "654916981245476874": "https://blank",
+    "641827923317227552": "https://blank",
+    "643937169336958983": "https://blank"
   },
   "kcEmoji": {
     "cheer": "https://i.imgur.com/jHZ06IC.png",
@@ -32,3 +35,8 @@
   },
   "version": "v1.4"
 }
+
+
+
+addField("Discord Servers",`[King City, California](${require("./../retrieveInfo").getServerInvite[""]})\n[California Highway Patrol](${require("./../retrieveInfo").getServerInvite[""]})\n[Police Department](${require("./../retrieveInfo").getServerInvite[""]})\n[Fire Department](${require("./../retrieveInfo").getServerInvite[""]})\n[Association
+](${require("./../retrieveInfo").getServerInvite[""]})\n[Chamber of Commerce](${require("./../retrieveInfo").getServerInvite[""]})\n[Courts](${require("./../retrieveInfo").getServerInvite[""]})\n[Department of Corrections]()\n[District Attorney's Office](${require("./../retrieveInfo").getServerInvite[""]})\n[Monterey County Regional Public Safety Center]()`, true)
