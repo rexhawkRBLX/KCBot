@@ -117,7 +117,7 @@ module.exports.run = async (bot, message, args) => {
     }
 
     // Compile Message
-    let compiledMessage = `<@&${String(pingRole)}> **${eventName}**\n**This ${eventType.toUpperCase} is hosted by: **${eventHost}.\n${eventDuration}\n**Game Link: **${eventLink}\n\n${eventMessage}`;
+    let compiledMessage = `<@&${String(pingRole)}> **${eventName}**\n**This ${String(eventType).toUpperCase} is hosted by: **${eventHost}.\n${eventDuration}\n**Game Link: **${eventLink}\n\n${eventMessage}`;
 
 
     message.channel.send(`Complete`);
