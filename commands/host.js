@@ -14,9 +14,9 @@ module.exports.run = async (bot, message, args) => {
         .setDescription("**Description: **Host an event\n**Usage: **>host [event type] {[arguments]}\n**Example: **>host ssu {host:@Rexhawk} {msg:lets get active!}");
     return message.channel.send(richEmbed);
   } else {
-    let arguments = localArgs.split(" {")
+    let arguments = localArgs.split("{")
 
-    return await message.reply(arguments);
+    return await message.reply(arguments[0] + arguments[1]);
   }
 
   /*
