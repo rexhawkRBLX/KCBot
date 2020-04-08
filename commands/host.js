@@ -18,22 +18,26 @@ module.exports.run = async (bot, message, args) => {
 
     let arguments =[];
 
+    // Separate arguments into array
     do {
-      console.log("Running");
       if (brokenDownString.charAt(0) != "{") {
         brokenDownString = brokenDownString.substr(1);
       } else {
-        let argument = brokenDownString.charAt(0);
+        let argument = ""
         brokenDownString = brokenDownString.substr(1);
         do {
           argument = argument + brokenDownString.charAt(0);
           brokenDownString = brokenDownString.substr(1);
         } while (brokenDownString.charAt(0) != "}");
         brokenDownString = brokenDownString.substr(1);
-        argument = argument + "}, ";
         arguments.push(argument);
       }
     } while (brokenDownString.length > 0);
+
+    if (args[0] === "ssu") {
+      message.channel.send("Hosting SSU");
+    }
+
     message.channel.send(`Complete`);
     console.log("Complete");
 
