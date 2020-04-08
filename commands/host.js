@@ -14,9 +14,32 @@ module.exports.run = async (bot, message, args) => {
         .setDescription("**Description: **Host an event\n**Usage: **>host [event type] {[arguments]}\n**Example: **>host ssu {host:@Rexhawk} {msg:lets get active!}");
     return message.channel.send(richEmbed);
   } else {
-    let arguments = localArgs.split("{")
+    let brokenDownString = localArgs
 
-    return await message.reply(arguments[0] + arguments[1]);
+    let arguments =[];
+
+    do {
+      console.log("Running");
+      if (str.charAt(0) != "{") {
+        brokenDownString = brokenDownString.substr(1);
+      } else {
+        arguments.push(str.charAt(0));
+        brokenDownString = brokenDownString.substr(1);
+        do {
+          arguments.push(str.charAt(0));
+          brokenDownString = brokenDownString.substr(1);
+        } while (str.charAt(0) != "}");
+        brokenDownString = brokenDownString.substr(1);
+        arguments.push(",");
+      }
+    } while (brokenDownString.length > 0);
+
+    console.log("Complete");
+
+    arguments.push("hi")
+    let a = localArgs.split("{")
+
+    return await message.reply(a[0] + a[1]);
   }
 
   /*
