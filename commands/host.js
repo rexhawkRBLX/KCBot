@@ -63,7 +63,7 @@ module.exports.run = async (bot, message, args) => {
         eventDuration = String(localArguments[1]);
       } else if (String(localArguments[0]).toLowerCase() === "channel") {
 
-        let channelID = bot.guild.channels.find(channel => channel.name === String(localArguments[1]));
+        let channelID = message.guild.channels.find(channel => channel.name === String(localArguments[1]));
 
         console.log(channelID)
 
