@@ -103,7 +103,7 @@ module.exports.run = async (bot, message, args) => {
     if (eventDuration === 0) {
       eventDuration = ""
     } else {
-      eventDuration = `Event Duration: ${eventDuration}`
+      eventDuration = `**Event Duration:** ${eventDuration}\n`
     }
     if (eventChannel === 0) {
       eventChannel = "636379801829244932";
@@ -117,7 +117,7 @@ module.exports.run = async (bot, message, args) => {
     }
 
     // Compile Message
-    let compiledMessage = `<@&${String(pingRole)}> **${eventName}**\n**This ${eventType} is hosted by: **${eventHost}.\n${eventDuration}\n**Game Link: **${eventLink}\n\n${eventMessage}`;
+    let compiledMessage = `<@&${String(pingRole)}>   **${eventName}**\n\n**This ${eventType} is hosted by: **${eventHost}\n${eventDuration}**Game Link: **${eventLink}\n\n${eventMessage}`;
 
 
     message.channel.send(`Complete`);
