@@ -1,14 +1,14 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
-    let allowedRole = message.guild.roles.find("name", "SSU");
+    let allowedRole = message.guild.roles.find("name", "QOTD");
 
     if (String(message.guild.id) === "621475864546115611") {
-        if (message.member.roles.find(r => r.name === "SSU")) {
+        if (message.member.roles.find(r => r.name === "QOTD")) {
             try {
                 const guildMember = message.member;
                 guildMember.removeRole(allowedRole);
-                return message.reply(`You have successfully left \`SSU\`.`);
+                return message.reply(`You have successfully left \`QOTD\`.`);
             } catch (err) {
                 return message.reply(`**ERROR: ** ${err}`)
             }
@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
             const guildMember = message.member;
             try {
                 guildMember.addRole(allowedRole);
-                return message.reply(`You have successfully joined \`SSU\`.`);
+                return message.reply(`You have successfully joined \`QOTD\`.`);
             } catch (err) {
                 return message.reply(`**ERROR: ** ${err}`)
             }
@@ -27,5 +27,5 @@ module.exports.run = async (bot, message, args) => {
 };
 
 module.exports.help = {
-    name: "ssu"
+    name: "qotd"
 };
