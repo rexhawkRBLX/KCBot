@@ -34,8 +34,12 @@ module.exports.run = async (bot, message, args) => {
       }
     } while (brokenDownString.length > 0);
 
+    for (let i = 0; i < arguments.length; i++) {
+      console.log(arguments[i]);
+      //Do something
+    }
     if (String(args[0]).toLowerCase() === "ssu") {
-      message.channel.send("Hosting SSU");
+
     } else if (String(args[0]).toLowerCase() === "event") {
       message.channel.send("Hosting Event");
     } else {
