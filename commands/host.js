@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) => {
   if (testMsg === "test") {
     return await message.reply("Found string")
   } else {
-    return await message.reply("String not found")
+    return await message.reply("String not found " + testMsg)
   }
   /*
     if(message.member.roles.find(r => r.name === "Administrative Services") || message.member.roles.find(r => r.name === "Cabinet") || message.member.roles.find(r => r.name === "Department Command") ||message.member.roles.find(r => r.name === "Mayor") || message.member.roles.find(r => r.name === "Assistant Mayor")){
