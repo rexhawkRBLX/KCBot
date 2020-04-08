@@ -4,7 +4,7 @@ module.exports.run = async (bot, message, args) => {
   let localArgs =  message.content.split(" ").slice(1).join(' ');
 
   let testMsg = localArgs.search("test");
-  if (testMsg) {
+  if (testMsg === "test") {
     return await message.reply("Found string")
   } else {
     return await message.reply("String not found")
