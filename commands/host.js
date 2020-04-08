@@ -65,7 +65,7 @@ module.exports.run = async (bot, message, args) => {
 
         let channelID = message.guild.channels.find(channel => channel.name === String(localArguments[1]));
 
-        console.log(channelID)
+        console.log(channelID.id)
 
       }
     }
