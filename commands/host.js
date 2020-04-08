@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
         return message.reply(`**ERROR**: \`Incorrect Permissions\``);
     } */
 
-    return await message.reply(message);
+    return await message.reply(args);
 };
 
 module.exports.help = {
