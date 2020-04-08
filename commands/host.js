@@ -25,8 +25,8 @@ module.exports.run = async (bot, message, args) => {
         brokenDownString = brokenDownString.substr(1);
 
       } else {
+        let argument = brokenDownString.charAt(0);
         brokenDownString = brokenDownString.substr(1);
-        let argument = "" //arguments.push("");
 
         do {
           message.channel.send(`"${brokenDownString.charAt(0)}" Adding to array...`);
@@ -42,7 +42,7 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(`Complete`);
     console.log("Complete");
 
-    return await message.reply(arguments[0]);
+    return await message.reply(arguments.join(' '));
   }
 
   /*
