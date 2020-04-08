@@ -21,11 +21,15 @@ module.exports.run = async (bot, message, args) => {
     do {
       console.log("Running");
       if (str.charAt(0) != "{") {
+        message.channel.send(`"${str.charAt(0)}" Character Invalid: Deleting...`);
         brokenDownString = brokenDownString.substr(1);
+
       } else {
+        message.channel.send(`"${str.charAt(0)}" Adding to array...`);
         arguments.push(str.charAt(0));
         brokenDownString = brokenDownString.substr(1);
         do {
+          message.channel.send(`"${str.charAt(0)}" Adding to array...`);
           arguments.push(str.charAt(0));
           brokenDownString = brokenDownString.substr(1);
         } while (str.charAt(0) != "}");
@@ -33,7 +37,7 @@ module.exports.run = async (bot, message, args) => {
         arguments.push(",");
       }
     } while (brokenDownString.length > 0);
-
+    message.channel.send(`Complete`);
     console.log("Complete");
 
     arguments.push("hi")
