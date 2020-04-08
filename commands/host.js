@@ -21,18 +21,13 @@ module.exports.run = async (bot, message, args) => {
     do {
       console.log("Running");
       if (brokenDownString.charAt(0) != "{") {
-        message.channel.send(`"${brokenDownString.charAt(0)}" Character Invalid: Deleting...`);
         brokenDownString = brokenDownString.substr(1);
-
       } else {
         let argument = brokenDownString.charAt(0);
         brokenDownString = brokenDownString.substr(1);
-
         do {
-          message.channel.send(`"${brokenDownString.charAt(0)}" Adding to array...`);
           argument = argument + brokenDownString.charAt(0);
           brokenDownString = brokenDownString.substr(1);
-
         } while (brokenDownString.charAt(0) != "}");
         brokenDownString = brokenDownString.substr(1);
         argument = argument + "}, ";
