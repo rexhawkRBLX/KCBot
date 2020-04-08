@@ -35,7 +35,8 @@ module.exports.run = async (bot, message, args) => {
     } while (brokenDownString.length > 0);
 
     for (let i = 0; i < arguments.length; i++) {
-      console.log("log: " + arguments[i]);
+      let localArguments = String(arguments[i]).split(":")
+      console.log(`Param 1: ${localArguments[0]} Param 2: ${localArguments[1]}`)
       //Do something
     }
     if (String(args[0]).toLowerCase() === "ssu") {
