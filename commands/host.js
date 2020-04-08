@@ -42,6 +42,7 @@ module.exports.run = async (bot, message, args) => {
     let eventLink = 0;
     let eventDuration = 0;
     let eventChannel = 0;
+    let pingRole = 0;
 
     if (String(args[0]).toLowerCase() === "ssu" || String(args[0]).toLowerCase() === "event") {
       eventType = String(args[0]).toLowerCase()
@@ -62,16 +63,29 @@ module.exports.run = async (bot, message, args) => {
       } else if (String(localArguments[0]).toLowerCase() === "duration") {
         eventDuration = String(localArguments[1]);
       } else if (String(localArguments[0]).toLowerCase() === "channel") {
-
         let channelID = message.guild.channels.find(channel => channel.name === String(localArguments[1]));
+        if (channelID.id != null) {
+          eventChannel = channelID.id
+        } else {
+          return await message.reply("Invalid channel parameter. Make sure to type the whole name (case-sensitive)");
+        }
+      } else if (String(localArguments[0]).toLowerCase() === "role") {
+        let roleID = message.guild.roles.find("name", String(localArguments[1]));
 
-        console.log(channelID.id)
-
+        if (roleID.id != null) {
+          pingRole = roleID.id
+        } else {
+          return await message.reply("Invalid role parameter. Make sure to type the whole name (case-sensitive)");
+        }
       }
     }
 
     if (eventName === 0) {
-      eventName = "";
+      if (eventType === "ssu") {
+        eventName = `Server Start Up!`;
+      } else if (eventType === "event") {
+        eventName = `Game Event!`;
+      }
     }
     if (eventHost === 0) {
       eventHost = String(message.member.user.tag);
@@ -91,13 +105,25 @@ module.exports.run = async (bot, message, args) => {
     } else {
       eventDuration = `Event Duration: ${eventDuration}`
     }
+    if (eventChannel === 0) {
+      eventChannel = "636379801829244932";
+    }
+    if (pingRole === 0) {
+      pingRole = "Role here"
+    }
 
+    if (String(message.guild.id) != "621475864546115611") {
+      return await message.reply("This command can only be run in the King City server.")
+    }
+
+    // Compile Message
+    let compiledMessage = `<@&${String(pingRole)}> **${eventName}**\n**This ${eventType.toUpperCase} is hosted by: **${eventHost}.\n${eventDuration}\n**Game Link: **${eventLink}\n\n${eventMessage}`;
 
 
     message.channel.send(`Complete`);
     console.log("Complete");
 
-    return await message.reply(arguments.join(''));
+    return await bot.channels.get(eventChannel).send(compiledMessage);
   }
 
   /*
