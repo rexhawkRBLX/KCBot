@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
-
+  let localArgs =  message.content.split(" ").slice(1);
   /*
     if(message.member.roles.find(r => r.name === "Administrative Services") || message.member.roles.find(r => r.name === "Cabinet") || message.member.roles.find(r => r.name === "Department Command") ||message.member.roles.find(r => r.name === "Mayor") || message.member.roles.find(r => r.name === "Assistant Mayor")){
         if (String(message.guild.id) === "621475864546115611") {
@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
         return message.reply(`**ERROR**: \`Incorrect Permissions\``);
     } */
 
-    return await message.reply(args);
+    return await message.reply(localArgs.join(' '));
 };
 
 module.exports.help = {
