@@ -36,6 +36,10 @@ module.exports.run = async (bot, message, args) => {
 
     if (String(args[0]).toLowerCase() === "ssu") {
       message.channel.send("Hosting SSU");
+    } else if (String(args[0]).toLowerCase() === "event") {
+      message.channel.send("Hosting Event");
+    } else {
+      return await message.reply("Invalid event. Current available event types: \`ssu\`, \`event\`");
     }
 
     message.channel.send(`Complete`);
