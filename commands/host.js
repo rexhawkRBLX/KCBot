@@ -40,10 +40,7 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(`Complete`);
     console.log("Complete");
 
-    arguments.push("hi")
-    let a = localArgs.split("{")
-
-    return await message.reply(a[0] + a[1]);
+    return await message.reply(arguments);
   }
 
   /*
