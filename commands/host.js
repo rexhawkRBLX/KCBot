@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
         .setDescription("**Description: **Host an event\n**Usage: **>host [event type] {[arguments]}\n**Example: **>host ssu {host:@Rexhawk} {msg:lets get active!}");
     return message.channel.send(richEmbed);
   } else {
-    let brokenDownString = localArgs
+    let brokenDownString = localArgs;
 
     let arguments =[];
 
@@ -34,7 +34,7 @@ module.exports.run = async (bot, message, args) => {
       }
     } while (brokenDownString.length > 0);
 
-    if (args[0] === "ssu") {
+    if (String(args[0]).toLowerCase() === "ssu") {
       message.channel.send("Hosting SSU");
     }
 
