@@ -34,18 +34,65 @@ module.exports.run = async (bot, message, args) => {
       }
     } while (brokenDownString.length > 0);
 
-    for (let i = 0; i < arguments.length; i++) {
-      let localArguments = String(arguments[i]).split(":")
-      console.log(`Param 1: ${localArguments[0]} Param 2: ${localArguments[1]}`)
-      //Do something
-    }
-    if (String(args[0]).toLowerCase() === "ssu") {
+    // Preset
+    let eventType = 0;
+    let eventName = 0;
+    let eventHost = 0;
+    let eventMessage = 0;
+    let eventLink = 0;
+    let eventDuration = 0;
+    let eventChannel = 0;
 
-    } else if (String(args[0]).toLowerCase() === "event") {
-      message.channel.send("Hosting Event");
+    if (String(args[0]).toLowerCase() === "ssu" || String(args[0]).toLowerCase() === "event") {
+      eventType = String(args[0]).toLowerCase()
     } else {
       return await message.reply("Invalid event. Current available event types: \`ssu\`, \`event\`");
     }
+
+    for (let i = 0; i < arguments.length; i++) {
+      let localArguments = String(arguments[i]).split(":");
+      if (String(localArguments[0]).toLowerCase() === "name") {
+        eventName = String(localArguments[1]);
+      } else if (String(localArguments[0]).toLowerCase() === "host") {
+        eventHost = String(localArguments[1]);
+      } else if (String(localArguments[0]).toLowerCase() === "message") {
+        eventMessage = String(localArguments[1]);
+      } else if (String(localArguments[0]).toLowerCase() === "link") {
+        eventLink = String(localArguments[1]);
+      } else if (String(localArguments[0]).toLowerCase() === "duration") {
+        eventDuration = String(localArguments[1]);
+      } else if (String(localArguments[0]).toLowerCase() === "channel") {
+
+        let channelID = bot.guild.channels.find(channel => channel.name === String(localArguments[1]));
+
+        console.log(channelID)
+
+      }
+    }
+
+    if (eventName === 0) {
+      eventName = "";
+    }
+    if (eventHost === 0) {
+      eventHost = String(message.member.user.tag);
+    }
+    if (eventMessage === 0) {
+      if (eventType === "ssu") {
+        eventMessage = `*Remember to follow the rules and have fun.*`;
+      } else if (eventType === "event") {
+        eventMessage = `*Remember to follow the rules to make the game fun for everybody.*`;
+      }
+    }
+    if (eventLink === 0) {
+      eventLink = "https://www.roblox.com/games/4240465985/King-City-California";
+    }
+    if (eventDuration === 0) {
+      eventDuration = ""
+    } else {
+      eventDuration = `Event Duration: ${eventDuration}`
+    }
+
+
 
     message.channel.send(`Complete`);
     console.log("Complete");
