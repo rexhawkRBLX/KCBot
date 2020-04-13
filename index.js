@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 const app = require("express")();
 const bot = new Discord.Client({disableEveryone: true});
 const prefix = bot_config.prefix;
+
 let activity = "King City, California";
 bot.commands = new Discord.Collection();
 fs.readdir("./commands/", (err, files) =>{
@@ -58,7 +59,7 @@ bot.on("message", async message => {
    }
 });
 // Prevent exit 143 (Idle exit)
-function startKeepAlive() {
+function KeepAlive() {
     setInterval(function() {
         let options = {
             host: 'kingcity-bot.herokuapp.com',
@@ -76,7 +77,8 @@ function startKeepAlive() {
         }).on('error', function(err) {
             console.log("Error: " + err.message);
         });
-    }, 20 * 60 * 1000); // load every 20 minutes
+    }, 10 * 60 * 1000); // load every 20 minutes
 }
-startKeepAlive(); // Keep from idling
+KeepAlive(); // Keep from idling
+
 bot.login(process.env.token).catch(err => console.log(err));
