@@ -13,7 +13,7 @@ async function loadData() {
 
 await loadData();
 
-async function accessSpreadsheet() {
+function accessSpreadsheet() {
   console.log(doc.title);
 }
 
