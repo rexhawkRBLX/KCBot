@@ -23,9 +23,8 @@ module.exports.run = async (bot, message, args) => {
     const sheet = doc.sheetsByIndex[0];
     const rows = await sheet.getRows();
     for (let i = 0; i < rows.length ; i++) {
-      console.log("HI");
+      console.log(rows[i].data1)
     }
-    console.log(rows[0].id);
 
   } catch (error) {
     console.error("Error caught (2): " + error )
