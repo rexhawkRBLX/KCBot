@@ -3,13 +3,13 @@ const { GoogleSpreadsheet } = require("google-spreadsheet");
 
 const doc = new GoogleSpreadsheet("1jxHUUtuGA6UdrwhQG44oo4M1eJwScMN7qztZCKH37ms");
 
-async function loadData() {
+function loadData() {
   await doc.useServiceAccountAuth({
     client_email: process.env.googleServiceAccount,
     private_key: process.env.googlePrivateKey,
   });
   await doc.loadInfo();
-}.catch(err => console.log(err));
+}
 
 loadData();
 
