@@ -8,12 +8,12 @@ async function loadData() {
     client_email: process.env.googleServiceAccount,
     private_key: process.env.googlePrivateKey,
   });
-  await doc.loadInfo();
 }
 
 loadData();
 
-function accessSpreadsheet() {
+async function accessSpreadsheet() {
+  await doc.loadInfo();
   console.log(doc.title);
 }
 
