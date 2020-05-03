@@ -9,7 +9,7 @@ async function accessSpreadsheet() {
 
   const info = await promisify(doc.getInfo)();
   const sheet = info.worksheets[0];
-  console.log(`Title: ${shoot.title}`)
+  console.log(`Title: ${sheet.title}`)
 }
 
 module.exports.run = async (bot, message, args) => {
