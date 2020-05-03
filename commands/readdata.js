@@ -9,7 +9,7 @@ async function loadData() {
     private_key: process.env.googlePrivateKey,
   });
   await doc.loadInfo();
-}
+}.catch(err => console.log(err));
 
 loadData();
 
