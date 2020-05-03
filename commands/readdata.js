@@ -1,19 +1,16 @@
 const Discord               = require("discord.js");
 const { GoogleSpreadsheet } = require("google-spreadsheet");
-const { promisify }         = require("util");
-const creds                 = require("./../client_secret.json");
 
-async function accessSpreadsheet() {
-  const doc = new GoogleSpreadsheet("1jxHUUtuGA6UdrwhQG44oo4M1eJwScMN7qztZCKH37ms");
-  await promisify(doc.useServiceAccountAuth)(creds);
+const doc = new GoogleSpreadsheet("1jxHUUtuGA6UdrwhQG44oo4M1eJwScMN7qztZCKH37ms");
 
-  const info = await promisify(doc.getInfo)();
-  const sheet = info.worksheets[0];
-  console.log(`Title: ${sheet.title}`);
-}
+await doc.useServiceAccountAuth({
+  client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+  private_key: process.env.GOOGLE_PRIVATE_KEY,
+});
 
 module.exports.run = async (bot, message, args) => {
-    accessSpreadsheet();
+    await doc.loadInfo(); // loads document properties and worksheets
+    console.log(doc.title);
 };
 
 module.exports.help = {
