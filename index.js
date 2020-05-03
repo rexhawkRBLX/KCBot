@@ -17,7 +17,7 @@ fs.readdir("./commands/", (err, files) =>{
     if (jsfile.length <= 0){
         return console.log("Couldnt find commands.");
     }
-    jsfile.forEach((f, i) => {
+    await jsfile.forEach((f, i) => {
         let props = require(`./commands/${f}`);
         bot.commands.set(props.help.name, props);
     });
