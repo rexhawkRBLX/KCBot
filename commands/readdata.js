@@ -1,7 +1,7 @@
-const Discord           = require("discord.js");
-const GoogleSpreadsheet = require("google-spreadsheet");
-const { promisify }     = require("util");
-const creds             = require("./../client_secret.json");
+const Discord               = require("discord.js");
+const { GoogleSpreadsheet } = require("google-spreadsheet");
+const { promisify }         = require("util");
+const creds                 = require("./../client_secret.json");
 
 async function accessSpreadsheet() {
   const doc = new GoogleSpreadsheet("1jxHUUtuGA6UdrwhQG44oo4M1eJwScMN7qztZCKH37ms");
