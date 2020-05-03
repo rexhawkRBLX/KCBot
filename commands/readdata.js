@@ -11,7 +11,7 @@ async function loadData() {
   await doc.loadInfo();
 }
 
-loadData();
+await loadData();
 
 async function accessSpreadsheet() {
   console.log(doc.title);
