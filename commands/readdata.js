@@ -10,7 +10,7 @@ async function loadData() {
       private_key: process.env.googlePrivateKey,
     });
   } catch (error) {
-    console.error("Error caught: " + error )
+    console.error("Error caught (1): " + error )
   }
 }
 
@@ -21,7 +21,7 @@ async function accessSpreadsheet() {
     await doc.loadInfo();
     console.log(doc.title);
   } catch (error) {
-    console.error("Error caught: " + error )
+    console.error("Error caught (2): " + error )
   }
 }
 
