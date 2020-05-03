@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, args) => {
     const rows = await sheet.getRows();
 
     console.log(rows[0].id);
-    
+
   } catch (error) {
     console.error("Error caught (2): " + error )
   }
