@@ -19,7 +19,12 @@ loadData();
 module.exports.run = async (bot, message, args) => {
   try {
     await doc.loadInfo();
-    console.log(doc.title);
+
+    const sheet = doc.sheetsByIndex[0];
+    const rows = await sheet.getRows();
+
+    console.log(rows[0].id);
+    
   } catch (error) {
     console.error("Error caught (2): " + error )
   }

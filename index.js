@@ -24,7 +24,7 @@ fs.readdir("./commands/", (err, files) =>{
     console.log(`Commands loaded successfully.`);
 });
 app.listen(PORT, () => {
-    console.log(`Our app is running on port ${ PORT }`);
+    console.log(`KCBot is running on port ${ PORT }`);
 });
 bot.on("ready", async() => {
 
