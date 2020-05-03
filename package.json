@@ -11,6 +11,8 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "express": "^4.17.1",
+    "google-spreadsheet": "^3.0.11",
+    "googleapis": "^39.2.0",
     "noblox.js": "^4.2.6",
     "roblox-js": "^4.0.4",
     "trello-node-api": "0.0.9"
