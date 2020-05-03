@@ -3,16 +3,19 @@ const { GoogleSpreadsheet } = require("google-spreadsheet");
 
 const doc = new GoogleSpreadsheet("1jxHUUtuGA6UdrwhQG44oo4M1eJwScMN7qztZCKH37ms");
 
-async function accessSpreadsheet() {
+async funtion loadData() {
   await doc.useServiceAccountAuth({
-    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY,
+    client_email: process.env.googleServiceAccount,
+    private_key: process.env.googlePrivateKey,
   });
-  await doc.loadInfo(); // loads document properties and worksheets
-  console.log(doc.title);
+  await doc.loadInfo();
 }
 
+loadData();
 
+async function accessSpreadsheet() {
+  console.log(doc.title);
+}
 
 module.exports.run = async (bot, message, args) => {
   accessSpreadsheet();
