@@ -16,17 +16,13 @@ async function loadData() {
 
 loadData();
 
-async function accessSpreadsheet() {
+module.exports.run = async (bot, message, args) => {
   try {
     await doc.loadInfo();
     console.log(doc.title);
   } catch (error) {
     console.error("Error caught (2): " + error )
   }
-}
-
-module.exports.run = async (bot, message, args) => {
-  accessSpreadsheet();
 };
 
 module.exports.help = {
