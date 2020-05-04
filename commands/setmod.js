@@ -19,10 +19,19 @@ loadData();
 module.exports.run = async (bot, message, args) => {
   try {
     await doc.loadInfo();
-
     const sheet = doc.sheetsByIndex[0];
     const rows = await sheet.getRows();
+
+
+
+    let found = false;
+    console.log(args[1])
+    //if (args[1]) {}
+
     for (let i = 0; i < rows.length ; i++) {
+      if (rows[i].serverID == message.guild.id) {
+        console.log("Hi")
+      }
       console.log(rows[i].data1)
     }
 
@@ -32,5 +41,5 @@ module.exports.run = async (bot, message, args) => {
 };
 
 module.exports.help = {
-    name: "readdata"
+    name: "setmod"
 };

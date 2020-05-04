@@ -11,17 +11,16 @@ const prefix = bot_config.prefix;
 
 let activity = "King City, California";
 bot.commands = new Discord.Collection();
-fs.readdir("./commands/", (err, files) =>{
+fs.readdir("./commands/", (err, files) => {
     if(err) console.log(err);
     let jsfile = files.filter(f => f.split(".").pop() === "js");
     if (jsfile.length <= 0){
         return console.log("Couldnt find commands.");
     }
-    await jsfile.forEach((f, i) => {
+    jsfile.forEach((f, i) => {
         let props = require(`./commands/${f}`);
         bot.commands.set(props.help.name, props);
     });
-    console.log(`Commands loaded successfully.`);
 });
 app.listen(PORT, () => {
     console.log(`KCBot is running on port ${ PORT }`);
