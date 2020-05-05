@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) => {
 
 
     let found = false;
-    console.log(args[1])
+    console.log(args[0])
     //if (args[1]) {}
 
     for (let i = 0; i < rows.length ; i++) {
