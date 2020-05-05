@@ -47,22 +47,19 @@ bot.on("ready", async() => {
 bot.on("message", async message => {
    if (message.author.bot) return;
    if (message.channel.type === "dm") return;
-
-     let messageArray = message.content.split(" ");
-     let cmd = messageArray[0].toLowerCase();
-     let args = messageArray.slice(1);
-     // Functions
-     if (message.content.startsWith(prefix)){
-       if (message.author.id == "551451030471049222") {
-         let commandFile = bot.commands.get(cmd.slice(prefix.length));
-         if (commandFile) await commandFile.run(bot,message,args);
-       } else {
-         return message.reply(`KCBot is temporarily disabled. Sorry for the inconvenience. `);
-       }
+   let messageArray = message.content.split(" ");
+   let cmd = messageArray[0].toLowerCase();
+   let args = messageArray.slice(1);
+   // Functions
+   if (message.content.startsWith(prefix)){
+      if (message.author.id == "551451030471049222") {
+       let commandFile = bot.commands.get(cmd.slice(prefix.length));
+       if (commandFile) await commandFile.run(bot,message,args);
+     } else {
+       return message.reply(`KCBot is temporarily disabled. Sorry for the inconvenience`);
      }
    }
 });
-
 // Prevent exit 143 (Idle exit)
 function KeepAlive() {
     setInterval(function() {
