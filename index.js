@@ -27,7 +27,7 @@ app.listen(PORT, () => {
 });
 bot.on("ready", async() => {
 
-    bot.channels.get('622224689309155338').send(`KC Bot is online back online running on port \`${PORT}\``);
+    // bot.channels.get('622224689309155338').send(`KC Bot is online back online running on port \`${PORT}\``);
     function setActivity() {
         setInterval(function () {
             if (activity === "King City, California") {
@@ -47,14 +47,16 @@ bot.on("ready", async() => {
 bot.on("message", async message => {
    if (message.author.bot) return;
    if (message.channel.type === "dm") return;
-   let messageArray = message.content.split(" ");
-   let cmd = messageArray[0].toLowerCase();
-   let args = messageArray.slice(1);
-   // Functions
-   if (message.content.startsWith(prefix)){
+   if (message.author.id == "551451030471049222") {
+     let messageArray = message.content.split(" ");
+     let cmd = messageArray[0].toLowerCase();
+     let args = messageArray.slice(1);
+     // Functions
+     if (message.content.startsWith(prefix)){
 
-       let commandFile = bot.commands.get(cmd.slice(prefix.length));
-       if (commandFile) await commandFile.run(bot,message,args);
+         let commandFile = bot.commands.get(cmd.slice(prefix.length));
+         if (commandFile) await commandFile.run(bot,message,args);
+     }
    }
 });
 // Prevent exit 143 (Idle exit)
