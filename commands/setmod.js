@@ -14,6 +14,14 @@ async function loadData() {
   }
 }
 
+function reformatString(string) {
+	if (!string) return;
+	if (string.startsWith('<@&') && string.endsWith('>')) {
+		string = string.slice(2, -1);
+	}
+  return string;
+}
+
 loadData();
 
 module.exports.run = async (bot, message, args) => {
@@ -25,8 +33,11 @@ module.exports.run = async (bot, message, args) => {
 
 
     let found = false;
-    console.log(args[0])
-    //if (args[1]) {}
+    
+    if (args[0]) {
+      let string = reformatString(args[0]);
+      console.log(string);
+    }
 
     for (let i = 0; i < rows.length ; i++) {
       if (rows[i].serverID == message.guild.id) {
