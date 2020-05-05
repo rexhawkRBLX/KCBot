@@ -57,6 +57,8 @@ bot.on("message", async message => {
          let commandFile = bot.commands.get(cmd.slice(prefix.length));
          if (commandFile) await commandFile.run(bot,message,args);
      }
+   } else {
+     return message.reply(`KCBot is temporarily disabled. Sorry for the inconvenience.`);
    }
 });
 // Prevent exit 143 (Idle exit)
