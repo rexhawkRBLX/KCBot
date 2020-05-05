@@ -17,7 +17,7 @@ async function loadData() {
 function reformatString(string) {
 	if (!string) return;
 	if (string.startsWith('<@&') && string.endsWith('>')) {
-		string = string.slice(2, -1);
+		string = string.slice(3, -1);
 	}
   return string;
 }
@@ -31,9 +31,8 @@ module.exports.run = async (bot, message, args) => {
     const rows = await sheet.getRows();
 
 
-
     let found = false;
-    
+
     if (args[0]) {
       let string = reformatString(args[0]);
       console.log(string);
